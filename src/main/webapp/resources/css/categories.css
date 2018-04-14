@@ -1,0 +1,21 @@
+
+.category {
+    overflow: hidden;
+    top: 30px;
+    left: 0;
+    width: 100%;
+}
+
+.category a {
+    float: left;
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.category a:hover {
+    color: olivedrab;
+}
+
