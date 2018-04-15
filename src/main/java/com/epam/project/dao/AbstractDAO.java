@@ -16,10 +16,10 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     private final String UPDATE;
     private final String FIND_BY_KEY;
     private final String DELETE_BY_KEY;
-    private String[] parametersNames;
+    private String[][] parametersNames;
     private Class<T> entityClass;
 
-    public AbstractDAO(String find_all, String create, String update, String find_by_key, String delete_by_key, String[] parametersNames, Class<T> entityClass) {
+    public AbstractDAO(String find_all, String create, String update, String find_by_key, String delete_by_key, String[][] parametersNames, Class<T> entityClass) {
         FIND_ALL = find_all;
         CREATE = create;
         UPDATE = update;
@@ -38,10 +38,10 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             while (rs.next()) {
                 T entity = entityClass.getConstructor().newInstance();
                 setEntityId(entity, rs.getInt("id"));
-                for (String parametersName : parametersNames) {
-                    Field field = entityClass.getDeclaredField(parametersName);
+                for (String[] parametersName : parametersNames) {
+                    Field field = entityClass.getDeclaredField(parametersName[0]);
                     field.setAccessible(true);
-                    field.set(entity, rs.getObject(parametersName));
+                    field.set(entity, rs.getObject(parametersName[1]));
                 }
                 entities.add(entity);
             }
@@ -91,10 +91,10 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             entity = entityClass.newInstance();
             while (rs.next()) {
                 setEntityId(entity, rs.getInt("id"));
-                for (String parametersName : parametersNames) {
-                    Field field = entityClass.getDeclaredField(parametersName);
+                for (String[] parametersName : parametersNames) {
+                    Field field = entityClass.getDeclaredField(parametersName[0]);
                     field.setAccessible(true);
-                    field.set(entity, rs.getObject(parametersName));
+                    field.set(entity, rs.getObject(parametersName[1]));
                 }
             }
         } catch (SQLException | NoSuchFieldException | IllegalAccessException | InstantiationException e) {
@@ -116,25 +116,26 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     }
 
     private void addParameters(T entity, PreparedStatement ps) throws SQLException, NoSuchFieldException, IllegalAccessException {
-        for (int i = 0; i < parametersNames.length; i++) {
-            String valueType = entity.getClass().getDeclaredField(parametersNames[i]).getType().getSimpleName();
-            Field field = entity.getClass().getDeclaredField(parametersNames[i]);
+        int i = 1;
+        for (String[] parameterName: parametersNames) {
+            String valueType = entity.getClass().getDeclaredField(parameterName[0]).getType().getSimpleName();
+            Field field = entity.getClass().getDeclaredField(parameterName[0]);
             field.setAccessible(true);
             switch (valueType) {
                 case "int":
-                    ps.setInt(i + 1, field.getInt(entity));
+                    ps.setInt(i, field.getInt(entity));
                     break;
                 case "float":
-                    ps.setFloat(i + 1, field.getFloat(entity));
+                    ps.setFloat(i, field.getFloat(entity));
                     break;
                 case "boolean":
-                    ps.setBoolean(i + 1, field.getBoolean(entity));
+                    ps.setBoolean(i, field.getBoolean(entity));
                     break;
                 case "String":
-                    ps.setString(i + 1, (String) field.get(entity));
+                    ps.setString(i, (String) field.get(entity));
                     break;
             }
-
+            i++;
         }
 
     }

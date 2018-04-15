@@ -1,7 +1,7 @@
 package com.epam.project.config;
 
 public enum Role {
-    ADMINISTRATOR_ROLE("ADMINISTRATOR"), USER_ROLE("USER");
+    ADMIN("administrator"), USER("user");
 
     private String roleName;
 

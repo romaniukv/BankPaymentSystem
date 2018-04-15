@@ -1,5 +1,8 @@
 package com.epam.project.controller.servlets;
 
+import com.epam.project.dao.UserDAO;
+import com.epam.project.model.entities.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +14,22 @@ import java.io.IOException;
 public class LogInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.findUserByUsernameAndPassword(username, password);
+        if (user != null) {
+            req.getSession().setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/profile");
+        }
+        else {
+            req.getSession().setAttribute("errorMsg", "Wrong username and(or) password! Try again.");
+            req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+        }
     }
 }

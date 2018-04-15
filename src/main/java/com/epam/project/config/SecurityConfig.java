@@ -16,13 +16,13 @@ public class SecurityConfig {
         urlPatterns1.add("/userProfile");
         urlPatterns1.add("/adminPanel");
 
-        mapConfig.put(Role.ADMINISTRATOR_ROLE.toString(), urlPatterns1);
+        mapConfig.put(Role.ADMIN.toString(), urlPatterns1);
 
         List<String> urlPatterns2 = new ArrayList<>();
 
         urlPatterns2.add("/userProfile");
 
-        mapConfig.put(Role.USER_ROLE.toString(), urlPatterns2);
+        mapConfig.put(Role.USER.toString(), urlPatterns2);
     }
 
     public static Set<String> getAllAppRoles() {

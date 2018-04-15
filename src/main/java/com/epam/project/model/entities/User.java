@@ -2,6 +2,9 @@ package com.epam.project.model.entities;
 
 import com.epam.project.config.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private int id;
@@ -12,22 +15,45 @@ public class User {
 
     private String password;
 
-    private String phoneNumber;
-
     private String email;
 
     private String firstName;
 
     private String lastName;
 
-    public User(Role role, String username, String password, String phoneNumber, String email, String firstName, String lastName) {
+    private List<Account> accounts;
+
+    public User() {
+    }
+
+    public User(Role role, String username, String password, String email, String firstName, String lastName) {
+        accounts = new ArrayList<>();
         this.role = role;
         this.username = username;
         this.password = password;
-        this.phoneNumber = phoneNumber;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int countCreditAccounts() {
+        int count = 0;
+        for (Account account: accounts) {
+            if (account instanceof CreditAccount) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int countDepositAccounts() {
+        int count = 0;
+        for (Account account: accounts) {
+            if (account instanceof DepositAccount) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public int getId() {
@@ -60,14 +86,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
