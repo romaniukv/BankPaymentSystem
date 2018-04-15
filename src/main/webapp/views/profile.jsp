@@ -4,11 +4,9 @@
 <html>
 <head>
     <title>Banking System</title>
-    <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/table-style.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/profile-style.css" />" rel="stylesheet">
-    <%--<script src="<c:url value="/js/jquery-3.3.1.js" />"></script>--%>
-    <%--<script src="<c:url value="/js/tabs.js" />"></script>--%>
+    <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/css/table-style.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/css/profile-style.css" />" rel="stylesheet"/>
 </head>
 <body>
     <%@ include file="topMenu.jsp"%>

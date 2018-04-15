@@ -1,15 +1,25 @@
 package com.epam.project.controller.servlets;
 
+import com.epam.project.model.entities.User;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/join")
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        User user = (User) req.getSession().getAttribute("user");
+        if (user != null) {
+            req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+        }
+        else {
+            req.getRequestDispatcher("/views/join.jsp").forward(req, resp);
+        }
     }
 
     @Override
