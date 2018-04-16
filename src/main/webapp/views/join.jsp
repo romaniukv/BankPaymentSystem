@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <input type="button" onclick="validate(this.form)" value="Проверить">
+                        <input type="submit" onclick="return validate(this.form);" value="Sign up">
                     </td>
                 </tr>
             </table>

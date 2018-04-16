@@ -1,5 +1,7 @@
 package com.epam.project.controller.servlets;
 
+import com.epam.project.config.Role;
+import com.epam.project.dao.UserDAO;
 import com.epam.project.model.entities.User;
 
 import javax.servlet.ServletException;
@@ -15,7 +17,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         if (user != null) {
-            req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
             req.getRequestDispatcher("/views/join.jsp").forward(req, resp);
@@ -24,6 +26,20 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        System.out.println(lastName);
+        String email = req.getParameter("email");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        User user = new User(Role.USER, username, password, email, firstName, lastName);
+        UserDAO userDAO = new UserDAO();
+        if (userDAO.create(user)) {
+            req.getSession().setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/profile");
+        }
+        else {
+            resp.sendRedirect(req.getContextPath() + "/join");
+        }
     }
 }

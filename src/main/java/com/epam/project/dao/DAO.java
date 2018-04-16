@@ -5,7 +5,7 @@ import java.util.List;
 public interface DAO <T> {
 
     List<T> findAll();
-    void create(T entity);
+    boolean create(T entity);
     void update(T entity);
     T findByKey(int key);
     void deleteByKey(int key);

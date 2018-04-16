@@ -52,18 +52,22 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     }
 
     @Override
-    public void create(T entity) {
+    public boolean create(T entity) {
+        boolean success = false;
         try(Connection connection = DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
             addParameters(entity, ps);
             ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next())
+            if(rs.next()) {
                 setEntityId(entity, rs.getInt(1));
+                success = true;
+            }
         } catch (SQLException | NoSuchFieldException | IllegalAccessException e) {
+            success = false;
             e.printStackTrace();
         }
-
+        return success;
     }
 
     @Override
@@ -134,6 +138,8 @@ public abstract class AbstractDAO<T> implements DAO<T> {
                 case "String":
                     ps.setString(i, (String) field.get(entity));
                     break;
+                case "Role":
+                    ps.setString(i, field.get(entity).toString());
             }
             i++;
         }
