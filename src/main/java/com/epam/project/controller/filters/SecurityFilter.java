@@ -47,7 +47,7 @@ public class SecurityFilter implements Filter {
             System.out.println("before");
             if (!hasPermission) {
                 System.out.println("during");
-                request.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDeniedView.jsp").forward(request, response);
+                request.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDenied.jsp").forward(request, response);
                 return;
             }
         }
