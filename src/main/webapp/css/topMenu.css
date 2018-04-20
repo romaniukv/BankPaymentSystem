@@ -1,7 +1,7 @@
 /* The navigation bar */
 .navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: #388E3C;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     left: 0;
@@ -20,7 +20,7 @@
 
 /* Change background on mouse-over */
 .navbar a:hover {
-    background: #ddd;
+    background: #C8E6C9;
     color: black;
 }
 

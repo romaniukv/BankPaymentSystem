@@ -1,52 +1,54 @@
 function validate(form) {
 
     var elems = form.elements;
-    var success = true;
     resetError(elems.firstName.parentNode);
     if (!elems.firstName.value) {
-        success = false;
-        showError(elems.firstName.parentNode, ' Укажите от кого.');
+        showError(elems.firstName.parentNode, "Enter first name!");
+        return false;
     }
 
     resetError(elems.lastName.parentNode);
     if (!elems.lastName.value) {
-        success = false;
-        showError(elems.lastName.parentNode, ' Укажите от кого.');
+        showError(elems.lastName.parentNode, "Enter last name!");
+        return false;
     }
 
     resetError(elems.email.parentNode);
     if (!elems.email.value) {
-        success = false;
-        showError(elems.email.parentNode, ' Укажите от кого.');
+        showError(elems.email.parentNode, "Enter e-mail!");
+        return false;
     }
 
     resetError(elems.username.parentNode);
     if (!elems.username.value) {
-        showError(elems.username.parentNode, ' Укажите от кого.');
+        showError(elems.username.parentNode, "Enter username");
+        return false;
     }
 
     resetError(elems.password.parentNode);
     if (!elems.password.value) {
-        success = false;
         showError(elems.password.parentNode, ' Укажите пароль.');
+        return false;
     } else if (elems.password.value !== elems.password2.value) {
-        success = false;
         showError(elems.password.parentNode, ' Пароли не совпадают.');
+        return false;
     }
-    return success;
+    return true;
 }
 
 function showError(container, errorMessage) {
-    container.className = 'error';
-    var msgElem = document.createElement('span');
-    msgElem.className = "error-message";
-    msgElem.innerHTML = errorMessage;
-    container.appendChild(msgElem);
+    // container.className = 'errorMsg';
+    // var msgElem = document.createElement('span');
+    // msgElem.className = "error-message";
+    // msgElem.innerHTML = errorMessage;
+    // container.appendChild(msgElem);
+    document.getElementById("error").innerHTML=errorMessage;
 }
 
 function resetError(container) {
-    container.className = '';
-    if (container.lastChild.className === "error-message") {
-        container.removeChild(container.lastChild);
-    }
+    document.getElementById("error").innerHTML="";
+    // container.className = '';
+    // if (container.lastChild.className === "error-message") {
+    //     container.removeChild(container.lastChild);
+    // }
 }

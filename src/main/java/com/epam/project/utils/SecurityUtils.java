@@ -19,7 +19,7 @@ public class SecurityUtils {
     public static boolean isSecurityPage(HttpServletRequest request) {
         for (String securityPage: securityPages) {
             if (request.getRequestURI().endsWith(securityPage)) {
-                System.out.println(request.getRequestURI());
+                request.getRequestURI();
                 return true;
             }
         }

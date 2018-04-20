@@ -2,6 +2,7 @@ package com.epam.project.controller.servlets;
 
 import com.epam.project.dao.UserDAO;
 import com.epam.project.model.entities.User;
+import com.epam.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +15,7 @@ import java.io.IOException;
 public class LogInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("user");
-        if (user != null) {
+        if (AppUtils.getLoginedUser(req.getSession()) != null) {
             req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
         }
         else {
@@ -34,7 +34,7 @@ public class LogInServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
-            req.getSession().setAttribute("errorMsg", "Wrong username and(or) password! Try again.");
+            req.setAttribute("errorMsg", "Wrong username and(or) password! Try again.");
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
         }
     }
