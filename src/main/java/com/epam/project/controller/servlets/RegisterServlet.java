@@ -39,7 +39,8 @@ public class RegisterServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
-            resp.sendRedirect(req.getContextPath() + "/join");
+            req.setAttribute("errorMsg", "Username is already taken!");
+            req.getRequestDispatcher("/views/join.jsp").forward(req, resp);
         }
     }
 }

@@ -59,10 +59,12 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             addParameters(entity, ps);
             ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()) {
+            if (rs.next()) {
                 setEntityId(entity, rs.getInt(1));
                 success = true;
             }
+        }catch (SQLIntegrityConstraintViolationException e) {
+
         } catch (SQLException | NoSuchFieldException | IllegalAccessException e) {
             success = false;
             e.printStackTrace();

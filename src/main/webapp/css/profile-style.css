@@ -44,6 +44,5 @@
 }
 #tab_1:checked ~ #txt_1,
 #tab_2:checked ~ #txt_2,
-#tab_3:checked ~ #txt_3,
-#tab_4:checked ~ #txt_4 { display: block; }
+#tab_3:checked ~ #txt_3 { display: block; }
 

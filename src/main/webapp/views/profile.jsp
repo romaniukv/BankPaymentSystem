@@ -47,11 +47,13 @@
             </div>
 
             <div id="txt_2">
-
+                <a href="${pageContext.request.contextPath}/addAccount">+ Add new account</a>
             </div>
 
             <div id="txt_3">
-
+                <form action="logOut" method="post">
+                    <button type="submit">Log out</button>
+                </form>
             </div>
 
         </div>

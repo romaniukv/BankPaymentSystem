@@ -13,19 +13,20 @@
     <div class="form">
         <form class="register-form" action="join" method="post">
             <div class="errorMsg">
+                <c:out value="${requestScope.errorMsg}"/>
                 <span id="error"></span>
             </div>
-            <input type="text" placeholder="first name" name="firstName"/>
+            <input type="text" placeholder="first name" name="firstName" required/>
 
-            <input type="text" placeholder="last name" name="lastName" />
+            <input type="text" placeholder="last name" name="lastName" required/>
 
-            <input type="text" placeholder="e-mail" name="email" />
+            <input type="text" placeholder="e-mail" name="email" required/>
 
-            <input type="text" placeholder="username" name="username" />
+            <input type="text" placeholder="username" name="username" required/>
 
-            <input type="password" placeholder="password" name="password" />
+            <input type="password" placeholder="password" name="password" required/>
 
-            <input type="password" placeholder="confirm password" name="password2" />
+            <input type="password" placeholder="confirm password" name="password2" required/>
 
             <button type="submit" onclick="return validate(this.form);">Create</button>
             <p class="message">
