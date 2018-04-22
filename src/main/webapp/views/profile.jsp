@@ -47,7 +47,8 @@
             </div>
 
             <div id="txt_2">
-                <a href="${pageContext.request.contextPath}/addAccount">+ Add new account</a>
+                <a href="${pageContext.request.contextPath}/createDepositAccount">+ Create new deposit account</a>
+                <a href="${pageContext.request.contextPath}/createCreditAccount">+ Create new credit account</a>
             </div>
 
             <div id="txt_3">

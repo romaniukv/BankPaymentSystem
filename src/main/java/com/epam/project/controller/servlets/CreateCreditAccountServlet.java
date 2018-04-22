@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/addAccount")
-public class AddAccountServlet extends HttpServlet {
+@WebServlet("/createCreditAccount")
+public class CreateCreditAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.getRequestDispatcher("/views/createCreditAccount.jsp").forward(req, resp);
     }
 
     @Override
