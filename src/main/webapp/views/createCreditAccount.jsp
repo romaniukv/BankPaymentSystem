@@ -5,6 +5,7 @@
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
     <link href="<c:url value="/css/form-style.css" />" rel="stylesheet">
+    <link href="<c:url value="/css/radio-buttons-style.css" />" rel="stylesheet">
 </head>
 <body>
 <%@ include file="topMenu.jsp"%>
@@ -12,16 +13,14 @@
 
     <div class="form">
         <form action="createCreditAccount" method="post">
-            <label for="limit">Select credit limit</label>
-            <select id="limit" name="creditLimit">
-                <option value="500">500</option>
-                <option value="1000">1000</option>
-                <option value="5000">5000</option>
-                <option value="10000">10000</option>
-                <option value="25000">25000</option>
-                <option value="50000">50000</option>
-            </select>
-            <p class="message">Credit rate is : 4.5%</p>
+            <h1>Select credit limit</h1>
+            <c:forEach var="limit" items="${sessionScope.creditLimits}">
+                <label class="container">${limit.key}
+                    <input type="radio" checked="checked" name="creditLimit" value="${limit.key}">
+                    <p class="message">Credit rate is : ${limit.value} %</p>
+                    <span class="checkmark"></span>
+                </label>
+            </c:forEach>
             <button type="submit">Create</button>
         </form>
     </div>

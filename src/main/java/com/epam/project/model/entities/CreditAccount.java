@@ -9,8 +9,7 @@ public class CreditAccount extends Account {
     private double accruedInterest;
     private double creditRate;
 
-    public CreditAccount(Date expirationDate, double limit, double creditRate) {
-        super(expirationDate);
+    public CreditAccount(double limit, double creditRate) {
         this.limit = limit;
         this.creditRate = creditRate;
     }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DAO <T> {
 
-    List<T> findAll();
+    List<T> selectAll();
     boolean create(T entity);
     void update(T entity);
     T findByKey(int key);

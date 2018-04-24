@@ -10,8 +10,7 @@ public class DepositAccount extends Account {
     private double rate;
     private List<Operation> historyOfReplenishment;
 
-    public DepositAccount(Date expirationDate, double rate) {
-        super(expirationDate);
+    public DepositAccount(double rate) {
         historyOfReplenishment = new ArrayList<>();
         this.rate = rate;
     }

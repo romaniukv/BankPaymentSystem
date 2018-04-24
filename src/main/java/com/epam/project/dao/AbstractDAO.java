@@ -30,7 +30,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     }
 
     @Override
-    public List<T> findAll() {
+    public List<T> selectAll() {
         List<T> entities = new ArrayList<>();
         try(Connection connection = DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(FIND_ALL);

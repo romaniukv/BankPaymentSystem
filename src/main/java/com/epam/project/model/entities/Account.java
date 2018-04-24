@@ -7,11 +7,11 @@ import java.util.List;
 public abstract class Account {
 
     private double balance;
+    private int userId;
     private List<Operation> history;
     private Date  expirationDate;
 
-    public Account(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public Account() {
         history = new ArrayList<>();
     }
 

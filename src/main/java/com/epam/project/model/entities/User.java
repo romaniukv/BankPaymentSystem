@@ -56,6 +56,10 @@ public class User {
         return count;
     }
 
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
+
     public int getId() {
         return id;
     }
