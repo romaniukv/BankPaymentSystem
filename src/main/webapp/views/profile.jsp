@@ -7,6 +7,7 @@
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
     <link href="<c:url value="/css/table-style.css" />" rel="stylesheet"/>
     <link href="<c:url value="/css/profile-style.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
     <%@ include file="topMenu.jsp"%>
@@ -21,7 +22,7 @@
             <input type="radio" name="inset" value="" id="tab_3">
             <label for="tab_3">Settings</label>
 
-            <div id="txt_1">
+            <%--<div id="txt_1">
                 <table class="table">
                     <tr>
                         <td>Имя:</td>
@@ -44,8 +45,39 @@
                         <td>${sessionScope.user.countDepositAccounts()}</td>
                     </tr>
                 </table>
+            </div>--%>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                Имя
+                            </th>
+                            <th>
+                                Фамилия
+                            </th>
+                            <th>
+                                e-mail
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                ${sessionScope.user.firstName}
+                            </td>
+                            <td>
+                                ${sessionScope.user.lastName}
+                            </td>
+                            <td>
+                                ${sessionScope.user.email}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
             <div id="txt_2">
                 <a href="${pageContext.request.contextPath}/createDepositAccount">+ Create new deposit account</a>
                 <a href="${pageContext.request.contextPath}/createCreditAccount">+ Create new credit account</a>

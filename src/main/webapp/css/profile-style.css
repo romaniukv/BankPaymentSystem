@@ -30,13 +30,14 @@
     background: #FFFFFF;
 }
 .tabs>label {
+    border-radius: 5px;
     display: inline-block;
     padding: 7px;
     margin: 0 -5px -1px 0;
     text-align: center;
     color: #666666;
-    border: 1px solid #C0C0C0;
-    background: #E0E0E0;
+    font-weight:bold;
+    border-right: 2px solid #C0C0C0;
     cursor: pointer;
 }
 .tabs>input:checked + label {

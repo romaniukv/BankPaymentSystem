@@ -1,4 +1,4 @@
-package com.epam.project.dao;
+package com.epam.project.model.dao;
 
 import java.util.List;
 

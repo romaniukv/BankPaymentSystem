@@ -1,7 +1,5 @@
 package com.epam.project.model.entities;
 
-import com.epam.project.config.Role;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +52,10 @@ public class User {
             }
         }
         return count;
+    }
+
+    public boolean isAdmin() {
+        return role.equals(Role.ADMIN);
     }
 
     public void addAccount(Account account) {

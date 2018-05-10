@@ -1,6 +1,6 @@
-package com.epam.project.dao;
+package com.epam.project.model.dao;
 
-import com.epam.project.config.Role;
+import com.epam.project.model.entities.Role;
 import com.epam.project.model.entities.User;
 import com.epam.project.utils.DBConnection;
 

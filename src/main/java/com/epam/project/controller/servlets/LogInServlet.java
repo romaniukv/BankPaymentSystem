@@ -1,6 +1,6 @@
 package com.epam.project.controller.servlets;
 
-import com.epam.project.dao.UserDAO;
+import com.epam.project.model.dao.UserDAO;
 import com.epam.project.model.entities.User;
 import com.epam.project.utils.AppUtils;
 

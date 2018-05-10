@@ -1,7 +1,7 @@
 package com.epam.project.model.entities;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DepositAccount extends Account {
@@ -10,7 +10,8 @@ public class DepositAccount extends Account {
     private double rate;
     private List<Operation> historyOfReplenishment;
 
-    public DepositAccount(double rate) {
+    public DepositAccount(int userId, double rate) {
+        super(userId, new BigDecimal("0"));
         historyOfReplenishment = new ArrayList<>();
         this.rate = rate;
     }

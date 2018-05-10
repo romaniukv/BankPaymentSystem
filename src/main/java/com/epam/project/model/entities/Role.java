@@ -1,4 +1,4 @@
-package com.epam.project.config;
+package com.epam.project.model.entities;
 
 public enum Role {
     ADMIN("administrator"), USER("user");

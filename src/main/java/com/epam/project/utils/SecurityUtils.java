@@ -1,6 +1,6 @@
 package com.epam.project.utils;
 
-import com.epam.project.config.Role;
+import com.epam.project.model.entities.Role;
 import com.epam.project.model.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +14,7 @@ public class SecurityUtils {
     static {
         securityPages = new ArrayList<>();
         securityPages.add("/adminPanel");
+        securityPages.add("/accountManagement");
     }
 
     public static boolean isSecurityPage(HttpServletRequest request) {

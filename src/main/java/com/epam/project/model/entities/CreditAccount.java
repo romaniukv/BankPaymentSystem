@@ -1,32 +1,44 @@
 package com.epam.project.model.entities;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 public class CreditAccount extends Account {
 
-    private double limit;
-    private double indebtedness;
-    private double accruedInterest;
-    private double creditRate;
+    private BigDecimal limit;
+    private BigDecimal indebtedness;
+    private BigDecimal accruedInterest;
+    private BigDecimal creditRate;
 
-    public CreditAccount(double limit, double creditRate) {
+    public CreditAccount() {
+
+    }
+
+    public CreditAccount(int userId,  BigDecimal limit, BigDecimal creditRate) {
+        super(userId, limit);
         this.limit = limit;
         this.creditRate = creditRate;
     }
 
-    public double getLimit() {
+    public CreditAccount(int id, int userId,  BigDecimal limit, BigDecimal creditRate) {
+        super(userId, limit);
+        this.limit = limit;
+        this.creditRate = creditRate;
+        setId(id);
+    }
+
+    public BigDecimal getLimit() {
         return limit;
     }
 
-    public double getIndebtedness() {
+    public BigDecimal getIndebtedness() {
         return indebtedness;
     }
 
-    public double getAccruedInterest() {
+    public BigDecimal getAccruedInterest() {
         return accruedInterest;
     }
 
-    public double getCreditRate() {
+    public BigDecimal getCreditRate() {
         return creditRate;
     }
 }

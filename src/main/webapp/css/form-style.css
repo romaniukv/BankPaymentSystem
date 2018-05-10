@@ -43,7 +43,7 @@
 .form .errorMsg {
     margin: 0 0 15px;
     color: red;
-    font-size: 15px;
+    height:15px;
 }
 .form .message a {
     color: #4CAF50;

@@ -1,5 +1,7 @@
 package com.epam.project.config;
 
+import com.epam.project.model.entities.Role;
+
 import java.util.*;
 
 public class SecurityConfig {
