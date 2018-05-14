@@ -32,7 +32,7 @@ public class SecurityFilter implements Filter {
 
         if (!hasPermission) {
                 request.setAttribute("errorMessage", "You are not allow to view this page.");
-                response.sendRedirect(request.getContextPath() + "/errorMessage");
+                request.getRequestDispatcher("/views/errorMessage.jsp").forward(request, response);
                 return;
             }
 

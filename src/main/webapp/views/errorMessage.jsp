@@ -10,7 +10,7 @@
     <%@ include file="topMenu.jsp"%>
     <div class="main">
         <div class="alert alert-danger">
-            <strong>Error!</strong> ${requestScope.errorMessage} івпіпфвпфівпівпыыыы
+            <strong>Error!</strong> <c:out value="${requestScope.errorMessage}" />
         </div>
     </div>
 </body>

@@ -46,13 +46,16 @@
     border-bottom: 1px solid #FFFFFF;
     background: #FFFFFF;
 }
-#txt_2 a {
+#txt_2 a,
+#txt_3 a {
     color: #4CAF50;
 }
-#txt_2 a:hover {
+#txt_2 a:hover,
+#txt_3 a:hover {
     color: #388E3C;
 }
 #tab_1:checked ~ #txt_1,
 #tab_2:checked ~ #txt_2,
-#tab_3:checked ~ #txt_3 { display: block; }
+#tab_3:checked ~ #txt_3,
+#tab_4:checked ~ #txt_4 { display: block; }
 

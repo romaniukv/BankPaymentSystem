@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<html>
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
@@ -11,7 +10,7 @@
     <%@ include file="topMenu.jsp"%>
     <div class="main">
         <div class="alert alert-success">
-            <strong>Success!</strong> You should <a href="#" class="alert-link">read this message</a>.
+            <strong>Success!</strong> <c:out value="${requestScope.successMessage}" />
         </div>
     </div>
 </body>

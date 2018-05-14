@@ -1,6 +1,7 @@
 package com.epam.project.model.entities;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class CreditAccount extends Account {
 
@@ -17,6 +18,7 @@ public class CreditAccount extends Account {
         super(number, userId, limit);
         this.limit = limit;
         this.creditRate = creditRate;
+        setBalance(limit);
     }
 
     public CreditAccount(long number, int id, int userId,  BigDecimal limit, BigDecimal creditRate) {
@@ -24,6 +26,17 @@ public class CreditAccount extends Account {
         this.limit = limit;
         this.creditRate = creditRate;
         setId(id);
+        setBalance(limit);
+    }
+
+    public CreditAccount(int id, long number, BigDecimal balance, int userId, BigDecimal limit,
+                         BigDecimal indebtedness, BigDecimal accruedInterest, BigDecimal creditRate,
+                         AccountStatus status, Date expirationDate) {
+        super(id, number, userId, balance, status, expirationDate);
+        this.limit = limit;
+        this.indebtedness = indebtedness;
+        this.accruedInterest = accruedInterest;
+        this.creditRate = creditRate;
     }
 
     public BigDecimal getLimit() {
