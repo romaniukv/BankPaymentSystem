@@ -4,8 +4,8 @@
 <head>
     <title>Banking System | Administration</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
-    <link href="<c:url value="/css/table-style.css" />" rel="stylesheet"/>
     <link href="<c:url value="/css/profile-style.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
     <%@ include file="../topMenu.jsp"%>
@@ -18,7 +18,7 @@
             <label for="tab_2">New deposit accounts</label>
 
             <div id="txt_1">
-                <table class="table">
+                <table class="table table-striped table-hover">
                     <tr>
                         <th>ID</th>
                         <th>Limit</th>
@@ -33,7 +33,6 @@
                             <td><a href="<%=request.getContextPath()%>/creditAccountManagement?id=${account.id}">Manage</a></td>
                         </tr>
                     </c:forEach>
-
                 </table>
             </div>
 

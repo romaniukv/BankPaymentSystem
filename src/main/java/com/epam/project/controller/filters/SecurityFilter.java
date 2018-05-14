@@ -1,8 +1,8 @@
 package com.epam.project.controller.filters;
 
+import com.epam.project.model.entities.Role;
 import com.epam.project.model.entities.User;
 import com.epam.project.utils.AppUtils;
-import com.epam.project.utils.SecurityUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter(filterName = "SecurityFilter")
 public class SecurityFilter implements Filter {
 
     public SecurityFilter() {
@@ -26,31 +26,16 @@ public class SecurityFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
-        String servletPath = request.getServletPath();
+        User user = AppUtils.getLoginedUser(request.getSession());
 
-        User loginedUser = AppUtils.getLoginedUser(request.getSession());
+        boolean hasPermission = user.getRole().equals(Role.ADMIN);
 
-        if (servletPath.equals("/login")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        if (SecurityUtils.isSecurityPage(request)) {
-
-            if (loginedUser == null) {
-                response.sendRedirect((request.getContextPath() + "/login"));
+        if (!hasPermission) {
+                request.setAttribute("errorMessage", "You are not allow to view this page.");
+                response.sendRedirect(request.getContextPath() + "/errorMessage");
                 return;
             }
 
-            // Проверить пользователь имеет действительную роль или нет?
-            boolean hasPermission = SecurityUtils.hasPermission(loginedUser);
-            System.out.println("before");
-            if (!hasPermission) {
-                System.out.println("during");
-                request.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDenied.jsp").forward(request, response);
-                return;
-            }
-        }
 
         chain.doFilter(request, response);
     }

@@ -13,14 +13,14 @@ public class CreditAccount extends Account {
 
     }
 
-    public CreditAccount(int userId,  BigDecimal limit, BigDecimal creditRate) {
-        super(userId, limit);
+    public CreditAccount(long number, int userId,  BigDecimal limit, BigDecimal creditRate) {
+        super(number, userId, limit);
         this.limit = limit;
         this.creditRate = creditRate;
     }
 
-    public CreditAccount(int id, int userId,  BigDecimal limit, BigDecimal creditRate) {
-        super(userId, limit);
+    public CreditAccount(long number, int id, int userId,  BigDecimal limit, BigDecimal creditRate) {
+        super(number, userId, limit);
         this.limit = limit;
         this.creditRate = creditRate;
         setId(id);

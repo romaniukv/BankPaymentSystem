@@ -6,6 +6,7 @@
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
     <link href="<c:url value="/css/form-style.css" />" rel="stylesheet">
     <link href="<c:url value="/css/radio-buttons-style.css" />" rel="stylesheet">
+    <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
 <%@ include file="topMenu.jsp"%>
@@ -13,7 +14,7 @@
 
     <div class="form">
         <form action="createCreditAccount" method="post">
-            <h1>Select credit limit</h1>
+            <h1 id="selectCL">Select credit limit</h1>
             <c:forEach var="limit" items="${sessionScope.creditLimits}">
                 <label class="container">${limit.key}
                     <input type="radio" checked="checked" name="creditLimit" value="${limit.key}">

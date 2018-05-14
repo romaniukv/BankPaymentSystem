@@ -13,18 +13,19 @@ import java.util.List;
 
 public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
 
-    private static final String SELECT_NEW_ACCOUNTS = "SELECT id, user_id, credit_limit, credit_rate " +
+    private static final String SELECT_NEW_ACCOUNTS = "SELECT number, id, user_id, credit_limit, credit_rate " +
             "FROM credit_accounts WHERE status = ?";
 
     public CreditAccountDAO() {
         super("SELECT * FROM credit_accounts;",
-                "INSERT INTO credit_accounts (balance, user_id, expiration_date, credit_limit, indebtedness, accrued_interest, " +
-                        "credit_rate, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
-                "UPDATE credit_accounts SET balance = ?, user_id = ?, expiration_date = ?, credit_limit = ?," +
+                "INSERT INTO credit_accounts (balance, number, user_id, expiration_date, credit_limit, indebtedness, accrued_interest, " +
+                        "credit_rate, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                "UPDATE credit_accounts SET balance = ?, number = ?, user_id = ?, expiration_date = ?, credit_limit = ?," +
                         " indebtedness = ?, accrued_interests = ?, credit_rate = ? WHERE id = ?;",
                 "SELECT * FROM credit_accounts WHERE id = ?;",
                 "DELETE FROM credit_accounts WHERE id = ?;",
                 new String[][]{{"balance", "balance"},
+                        {"number", "number"},
                         {"userId", "user_id"},
                         {"expirationDate", "expiration_date"},
                         {"limit", "credit_limit"},
@@ -42,8 +43,8 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
             ps.setString(1, AccountStatus.UNDER_CONSIDERATION.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                creditAccounts.add(new CreditAccount(rs.getInt(1), rs.getInt(2), rs.getBigDecimal(3),
-                        rs.getBigDecimal(4)));
+                creditAccounts.add(new CreditAccount(rs.getLong(1), rs.getInt(2),
+                        rs.getInt(3), rs.getBigDecimal(4), rs.getBigDecimal(5)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

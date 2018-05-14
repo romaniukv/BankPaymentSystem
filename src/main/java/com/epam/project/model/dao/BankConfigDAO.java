@@ -12,6 +12,9 @@ import java.util.*;
 public class BankConfigDAO {
 
     private static final String SELECT_CREDIT_LIMITS = "SELECT * FROM credit_limits";
+    private static final String GET_LAST_ACCOUNT_NUMBER = "SELECT number FROM accounts_numbers " +
+            "WHERE id=(SELECT MAX(id) FROM accounts_numbers);";
+    private static final String SAVE_NEW_ACCOUNT_NUMBER = "INSERT INTO accounts_numbers (number) VALUE (?)";
 
     public static Map<BigDecimal, BigDecimal> selectCreditLimits() {
         Map<BigDecimal, BigDecimal> creditLimits = new TreeMap<>();
@@ -25,5 +28,34 @@ public class BankConfigDAO {
             e.printStackTrace();
         }
         return creditLimits;
+    }
+
+    public static long getNewAccountNumber() {
+        long accountNumber = 0;
+        Connection connection = null;
+        try {
+            connection = DBConnection.getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(GET_LAST_ACCOUNT_NUMBER);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                accountNumber = rs.getLong(1);
+                accountNumber++;
+            }
+            ps = connection.prepareStatement(SAVE_NEW_ACCOUNT_NUMBER);
+            ps.setLong(1, accountNumber);
+            ps.execute();
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        }
+        return accountNumber;
     }
 }

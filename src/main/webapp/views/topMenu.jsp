@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
     <nav>
-        <div class="navbar">
+        <div class="topMenuNav">
             <a href="<%=request.getContextPath()%>/">Home</a>
             <c:if test="${sessionScope.user == null}">
                 <a href="<%=request.getContextPath()%>/login">Sign In</a>

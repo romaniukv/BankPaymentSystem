@@ -6,9 +6,9 @@ import java.util.*;
 public abstract class Account {
 
     private int id;
+    private long number;
     private BigDecimal balance;
     private int userId;
-    private List<Operation> history;
     private Date expirationDate;
     private AccountStatus status;
 
@@ -16,13 +16,12 @@ public abstract class Account {
         expirationDate = calculateExpirationDate();
     }
 
-    public Account(int userId, BigDecimal balance) {
+    public Account(long number, int userId, BigDecimal balance) {
+        this.number = number;
         this.userId = userId;
         this.balance = balance;
         this.status = AccountStatus.UNDER_CONSIDERATION;
-        history = new ArrayList<>();
         expirationDate = calculateExpirationDate();
-        System.out.println(expirationDate);
     }
 
 
@@ -54,5 +53,13 @@ public abstract class Account {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public long getNumber() {
+        return number;
+    }
+
+    public void setNumber(long number) {
+        this.number = number;
     }
 }

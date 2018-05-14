@@ -1,15 +1,16 @@
 /* The navigation bar */
-.navbar {
+.topMenuNav {
     overflow: hidden;
     background-color: #388E3C;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     left: 0;
     width: 100%; /* Full width */
+    z-index: 1;
 }
 
 /* Links inside the navbar */
-.navbar a {
+.topMenuNav a {
     float: left;
     display: block;
     color: #f2f2f2;
@@ -19,7 +20,8 @@
 }
 
 /* Change background on mouse-over */
-.navbar a:hover {
+.topMenuNav a:hover {
+    text-decoration: none;
     background: #C8E6C9;
     color: black;
 }

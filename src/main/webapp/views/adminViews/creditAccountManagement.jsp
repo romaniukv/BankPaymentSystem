@@ -16,13 +16,13 @@
             <form action="creditAccountManagement" method="post">
                 <table class="table">
                     <tr>
-                        <td>ID</td>
-                        <td>${requestScope.creditAccount.id}</td>
+                        <td>Account number</td>
+                        <td>${requestScope.creditAccount.number}</td>
                     </tr>
                     <tr>
                         <td>Owner</td>
                         <td>
-                            <a href="<%=request.getContextPath()%>/ownerInfo?${requestScope.accountOwner.id}">
+                            <a href="<%=request.getContextPath()%>/userInfo?userId=${requestScope.accountOwner.id}">
                                 ${requestScope.accountOwner.lastName} ${requestScope.accountOwner.firstName}
                             </a>
                         </td>

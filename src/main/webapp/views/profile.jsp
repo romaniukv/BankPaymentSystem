@@ -17,13 +17,16 @@
             <label for="tab_1">Info</label>
 
             <input type="radio" name="inset" value="" id="tab_2">
-            <label for="tab_2">Accounts</label>
+            <label for="tab_2">Deposit Accounts</label>
 
             <input type="radio" name="inset" value="" id="tab_3">
-            <label for="tab_3">Settings</label>
+            <label for="tab_3">Credit Account</label>
 
-            <%--<div id="txt_1">
-                <table class="table">
+            <input type="radio" name="inset" value="" id="tab_4">
+            <label for="tab_4">Settings</label>
+
+            <div id="txt_1">
+                <table class="my-table">
                     <tr>
                         <td>Имя:</td>
                         <td>${sessionScope.user.firstName}</td>
@@ -37,53 +40,21 @@
                         <td>${sessionScope.user.email}</td>
                     </tr>
                     <tr>
-                        <td>Кредитных счетов:</td>
-                        <td>${sessionScope.user.countCreditAccounts()}</td>
-                    </tr>
-                    <tr>
-                        <td>Депозитных счетов:</td>
-                        <td>${sessionScope.user.countDepositAccounts()}</td>
+                         <td>username:</td>
+                         <td>${sessionScope.user.username}</td>
                     </tr>
                 </table>
-            </div>--%>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th>
-                                Имя
-                            </th>
-                            <th>
-                                Фамилия
-                            </th>
-                            <th>
-                                e-mail
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                ${sessionScope.user.firstName}
-                            </td>
-                            <td>
-                                ${sessionScope.user.lastName}
-                            </td>
-                            <td>
-                                ${sessionScope.user.email}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
+
             <div id="txt_2">
                 <a href="${pageContext.request.contextPath}/createDepositAccount">+ Create new deposit account</a>
-                <a href="${pageContext.request.contextPath}/createCreditAccount">+ Create new credit account</a>
             </div>
 
             <div id="txt_3">
+                <a href="${pageContext.request.contextPath}/createCreditAccount">+ Create new credit account</a>
+            </div>
+
+            <div id="txt_4">
                 <form action="logOut" method="post">
                     <button type="submit">Log out</button>
                 </form>

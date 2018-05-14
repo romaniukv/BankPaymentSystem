@@ -28,12 +28,20 @@ public class CreateCreditAccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BigDecimal creditLimit = new BigDecimal(req.getParameter("creditLimit"));
         Map<BigDecimal, BigDecimal> creditLimits = (Map<BigDecimal, BigDecimal>) req.getSession().getAttribute("creditLimits");
+
         User user = AppUtils.getLoginedUser(req.getSession());
-        if (user != null) {
-            CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
-            creditAccountDAO.create(new CreditAccount(user.getId(), creditLimit, creditLimits.get(creditLimit)));
+        long accountNumber = BankConfigDAO.getNewAccountNumber();
+
+        CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
+        boolean flag = creditAccountDAO.create(new CreditAccount(accountNumber, user.getId(), creditLimit, creditLimits.get(creditLimit)));
+
+        if (flag) {
+            req.setAttribute("successMessage", "Application for opening a credit account was successfully sent");
+            resp.sendRedirect("/successMessage");
         }
-        else
-            resp.sendRedirect("/login");
+        else {
+            req.setAttribute("errorMessage", "There was an error opening the credit account. Try again.");
+            resp.sendRedirect("/errorMessage");
+        }
     }
 }

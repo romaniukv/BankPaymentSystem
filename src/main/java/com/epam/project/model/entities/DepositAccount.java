@@ -8,11 +8,13 @@ public class DepositAccount extends Account {
 
     private double amountOfDeposit;
     private double rate;
-    private List<Operation> historyOfReplenishment;
 
-    public DepositAccount(int userId, double rate) {
-        super(userId, new BigDecimal("0"));
-        historyOfReplenishment = new ArrayList<>();
+    public DepositAccount() {
+    }
+
+    public DepositAccount(long number, int userId, double rate) {
+        super(number, userId, new BigDecimal("0"));
+
         this.rate = rate;
     }
 
@@ -24,7 +26,4 @@ public class DepositAccount extends Account {
         return rate;
     }
 
-    public List<Operation> getHistoryOfReplenishment() {
-        return historyOfReplenishment;
-    }
 }

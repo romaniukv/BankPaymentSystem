@@ -29,13 +29,23 @@ public class LogInServlet extends HttpServlet {
         String password = req.getParameter("password");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.findUserByUsernameAndPassword(username, password);
-        if (user != null) {
-            req.getSession().setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/profile");
-        }
-        else {
+        if (user == null) {
             req.setAttribute("errorMsg", "Wrong username and(or) password! Try again.");
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+        }
+
+        req.getSession().setAttribute("user", user);
+
+        try {
+            System.out.println(req.getParameter("redirectId"));
+            int redirectId = Integer.parseInt(req.getParameter("redirectId"));
+            System.out.println(redirectId);
+            String requestUri = AppUtils.getRedirectAfterLoginUrl(redirectId);
+            if (requestUri != null) {
+                resp.sendRedirect(requestUri);
+            }
+        } catch (Exception e) {
+            resp.sendRedirect(req.getContextPath() + "/profile");
         }
     }
 }
