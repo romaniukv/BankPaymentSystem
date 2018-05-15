@@ -20,7 +20,7 @@
                 <tr>
                     <td>${account.name}</td>
                     <td>${account.term}</td>
-                    <td>${account.rate}</td>
+                    <td>${account.rate} %</td>
                     <td><a id="link" href="<%=request.getContextPath()%>/createDepositAccount?id=${account.id}">Open</a></td>
                 </tr>
             </c:forEach>

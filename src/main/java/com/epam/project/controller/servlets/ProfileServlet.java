@@ -1,6 +1,7 @@
 package com.epam.project.controller.servlets;
 
 import com.epam.project.model.dao.CreditAccountDAO;
+import com.epam.project.model.entities.AccountStatus;
 import com.epam.project.model.entities.CreditAccount;
 import com.epam.project.model.entities.User;
 import com.epam.project.utils.AppUtils;
@@ -19,7 +20,8 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = AppUtils.getLoginedUser(req.getSession());
         CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(user.getId());
-        if (creditAccount != null) {
+        if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
+            System.out.println(creditAccount.getStatus());
             req.setAttribute("creditAccount", creditAccount);
         }
         req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);

@@ -22,6 +22,9 @@ public class BankConfigDAO {
     private static final String SELECT_AVAILABLE_DEPOSITS = "SELECT id, name, term, rate FROM deposit_catalog" +
             " WHERE available = 1";
 
+    private static final String FIND_DEPOSIT_IN_CATALOG = "SELECT id, name, term, rate FROM deposit_catalog " +
+            "WHERE id = ?";
+
     public Map<BigDecimal, BigDecimal> selectCreditLimits() {
         Map<BigDecimal, BigDecimal> creditLimits = new TreeMap<>();
         try (Connection connection = DBConnection.getConnection()) {
@@ -65,7 +68,7 @@ public class BankConfigDAO {
         return accountNumber;
     }
 
-    public List<DepositAccount> selectAvailableDepositAccounts() {
+    public List<DepositAccount> selectAvailableDepositAccountsFromCatalog() {
         List<DepositAccount> depositAccounts = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(SELECT_AVAILABLE_DEPOSITS);
@@ -78,5 +81,21 @@ public class BankConfigDAO {
             e.printStackTrace();
         }
         return depositAccounts;
+    }
+
+    public DepositAccount findDepositInCatalog(int id) {
+        DepositAccount depositAccount = null;
+        try(Connection connection = DBConnection.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(FIND_DEPOSIT_IN_CATALOG);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                depositAccount = new DepositAccount(rs.getInt(1), rs.getString(2),
+                        rs.getInt(3), rs.getBigDecimal(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return depositAccount;
     }
 }

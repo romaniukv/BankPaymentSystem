@@ -3,6 +3,7 @@ package com.epam.project.controller.servlets;
 import com.epam.project.model.dao.BankConfigDAO;
 import com.epam.project.model.dao.CreditAccountDAO;
 import com.epam.project.model.dao.UserDAO;
+import com.epam.project.model.entities.AccountStatus;
 import com.epam.project.model.entities.CreditAccount;
 import com.epam.project.model.entities.User;
 import com.epam.project.utils.AppUtils;
@@ -23,7 +24,7 @@ public class CreateCreditAccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = AppUtils.getLoginedUser(req.getSession());
         CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(user.getId());
-        if (creditAccount != null) {
+        if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("errorMessage", "You're already have credit account in our system!");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

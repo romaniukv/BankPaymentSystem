@@ -33,10 +33,8 @@
     <filter-name>AuthorizationFilter</filter-name>
     <url-pattern>/profile</url-pattern>
     <url-pattern>/createCreditAccount</url-pattern>
-    <url-pattern>/createDepositAccount</url-pattern>
     <url-pattern>/adminPanel</url-pattern>
     <url-pattern>/creditAccountManagement</url-pattern>
-    <url-pattern>/depositAccountManagement</url-pattern>
     <url-pattern>/userInfo</url-pattern>
   </filter-mapping>
 
@@ -44,7 +42,6 @@
     <filter-name>SecurityFilter</filter-name>
     <url-pattern>/adminPanel</url-pattern>
     <url-pattern>/creditAccountManagement</url-pattern>
-    <url-pattern>/depositAccountManagement</url-pattern>
     <url-pattern>/userInfo</url-pattern>
   </filter-mapping>
 

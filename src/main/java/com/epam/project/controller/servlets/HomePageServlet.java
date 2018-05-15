@@ -16,7 +16,7 @@ public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<DepositAccount> availableDepositAccounts = new BankConfigDAO().selectAvailableDepositAccounts();
+        List<DepositAccount> availableDepositAccounts = new BankConfigDAO().selectAvailableDepositAccountsFromCatalog();
         req.setAttribute("depositAccounts", availableDepositAccounts);
         req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
     }
