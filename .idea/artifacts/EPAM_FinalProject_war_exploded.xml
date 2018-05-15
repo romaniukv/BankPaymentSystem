@@ -4,7 +4,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="EPAM.FinalProject" />
+          <element id="module-output" name="FinalProject" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.2" />
@@ -19,7 +19,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/EPAM.FinalProject-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="EPAM.FinalProject/web/Web" />
+      <element id="javaee-facet-resources" facet="FinalProject/web/Web" />
     </root>
   </artifact>
 </component>
