@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td>Status:</td>
-                            <td>${requestScope.creditAccount.status} %</td>
+                            <td>${requestScope.creditAccount.status}</td>
                         </tr>
                     </table>
                 </c:forEach>
@@ -82,7 +82,7 @@
                         </tr>
                         <tr>
                             <td>Indebtedness:</td>
-                            <td>${requestScope.creditAccount.indebtedness} %</td>
+                            <td>${requestScope.creditAccount.indebtedness}</td>
                         </tr>
                         <tr>
                             <td>Limit:</td>
@@ -94,7 +94,7 @@
                         </tr>
                         <tr>
                             <td>Status:</td>
-                            <td>${requestScope.creditAccount.status} %</td>
+                            <td>${requestScope.creditAccount.status}</td>
                         </tr>
                     </table>
                 </c:if>

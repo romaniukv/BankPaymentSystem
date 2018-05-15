@@ -6,7 +6,7 @@ public interface DAO <T> {
 
     List<T> selectAll();
     boolean create(T entity);
-    void update(T entity);
+    boolean update(T entity);
     T findByKey(int key);
     void deleteByKey(int key);
 }

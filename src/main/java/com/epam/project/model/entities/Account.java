@@ -39,6 +39,7 @@ public abstract class Account {
     private Date calculateExpirationDate() {
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.add(Calendar.YEAR, 2);
+        System.out.println(gregorianCalendar.getTime());
         return gregorianCalendar.getTime();
     }
 

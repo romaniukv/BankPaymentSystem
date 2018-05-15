@@ -14,6 +14,7 @@
     <div class="main">
         <div class="form">
             <form action="creditAccountManagement" method="post">
+                <input type="hidden" name="id" value="${param.id}" />
                 <table class="table">
                     <tr>
                         <td>Account number</td>
@@ -39,15 +40,17 @@
                     <tr>
                         <td>Expiration date</td>
                         <td>
-                            <input type="text" name="expirationDate" value="${requestScope.creditAccount.expirationDate}" required/>
+                            ${requestScope.creditAccount.expirationDate}
                         </td>
                     </tr>
                     <tr>
                         <td>Status</td>
                         <td>
-                            <select name="department">
+                            <select name="accountStatus">
                                 <c:forEach var="status" items="${requestScope.statuses}">
-                                    <option value="${status.value}">${status.value}</option>
+                                    <option value="${status}" <c:if test="${status.equals(requestScope.creditAccount.status)}">selected</c:if>>
+                                        ${status.value}
+                                    </option>
                                 </c:forEach>
                             </select>
                         </td>

@@ -22,7 +22,7 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
                 "INSERT INTO credit_accounts (balance, number, user_id, expiration_date, credit_limit, indebtedness, accrued_interest, " +
                         "credit_rate, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);",
                 "UPDATE credit_accounts SET balance = ?, number = ?, user_id = ?, expiration_date = ?, credit_limit = ?," +
-                        " indebtedness = ?, accrued_interests = ?, credit_rate = ? WHERE id = ?;",
+                        " indebtedness = ?, accrued_interest = ?, credit_rate = ?, status = ? WHERE id = ?;",
                 "SELECT * FROM credit_accounts WHERE id = ?;",
                 "DELETE FROM credit_accounts WHERE id = ?;",
                 new String[][]{{"balance", "balance"},

@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false"%>
     <nav>
         <div class="topMenuNav">
-            <a href="<%=request.getContextPath()%>/">Home</a>
+            <a href="<%=request.getContextPath()%>/home">Home</a>
             <c:if test="${sessionScope.user == null}">
                 <a href="<%=request.getContextPath()%>/login">Sign In</a>
             </c:if>

@@ -73,7 +73,8 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     }
 
     @Override
-    public void update(T entity) {
+    public boolean update(T entity) {
+        boolean flag;
         try(Connection connection = DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(UPDATE);
             addParameters(entity, ps);
@@ -82,9 +83,12 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             field.setAccessible(true);
             ps.setInt(indexOfLastParameter, field.getInt(entity));
             ps.execute();
+            flag = true;
         } catch (SQLException | IllegalAccessException e) {
+            flag = false;
             e.printStackTrace();
         }
+        return flag;
     }
 
     @Override

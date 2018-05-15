@@ -9,10 +9,6 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
-  <welcome-file-list>
-    <welcome-file>views/home.jsp</welcome-file>
-  </welcome-file-list>
-
   <servlet>
   <servlet-name>ErrorMessage</servlet-name>
   <jsp-file>/views/errorMessage.jsp</jsp-file>

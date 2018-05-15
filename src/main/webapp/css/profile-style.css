@@ -52,7 +52,7 @@
 }
 #txt_2 a:hover,
 #txt_3 a:hover {
-    color: #388E3C;
+    color: #286330;
 }
 #tab_1:checked ~ #txt_1,
 #tab_2:checked ~ #txt_2,

@@ -20,14 +20,14 @@
             <div id="txt_1">
                 <table class="table table-striped table-hover">
                     <tr>
-                        <th>ID</th>
+                        <th>Number</th>
                         <th>Limit</th>
                         <th>Credit rate</th>
                         <th>Action</th>
                     </tr>
                     <c:forEach var="account" items="${requestScope.newCreditAccounts}">
                         <tr>
-                            <td>${account.id}</td>
+                            <td>${account.number}</td>
                             <td>${account.limit}</td>
                             <td>${account.creditRate}</td>
                             <td><a href="<%=request.getContextPath()%>/creditAccountManagement?id=${account.id}">Manage</a></td>
