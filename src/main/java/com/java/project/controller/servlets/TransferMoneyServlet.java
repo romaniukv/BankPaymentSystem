@@ -1,6 +1,7 @@
 package com.java.project.controller.servlets;
 
 import com.java.project.model.dao.CreditAccountDAO;
+import com.java.project.model.dao.TransferMoneyDAO;
 import com.java.project.model.entities.CreditAccount;
 import com.java.project.utils.AppUtils;
 
@@ -35,6 +36,6 @@ public class TransferMoneyServlet extends HttpServlet {
         long toAccount = Long.valueOf(req.getParameter("toAccount"));
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
-        boolean flag = new CreditAccountDAO().transferMoney(fromAccount, toAccount, amount);
+        boolean flag = new TransferMoneyDAO().transferMoney(fromAccount, toAccount, amount);
     }
 }

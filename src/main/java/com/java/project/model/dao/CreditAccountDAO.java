@@ -19,12 +19,6 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
 
     private static final String SELECT_OPENED_ACCOUNT_BY_USER_ID = "SELECT * FROM credit_accounts WHERE user_id = ? AND status = 'OPENED'";
 
-    private static final String SELECT_BALANCE_BY_NUMBER = "SELECT balance FROM credit_accounts WHERE number = ? AND status = 'OPENED'";
-
-    private static final String WITHDRAW_MONEY_FROM_ACCOUNT = "UPDATE credit_accounts SET balance = balance - ? WHERE number = ?";
-
-    private static final String PUT_MONEY_TO_ACCOUNT = "UPDATE credit_accounts SET balance = balance + ? WHERE number = ?";
-
     public CreditAccountDAO() {
         super("SELECT * FROM credit_accounts;",
                 "INSERT INTO credit_accounts (balance, number, user_id, expiration_date, credit_limit, indebtedness, accrued_interest, " +
@@ -79,56 +73,4 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
         return creditAccount;
     }
 
-    public boolean transferMoney(long fromAccount, long toAccount, BigDecimal amount) {
-        Connection connection = null;
-        try {
-            connection = DBConnection.getConnection();
-            connection.setAutoCommit(false);
-            PreparedStatement ps = connection.prepareStatement(SELECT_BALANCE_BY_NUMBER);
-            ps.setLong(1, fromAccount);
-            ResultSet rs = ps.executeQuery();
-            BigDecimal fromBalance;
-            if (rs.next()) {
-                fromBalance = rs.getBigDecimal(1);
-            }
-            else return false;
-            ps.close();
-
-            if (fromBalance.compareTo(amount) <= 0) {
-                return false;
-            }
-
-            ps = connection.prepareStatement(WITHDRAW_MONEY_FROM_ACCOUNT);
-            ps.setBigDecimal(1, amount);
-            ps.setLong(2,fromAccount);
-            ps.execute();
-            ps.close();
-
-            ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT);
-            ps.setBigDecimal(1, amount);
-            ps.setLong(2,toAccount);
-            ps.execute();
-
-            connection.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            if (connection != null) {
-                try {
-                    connection.rollback();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                    return false;
-                }
-            }
-            return false;
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
-        return true;
-    }
 }
