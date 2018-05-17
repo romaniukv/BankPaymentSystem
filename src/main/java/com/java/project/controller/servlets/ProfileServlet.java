@@ -2,6 +2,7 @@ package com.java.project.controller.servlets;
 
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.dao.DepositAccountDAO;
+import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.entities.AccountStatus;
 import com.java.project.model.entities.CreditAccount;
 import com.java.project.model.entities.DepositAccount;
@@ -25,7 +26,9 @@ public class ProfileServlet extends HttpServlet {
         CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(userId);
         if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("creditAccount", creditAccount);
+            req.setAttribute("transactions", new TransactionDAO().selectAll());
         }
+
 
         List<DepositAccount> depositAccounts = new DepositAccountDAO().selectByUserId(userId);
         if (depositAccounts.size() != 0) {
