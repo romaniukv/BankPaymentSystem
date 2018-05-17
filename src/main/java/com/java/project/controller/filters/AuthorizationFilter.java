@@ -24,9 +24,12 @@ public class AuthorizationFilter implements Filter {
             chain.doFilter(request, response);
         }
         else {
-            String requestUri = request.getRequestURI();
-            System.out.println(requestUri);
-            int redirectId = AppUtils.storeRedirectAfterLoginUrl(requestUri);
+            String requestUrl = String.valueOf(request.getRequestURL());
+            String parameters;
+            if ((parameters = request.getQueryString()) != null)
+                requestUrl += "?" + parameters;
+            System.out.println(requestUrl);
+            int redirectId = AppUtils.storeRedirectAfterLoginUrl(requestUrl);
 
             response.sendRedirect(request.getContextPath() + "/login?redirectId=" + redirectId);
         }
