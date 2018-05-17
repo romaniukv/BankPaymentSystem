@@ -1,7 +1,9 @@
 package com.java.project.model.entities;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CreditAccount extends Account {
 
@@ -13,6 +15,7 @@ public class CreditAccount extends Account {
     public CreditAccount() {
 
     }
+
 
     public CreditAccount(long number, int userId,  BigDecimal limit, BigDecimal creditRate) {
         super(number, userId, limit);
@@ -37,6 +40,13 @@ public class CreditAccount extends Account {
         this.indebtedness = indebtedness;
         this.accruedInterest = accruedInterest;
         this.creditRate = creditRate;
+    }
+
+    @Override
+    public void calculateExpirationDate() {
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.add(Calendar.YEAR, 2);
+        setExpirationDate(gregorianCalendar.getTime());
     }
 
     public BigDecimal getLimit() {

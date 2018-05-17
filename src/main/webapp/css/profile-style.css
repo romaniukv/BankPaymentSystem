@@ -18,6 +18,10 @@
     color: olivedrab;
 }
 
+.my-table {
+    width: 20%;
+}
+
 .tabs {
     width: 100%;
     padding: 0;

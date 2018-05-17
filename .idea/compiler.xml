@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EPAM.FinalProject" />
+        <module name="FinalProject" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="EPAM.FinalProject" target="1.7" />
+      <module name="FinalProject" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

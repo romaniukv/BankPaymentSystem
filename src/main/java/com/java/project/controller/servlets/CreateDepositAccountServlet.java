@@ -1,6 +1,8 @@
 package com.java.project.controller.servlets;
 
 import com.java.project.model.dao.BankConfigDAO;
+import com.java.project.model.dao.DepositAccountDAO;
+import com.java.project.model.entities.DepositAccount;
 import com.java.project.model.entities.User;
 import com.java.project.utils.AppUtils;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 
 @WebServlet("/createDepositAccount")
@@ -36,7 +39,21 @@ public class CreateDepositAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if (true) {
+        BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
+        int userId = AppUtils.getLoginedUser(req.getSession()).getId();
+        long accountNumber = new BankConfigDAO().getNewAccountNumber();
+
+        int id = Integer.valueOf(req.getParameter("depositId"));
+        DepositAccount depositAccount = new BankConfigDAO().findDepositInCatalog(id);
+        depositAccount.setAmount(amount);
+        depositAccount.setBalance(amount);
+        depositAccount.setUserId(userId);
+        depositAccount.setNumber(accountNumber);
+        depositAccount.calculateExpirationDate();
+
+        boolean flag = new DepositAccountDAO().create(depositAccount);
+
+        if (flag) {
             req.setAttribute("successMessage", "");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         }

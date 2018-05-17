@@ -53,7 +53,6 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         try(Connection connection = DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
             if(addParameters(entity, ps)) {
-                System.out.println("AP");
                 ps.execute();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
@@ -159,7 +158,6 @@ public abstract class AbstractDAO<T> implements DAO<T> {
                         ps.setString(i, field.get(entity).toString());
                         break;
                     case "BigDecimal":
-                        System.out.println("BD");
                         ps.setBigDecimal(i, (BigDecimal) field.get(entity));
                         break;
                     default:
@@ -175,7 +173,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     }
 
     private Field getField(String fieldName) {
-        Field field = null;
+        Field field;
         try {
             field = entityClass.getDeclaredField(fieldName);
         }
@@ -183,6 +181,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             try {
                 field = entityClass.getSuperclass().getDeclaredField(fieldName);
             } catch (NoSuchFieldException e1) {
+                return null;
             }
         }
         return field;

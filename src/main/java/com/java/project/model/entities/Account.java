@@ -14,7 +14,7 @@ public abstract class Account {
 
     //for AbstractDAO
     public Account() {
-        expirationDate = calculateExpirationDate();
+
     }
 
     //for creating new
@@ -22,8 +22,6 @@ public abstract class Account {
         this.number = number;
         this.userId = userId;
         this.balance = balance;
-        this.status = AccountStatus.UNDER_CONSIDERATION;
-        this.expirationDate = calculateExpirationDate();
     }
 
     //for reading from database
@@ -36,12 +34,7 @@ public abstract class Account {
         this.expirationDate = expirationDate;
     }
 
-    private Date calculateExpirationDate() {
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.add(Calendar.YEAR, 2);
-        System.out.println(gregorianCalendar.getTime());
-        return gregorianCalendar.getTime();
-    }
+    public abstract void calculateExpirationDate();
 
     public int getId() {
         return id;

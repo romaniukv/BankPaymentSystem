@@ -40,7 +40,10 @@ public class CreateCreditAccountServlet extends HttpServlet {
         long accountNumber = new BankConfigDAO().getNewAccountNumber();
 
         CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
-        boolean flag = creditAccountDAO.create(new CreditAccount(accountNumber, user.getId(), creditLimit, creditRate));
+        CreditAccount creditAccount = new CreditAccount(accountNumber, user.getId(), creditLimit, creditRate);
+        creditAccount.calculateExpirationDate();
+        creditAccount.setStatus(AccountStatus.UNDER_CONSIDERATION);
+        boolean flag = creditAccountDAO.create(creditAccount);
 
         if (flag) {
             req.setAttribute("successMessage", "Application for opening a credit account was successfully sent");

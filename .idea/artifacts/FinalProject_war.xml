@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="FinalProject:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="EPAM.FinalProject-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="FinalProject:war exploded" />
+    </root>
+  </artifact>
+</component>
