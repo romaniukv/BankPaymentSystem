@@ -5,14 +5,13 @@
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
     <link href="<c:url value="/css/form-style.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/table-style.css" />" rel="stylesheet">
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
 <%@ include file="topMenu.jsp"%>
 <div class="main">
 
-    <div class="form">
+    <div class="my-form">
         <form action="createDepositAccount" method="post">
             <input type="hidden" name="depositId" value="${param.id}" />
             <table class="table">

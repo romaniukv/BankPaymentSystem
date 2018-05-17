@@ -11,7 +11,7 @@
     <%@ include file="topMenu.jsp"%>
     <div class="main">
 
-        <div class="form">
+        <div class="my-form">
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
             <form action="login" method="post">
                 <input type="hidden" name="redirectId" value="${param.redirectId}" />

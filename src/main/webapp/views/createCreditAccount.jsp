@@ -12,7 +12,7 @@
 <%@ include file="topMenu.jsp"%>
 <div class="main">
 
-    <div class="form">
+    <div class="my-form">
         <form action="createCreditAccount" method="post">
             <h1 id="selectCL">Select credit limit</h1>
             <c:forEach var="limit" items="${sessionScope.creditLimits}">

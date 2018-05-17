@@ -11,7 +11,7 @@
 <body>
 <%@ include file="topMenu.jsp"%>
 <div class="main">
-    <div class="form">
+    <div class="my-form">
         <form action="join" method="post">
             <div class="errorMsg">
                 <c:out value="${requestScope.errorMsg}"/>

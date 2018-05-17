@@ -11,7 +11,7 @@
 <body>
     <%@ include file="../topMenu.jsp"%>
     <div class="main">
-        <div class="form">
+        <div class="my-form">
             <form action="creditAccountManagement" method="post">
                 <input type="hidden" name="id" value="${param.id}" />
                 <table class="table">

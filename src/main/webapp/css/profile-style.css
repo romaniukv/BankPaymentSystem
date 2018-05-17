@@ -50,10 +50,14 @@
     border-bottom: 1px solid #FFFFFF;
     background: #FFFFFF;
 }
+
+
 #txt_2 a,
 #txt_3 a {
+    font-size: 16px;
     color: #4CAF50;
 }
+
 #txt_2 a:hover,
 #txt_3 a:hover {
     color: #286330;
