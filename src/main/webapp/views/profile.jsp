@@ -133,6 +133,18 @@
                             <td>Rate:</td>
                             <td>${requestScope.creditAccount.creditRate} %</td>
                         </tr>
+                        <tr>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/transferMoney">
+                                    Transfer money
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/payBill">
+                                    Pay a bill
+                                </a>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 </c:if>
