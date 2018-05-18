@@ -1,6 +1,6 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.model.dao.BankConfigDAO;
+import com.java.project.services.BankConfigService;
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.entities.AccountStatus;
 import com.java.project.model.entities.CreditAccount;
@@ -27,7 +27,7 @@ public class CreateCreditAccountServlet extends HttpServlet {
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
         else {
-            req.getSession().setAttribute("creditLimits", new BankConfigDAO().selectCreditLimits());
+            req.getSession().setAttribute("creditLimits", new BankConfigService().selectCreditLimits());
             req.getRequestDispatcher("/views/createCreditAccount.jsp").forward(req, resp);
         }
     }
@@ -35,9 +35,9 @@ public class CreateCreditAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BigDecimal creditLimit = new BigDecimal(req.getParameter("creditLimit"));
-        BigDecimal creditRate = new BankConfigDAO().selectCreditLimits().get(creditLimit);
+        BigDecimal creditRate = new BankConfigService().selectCreditLimits().get(creditLimit);
         User user = AppUtils.getLoginedUser(req.getSession());
-        long accountNumber = new BankConfigDAO().getNewAccountNumber();
+        long accountNumber = new BankConfigService().getNewAccountNumber();
 
         CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
         CreditAccount creditAccount = new CreditAccount(accountNumber, user.getId(), creditLimit, creditRate);

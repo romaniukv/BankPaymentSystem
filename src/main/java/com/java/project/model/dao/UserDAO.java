@@ -2,7 +2,7 @@ package com.java.project.model.dao;
 
 import com.java.project.model.entities.Role;
 import com.java.project.model.entities.User;
-import com.java.project.utils.DBConnection;
+import com.java.project.services.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +30,7 @@ public class UserDAO extends AbstractDAO<User> {
 
     public User findUserByUsernameAndPassword(String username, String password) {
         User user = null;
-        try(Connection connection = DBConnection.getConnection()) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(FIND_BY_USERNAME_AND_PASS);
             ps.setString(1, username);
             ps.setString(2, password);

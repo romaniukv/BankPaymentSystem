@@ -2,7 +2,7 @@ package com.java.project.model.dao;
 
 import com.java.project.model.entities.AccountStatus;
 import com.java.project.model.entities.DepositAccount;
-import com.java.project.utils.DBConnection;
+import com.java.project.services.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class DepositAccountDAO extends AbstractDAO<DepositAccount> {
         super("SELECT * FROM deposit_accounts;",
                 "INSERT INTO deposit_accounts (balance, number, user_id, amount, rate, term, status, expiration_date) " +
                         " VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
-                "UPDATE deposit_accounts SET balance = ?, number = ?, user_id = ?, amount = ?, rate = ?, term = ? " +
+                "UPDATE deposit_accounts SET balance = ?, number = ?, user_id = ?, amount = ?, rate = ?, term = ?, " +
                         "status = ?, expiration_date = ? WHERE id = ?;",
                 "SELECT * FROM deposit_accounts WHERE id = ?",
                 "DELETE FROM deposit_accounts WHERE id = ?;",
@@ -37,7 +37,7 @@ public class DepositAccountDAO extends AbstractDAO<DepositAccount> {
 
     public List<DepositAccount> selectByUserId(int userId) {
         List<DepositAccount> depositAccounts = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(SELECT_OPENED_ACCOUNT_BY_USER_ID);
             ps.setInt(1,userId);
             ResultSet rs = ps.executeQuery();

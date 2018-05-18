@@ -1,6 +1,6 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.model.dao.BankConfigDAO;
+import com.java.project.services.BankConfigService;
 import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.entities.DepositAccount;
 import com.java.project.model.entities.User;
@@ -27,7 +27,7 @@ public class CreateDepositAccountServlet extends HttpServlet {
         else {
             try {
                 int depositId = Integer.valueOf(req.getParameter("id"));
-                req.setAttribute("account", new BankConfigDAO().findDepositInCatalog(depositId));
+                req.setAttribute("account", new BankConfigService().findDepositInCatalog(depositId));
                 req.getRequestDispatcher("/views/createDepositAccount.jsp").forward(req, resp);
             } catch (Exception e) {
                 req.setAttribute("errorMessage", "");
@@ -41,10 +41,10 @@ public class CreateDepositAccountServlet extends HttpServlet {
 
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
-        long accountNumber = new BankConfigDAO().getNewAccountNumber();
+        long accountNumber = new BankConfigService().getNewAccountNumber();
 
         int id = Integer.valueOf(req.getParameter("depositId"));
-        DepositAccount depositAccount = new BankConfigDAO().findDepositInCatalog(id);
+        DepositAccount depositAccount = new BankConfigService().findDepositInCatalog(id);
         depositAccount.setAmount(amount);
         depositAccount.setBalance(amount);
         depositAccount.setUserId(userId);

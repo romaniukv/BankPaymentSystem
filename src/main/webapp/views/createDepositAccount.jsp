@@ -21,15 +21,15 @@
                 </tr>
                 <tr>
                     <td>Term: </td>
-                    <td><c:out value="${requestScope.account.term}"/></td>
+                    <td><c:out value="${requestScope.account.term}"/> months</td>
                 </tr>
                 <tr>
                     <td>Rate: </td>
-                    <td><c:out value="${requestScope.account.rate}"/></td>
+                    <td><c:out value="${requestScope.account.rate}"/> %</td>
                 </tr>
                 <tr>
                     <td>Input amount:</td>
-                    <td><input type="text" placeholder="amount" name="amount" required/></td>
+                    <td><input id="input-amount" type="text" placeholder="amount" name="amount" required/> ₴</td>
                 </tr>
             </table>
             <button type="submit">Create</button>

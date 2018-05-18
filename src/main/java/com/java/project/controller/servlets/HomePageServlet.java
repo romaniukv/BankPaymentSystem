@@ -1,6 +1,6 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.model.dao.BankConfigDAO;
+import com.java.project.services.BankConfigService;
 import com.java.project.model.entities.DepositAccount;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<DepositAccount> availableDepositAccounts = new BankConfigDAO().selectAvailableDepositAccountsFromCatalog();
+        List<DepositAccount> availableDepositAccounts = new BankConfigService().selectAvailableDepositAccountsFromCatalog();
         req.setAttribute("depositAccounts", availableDepositAccounts);
         req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
     }

@@ -1,14 +1,14 @@
-package com.java.project.model.dao;
+package com.java.project.services;
 
+import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.entities.Transaction;
-import com.java.project.utils.DBConnection;
 
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class TransferMoneyDAO {
+public class TransferMoneyService {
 
     private static final String SELECT_BALANCE_BY_NUMBER = "SELECT balance FROM credit_accounts WHERE number = ? AND status = 'OPENED'";
 
@@ -20,7 +20,7 @@ public class TransferMoneyDAO {
     public boolean transferMoney(long fromAccount, long toAccount, BigDecimal amount) {
         Connection connection = null;
         try {
-            connection = DBConnection.getConnection();
+            connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(SELECT_BALANCE_BY_NUMBER);
             ps.setLong(1, fromAccount);

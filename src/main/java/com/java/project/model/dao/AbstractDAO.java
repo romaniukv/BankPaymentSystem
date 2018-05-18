@@ -3,7 +3,7 @@ package com.java.project.model.dao;
 
 import com.java.project.model.entities.AccountStatus;
 import com.java.project.model.entities.Role;
-import com.java.project.utils.DBConnection;
+import com.java.project.services.DBConnection;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -34,7 +34,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public List<T> selectAll() {
         List<T> entities = new ArrayList<>();
-        try(Connection connection = DBConnection.getConnection()) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(FIND_ALL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -50,14 +50,13 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public boolean create(T entity) {
         boolean success = false;
-        try(Connection connection = DBConnection.getConnection()) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
             if(addParameters(entity, ps)) {
                 ps.execute();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    setEntityId(entity, rs.getInt(1));
-                    success = true;
+                    success = setEntityId(entity, rs.getInt(1));
                 }
             }
         }catch (SQLIntegrityConstraintViolationException e) {
@@ -72,16 +71,18 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
     @Override
     public boolean update(T entity) {
-        boolean flag;
-        try(Connection connection = DBConnection.getConnection()) {
+        boolean flag = false;
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(UPDATE);
             addParameters(entity, ps);
             int indexOfLastParameter = ps.getParameterMetaData().getParameterCount();
             Field field = getField("id");
-            field.setAccessible(true);
-            ps.setInt(indexOfLastParameter, field.getInt(entity));
-            ps.execute();
-            flag = true;
+            if (field != null) {
+                field.setAccessible(true);
+                ps.setInt(indexOfLastParameter, field.getInt(entity));
+                ps.execute();
+                flag = true;
+            }
         } catch (SQLException | IllegalAccessException e) {
             flag = false;
             e.printStackTrace();
@@ -92,7 +93,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public T findByKey(int key) {
         T entity = null;
-        try(Connection connection = DBConnection.getConnection()) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(FIND_BY_KEY);
             ps.setInt(1,key);
             ResultSet rs = ps.executeQuery();
@@ -107,7 +108,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
     @Override
     public void deleteByKey(int key) {
-        try(Connection connection = DBConnection.getConnection()) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
             PreparedStatement ps = connection.prepareStatement(DELETE_BY_KEY);
             ps.setInt(1,key);
             ps.execute();
@@ -187,10 +188,14 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         return field;
     }
 
-    private void setEntityId(T entity, int id) throws IllegalAccessException {
+    private boolean setEntityId(T entity, int id) throws IllegalAccessException {
         Field idField = getField("id");
-        idField.setAccessible(true);
-        idField.setInt(entity, id);
+        if (idField != null) {
+            idField.setAccessible(true);
+            idField.setInt(entity, id);
+            return true;
+        }
+        return false;
     }
 
 }
