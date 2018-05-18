@@ -12,15 +12,15 @@
 таковой отсутствует. Администратор подтверждает открытие счета с учетом
 размера депозита и срока действия.
 
-## Инструкция по установке и запуску
-### Шаг 1:
- Клонировать репозиторий:  
+## Installation guide
+### Step 1:
+ Clone repository:  
 ```console
 git clone https://github.com/romaniukv/FinalProject.git
 ```
-### Шаг 2:
+### Step 2:
  Tomcat 8:  
- Добавить юзера в 
+ Add user in  
  ```console
  $TOMCAT_HOME/conf/tomcat-users.xml
  ```
@@ -29,11 +29,21 @@ git clone https://github.com/romaniukv/FinalProject.git
   <role rolename="manager-script"/>
   <user username="tomcat" password="alonsy10" roles="manager-script, manager-gui"/>
 ```
-### Шаг 3:
-Создать юзера в MySql:  
+### Step 3:
+Сreate new user in MySql:  
 ```sql
 CREATE USER 'db_user'@'localhost' IDENTIFIED BY 'alonsy10';
 GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'localhost' WITH GRANT OPTION;
 ```
-### Шаг 4:
-Создать и настроить базу данных MySql запусив SetupBD.sql.
+### Step 4:
+Create database:
+```sql
+CREATE 
+```
+Run SetupDataBase.sql.
+### Step 5:
+Run 
+```console git clone https://github.com/romaniukv/FinalProject.git
+mvn packge
+```
+in project root folder.
