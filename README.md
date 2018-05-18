@@ -1,16 +1,6 @@
 # FinalProject
-## Вариант 13.  
-Система Банковские платежи. Пользователь может иметь один или
-несколько банковских Счетов (депозитные, кредитные). Доступ к своему
-Счету можно получить после введения логина и пароля. Пользователь
-может делать банковские переводы, оплачивать счета, выводить на экран
-общую информацию (баланса счета, последних операциях, срок действия).
-Для Кредитных Счетов также доступна информация по кредитном лимите,
-текущей задолженности, сумме начисленных процентов, кредитной ставкой.
-Для Депозитных счетов - сумма депозита, ставка, история пополнения.
-Пользователь может подать запрос на открытие кредитного счета, если
-таковой отсутствует. Администратор подтверждает открытие счета с учетом
-размера депозита и срока действия.
+## 13.  
+Bank Payments System. User can have one or more bank accounts (deposit, credit). Access to account can be obtained after entering login and password. User can make bank transfers, pay bills, display general information about account (account balance, last transactions, expiration date). For Credit Accounts there are information about the credit limit, current indebtedness, the amount of accrued interest and credit rate. For Deposit Accounts - amount of the deposit, rate and history of the replenishment. The user can apply for opening a credit account, if there is none. Administrator confirms account opening.
 
 ## Installation guide
 ### Step 1:
