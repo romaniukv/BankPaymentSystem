@@ -4,12 +4,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema banking_system
--- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema banking_system
@@ -172,16 +166,16 @@ INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('10000', 
 
 INSERT INTO `banking_system`.`users` (`role`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES ('ADMIN', 'romaniukv', 'geronimo11', 'admin@g.com', 'Vika', 'Romaniuk');
 
-INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart', '13', '12', '1');
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard', '13', '12', '1');
 
-INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart', '10', '18', '1');
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard', '10', '18', '1');
 
-INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart', '10', '24', '1');
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard', '10', '24', '1');
 
-INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart +', '12', '6', '1');
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard +', '12', '6', '1');
 
-INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart +', '10.5', '3', '1');
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard +', '10.5', '3', '1');
 
-INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart +', '10', '1', '1');
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard +', '10', '1', '1');
 
 

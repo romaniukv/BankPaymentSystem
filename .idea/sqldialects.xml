@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/SetupDataBase.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/CreditAccountDAO.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/services/TransferMoneyService.java" dialect="MySQL" />
   </component>
