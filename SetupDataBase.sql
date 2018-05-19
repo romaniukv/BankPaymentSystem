@@ -158,3 +158,30 @@ DEFAULT CHARACTER SET = utf8;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('500', '4');
+
+INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('1000', '3.5');
+
+INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('2500', '3');
+
+INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('5000', '3');
+
+INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('10000', '3');
+
+
+INSERT INTO `banking_system`.`users` (`role`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES ('ADMIN', 'romaniukv', 'geronimo11', 'admin@g.com', 'Vika', 'Romaniuk');
+
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart', '13', '12', '1');
+
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart', '10', '18', '1');
+
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart', '10', '24', '1');
+
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart +', '12', '6', '1');
+
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart +', '10.5', '3', '1');
+
+INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standart +', '10', '1', '1');
+
+
