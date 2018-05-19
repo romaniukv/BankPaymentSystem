@@ -1,7 +1,7 @@
-package com.java.project.controller.servlets.admin;
+package com.java.project.controller.servlets;
 
 import com.java.project.model.dao.CreditAccountDAO;
-import com.java.project.model.entities.CreditAccount;
+import com.java.project.model.domain.CreditAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ public class AdminPanelServlet extends HttpServlet {
         CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
         List<CreditAccount> newCreditAccounts = creditAccountDAO.selectNewAccounts();
         req.setAttribute("newCreditAccounts", newCreditAccounts);
-        req.getRequestDispatcher("/views/adminViews/adminPanel.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/adminPanel.jsp").forward(req, resp);
     }
 
     @Override

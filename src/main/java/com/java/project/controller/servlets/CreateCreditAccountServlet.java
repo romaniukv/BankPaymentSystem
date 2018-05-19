@@ -2,9 +2,9 @@ package com.java.project.controller.servlets;
 
 import com.java.project.services.BankConfigService;
 import com.java.project.model.dao.CreditAccountDAO;
-import com.java.project.model.entities.AccountStatus;
-import com.java.project.model.entities.CreditAccount;
-import com.java.project.model.entities.User;
+import com.java.project.model.domain.AccountStatus;
+import com.java.project.model.domain.CreditAccount;
+import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;

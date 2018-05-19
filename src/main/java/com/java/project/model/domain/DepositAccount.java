@@ -1,8 +1,6 @@
-package com.java.project.model.entities;
+package com.java.project.model.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

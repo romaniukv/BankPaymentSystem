@@ -1,4 +1,4 @@
-package com.java.project.model.entities;
+package com.java.project.model.domain;
 
 public enum Role {
     ADMIN("administrator"), USER("user");

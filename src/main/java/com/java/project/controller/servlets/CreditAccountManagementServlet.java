@@ -1,10 +1,10 @@
-package com.java.project.controller.servlets.admin;
+package com.java.project.controller.servlets;
 
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.dao.UserDAO;
-import com.java.project.model.entities.AccountStatus;
-import com.java.project.model.entities.CreditAccount;
-import com.java.project.model.entities.User;
+import com.java.project.model.domain.AccountStatus;
+import com.java.project.model.domain.CreditAccount;
+import com.java.project.model.domain.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ public class CreditAccountManagementServlet extends HttpServlet {
             req.setAttribute("accountOwner", accountOwner);
 
             req.setAttribute("statuses", AccountStatus.values());
-            req.getRequestDispatcher("/views/adminViews/creditAccountManagement.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/creditAccountManagement.jsp").forward(req, resp);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.java.project.model.dao;
 
-import com.java.project.model.entities.Transaction;
+import com.java.project.model.domain.Transaction;
 
 public class TransactionDAO extends AbstractDAO<Transaction> {
     public TransactionDAO() {

@@ -1,7 +1,7 @@
 package com.java.project.model.dao;
 
-import com.java.project.model.entities.AccountStatus;
-import com.java.project.model.entities.CreditAccount;
+import com.java.project.model.domain.AccountStatus;
+import com.java.project.model.domain.CreditAccount;
 import com.java.project.services.DBConnection;
 
 import java.sql.Connection;

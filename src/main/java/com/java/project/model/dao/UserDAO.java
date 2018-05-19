@@ -1,7 +1,7 @@
 package com.java.project.model.dao;
 
-import com.java.project.model.entities.Role;
-import com.java.project.model.entities.User;
+import com.java.project.model.domain.Role;
+import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
 
 import java.sql.Connection;

@@ -3,9 +3,9 @@ package com.java.project.controller.servlets;
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.dao.TransactionDAO;
-import com.java.project.model.entities.AccountStatus;
-import com.java.project.model.entities.CreditAccount;
-import com.java.project.model.entities.DepositAccount;
+import com.java.project.model.domain.AccountStatus;
+import com.java.project.model.domain.CreditAccount;
+import com.java.project.model.domain.DepositAccount;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;

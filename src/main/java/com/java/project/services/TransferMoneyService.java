@@ -1,7 +1,7 @@
 package com.java.project.services;
 
 import com.java.project.model.dao.TransactionDAO;
-import com.java.project.model.entities.Transaction;
+import com.java.project.model.domain.Transaction;
 
 import java.math.BigDecimal;
 import java.sql.*;

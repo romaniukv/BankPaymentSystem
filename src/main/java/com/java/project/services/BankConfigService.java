@@ -1,6 +1,6 @@
 package com.java.project.services;
 
-import com.java.project.model.entities.DepositAccount;
+import com.java.project.model.domain.DepositAccount;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

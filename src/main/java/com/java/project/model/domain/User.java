@@ -1,4 +1,4 @@
-package com.java.project.model.entities;
+package com.java.project.model.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,8 @@ public class User {
     private String lastName;
 
     private List<Account> accounts;
+
+
 
     public User() {
     }

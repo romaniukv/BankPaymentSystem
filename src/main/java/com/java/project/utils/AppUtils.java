@@ -1,6 +1,6 @@
 package com.java.project.utils;
 
-import com.java.project.model.entities.User;
+import com.java.project.model.domain.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

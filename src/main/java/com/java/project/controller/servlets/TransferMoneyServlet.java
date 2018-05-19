@@ -2,7 +2,7 @@ package com.java.project.controller.servlets;
 
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.services.TransferMoneyService;
-import com.java.project.model.entities.CreditAccount;
+import com.java.project.model.domain.CreditAccount;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;

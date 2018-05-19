@@ -1,7 +1,7 @@
 package com.java.project.controller.servlets;
 
 import com.java.project.services.BankConfigService;
-import com.java.project.model.entities.DepositAccount;
+import com.java.project.model.domain.DepositAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

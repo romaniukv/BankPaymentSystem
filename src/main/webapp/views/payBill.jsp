@@ -14,17 +14,29 @@
 
     <div class="transfer-money-form">
         <form action="payBill" method="post">
-            <h4>Money transfer</h4>
+            <h4>Pay bill</h4>
+
             <h5>From: <fmt:formatNumber type="number" pattern="####,####,####,####"
                                   value="${requestScope.creditAccount.number}" />
                 (Balance: <c:out value="${requestScope.creditAccount.balance}"/>)</h5>
+
             <input type="hidden"  name="fromAccount" value="${requestScope.creditAccount.number}"/>
+
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
-            <label for="to">To:</label>
-            <input id="to" type="text" placeholder="account number" name="toAccount" required/>
+
+            <label for="receiver">Receiver:</label>
+            <input id="receiver" type="text" placeholder="full name" name="receiver" required/>
+
+            <label for="number">Receiver's account number:</label>
+            <input id="number" type="text" placeholder="account number" name="number" required/>
+
             <label for="amount">Amount:</label>
             <input id="amount" type="text" placeholder="amount" name="amount" required/>
-            <button type="submit">Transfer</button>
+
+            <label for="purpose">Purpose of payment:</label>
+            <input id="purpose" type="text" name="purpose" required/>
+
+            <button type="submit">Submit</button>
         </form>
     </div>
 </div>

@@ -9,7 +9,7 @@
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
-    <%@ include file="../topMenu.jsp"%>
+    <%@ include file="topMenu.jsp"%>
     <div class="main">
         <div class="my-form">
             <form action="creditAccountManagement" method="post">
