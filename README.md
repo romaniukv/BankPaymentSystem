@@ -9,7 +9,7 @@ Bank Payments System. User can have one or more bank accounts (deposit, credit).
 git clone https://github.com/romaniukv/FinalProject.git
 ```
 ### Step 2:
- Tomcat 8:  
+ Tomcat:  
  Add user in  
  ```console
  $TOMCAT_HOME/conf/tomcat-users.xml
@@ -27,13 +27,10 @@ GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'localhost' WITH GRANT OPTION;
 ```
 ### Step 4:
 Create database:
-```sql
-CREATE 
-```
-Run SetupDataBase.sql.
+ - Run SetupDataBase.sql.
 ### Step 5:
 Run 
-```console git clone https://github.com/romaniukv/FinalProject.git
-mvn packge
+```console
+mvn tomcat7:deploy
 ```
 in project root folder.
