@@ -42,13 +42,10 @@ public class PayBillServlet extends HttpServlet {
         long receiverAccount = Long.valueOf(req.getParameter("receiverAccount"));
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
-        boolean flag = new PayBillService().payBill(senderName, senderAccount, receiverName, receiverAccount, amount, purpose);
-
-        if (flag) {
+        if (new PayBillService().payBill(senderName, senderAccount, receiverName, receiverAccount, amount, purpose)) {
             req.setAttribute("successMessage", "Payment success.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
-        }
-        else {
+        } else {
             req.setAttribute("errorMessage", "Payment failed.");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

@@ -14,6 +14,12 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(long receiverAccountNumber, BigDecimal amount, Date date) {
+        this.receiverAccountNumber = receiverAccountNumber;
+        this.amount = amount;
+        this.date = date;
+    }
+
     public Transaction(long senderAccountNumber, long receiverAccountNumber, BigDecimal amount, Date date) {
         this.senderAccountNumber = senderAccountNumber;
         this.receiverAccountNumber = receiverAccountNumber;

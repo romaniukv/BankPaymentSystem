@@ -26,6 +26,10 @@ public class LastPaymentsServlet extends HttpServlet {
             req.setAttribute("creditAccount", creditAccount);
             req.setAttribute("payments", new PaymentDAO().selectAllByAccountNumber(creditAccount.getNumber()));
         }
+        else {
+            req.setAttribute("errorMessage", "Credit account is closed or doesn't exist.");
+            req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
+        }
 
         req.getRequestDispatcher("/views/lastPayments.jsp").forward(req, resp);
     }

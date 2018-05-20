@@ -5,13 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema banking_system
--- -----------------------------------------------------
-
--- -----------------------------------------------------
 -- Schema banking_system
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `banking_system` DEFAULT CHARACTER SET utf8 ;
@@ -27,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`accounts_numbers` (
   `number` BIGINT(19) NOT NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 71
+  AUTO_INCREMENT = 74
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -47,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 7
+  AUTO_INCREMENT = 9
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -76,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`credit_accounts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 52
+  AUTO_INCREMENT = 54
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -134,7 +127,27 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`deposit_catalog` (
   `available` TINYINT(4) NOT NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 7
+  AUTO_INCREMENT = 13
+  DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `banking_system`.`payments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `banking_system`.`payments` ;
+
+CREATE TABLE IF NOT EXISTS `banking_system`.`payments` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `sender` VARCHAR(100) NOT NULL,
+  `sender_account_number` BIGINT(19) NOT NULL,
+  `receiver` VARCHAR(100) NOT NULL,
+  `receiver_account_number` BIGINT(19) NOT NULL,
+  `amount` DECIMAL(12,2) NOT NULL,
+  `purpose` TEXT NOT NULL,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 2
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -151,23 +164,20 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`transactions` (
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 11
+  AUTO_INCREMENT = 12
   DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `banking_system`.`payments`
+-- Table `banking_system`.`deposit_replenishments`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `banking_system`.`payments` ;
+DROP TABLE IF EXISTS `banking_system`.`deposit_replenishments` ;
 
-CREATE TABLE IF NOT EXISTS `banking_system`.`payments` (
+CREATE TABLE IF NOT EXISTS `banking_system`.`deposit_replenishments` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `sender` VARCHAR(100) NOT NULL,
   `sender_account_number` BIGINT(19) NOT NULL,
-  `receiver` VARCHAR(100) NOT NULL,
   `receiver_account_number` BIGINT(19) NOT NULL,
   `amount` DECIMAL(12,2) NOT NULL,
-  `purpose` TEXT NOT NULL,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB;

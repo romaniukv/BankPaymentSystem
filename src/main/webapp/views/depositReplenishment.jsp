@@ -13,20 +13,20 @@
 <div class="main">
 
     <div class="transaction-form">
-        <form action="transferMoney" method="post">
-            <h4>Money transfer</h4>
+        <form action="replenishDeposit" method="post">
+            <h4>Deposit Replenishment</h4>
             <h5>From: <fmt:formatNumber type="number" pattern="####,####,####,####"
-                                  value="${requestScope.creditAccount.number}" />
-                (Balance: <c:out value="${requestScope.creditAccount.balance}"/>)</h5>
-            <input type="hidden"  name="fromAccount" value="${requestScope.creditAccount.number}"/>
+                                        value="${requestScope.depositAccount.number}" />
+                (Amount: <c:out value="${requestScope.depositAccount.amount}"/>)</h5>
+            <input type="hidden"  name="receiverAccountNumber" value="${requestScope.depositAccount.number}"/>
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
-            <label for="to">To:</label>
-            <input id="to" type="number" placeholder="account number" name="toAccount" required/>
             <label for="input-amount">Amount:</label>
             <br>
+            <label for="sender">Sender account number:</label>
+            <input id="sender" type="number" placeholder="account number" name="senderAccountNumber" required/>
             <input id="input-amount" type="number" placeholder="amount" name="amount" required/> ₴
             <br>
-            <button type="submit">Transfer</button>
+            <button type="submit">Replenish</button>
         </form>
     </div>
 </div>

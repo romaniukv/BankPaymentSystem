@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TransactionDAO extends AbstractDAO<Transaction> {
 
-    private static final String SELECT_ALL_BY_ACCOUNT_NUMBER = "SELECT sender_account_number, receiver_account_number, " +
+    private static final String SELECT_ALL_BY_ACCOUNT_NUMBER = "SELECT id, sender_account_number, receiver_account_number, " +
             "amount, date FROM transactions WHERE " +
             "sender_account_number = ? OR receiver_account_number = ? ORDER BY date DESC LIMIT 10;";
 
@@ -37,8 +37,8 @@ public class TransactionDAO extends AbstractDAO<Transaction> {
             ps.setLong(2, accountNumber);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                transactions.add(new Transaction(rs.getLong(1), rs.getLong(2),
-                        rs.getBigDecimal(3), rs.getTimestamp(4)));
+                transactions.add(new Transaction(rs.getInt(1),rs.getLong(2),
+                        rs.getLong(3), rs.getBigDecimal(4), rs.getTimestamp(5)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

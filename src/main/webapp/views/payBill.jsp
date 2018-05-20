@@ -5,7 +5,7 @@
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/transactional-form.css" />" rel="stylesheet">
+    <link href="<c:url value="/css/transaction-form.css" />" rel="stylesheet">
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>

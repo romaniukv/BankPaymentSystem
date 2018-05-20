@@ -25,6 +25,9 @@ public class LastTransactionsServlet extends HttpServlet {
         if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("creditAccount", creditAccount);
             req.setAttribute("transactions", new TransactionDAO().selectAllByAccountNumber(creditAccount.getNumber()));
+        }  else {
+            req.setAttribute("errorMessage", "Credit account is closed or doesn't exist.");
+            req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
 
         req.getRequestDispatcher("/views/lastTransactions.jsp").forward(req, resp);
