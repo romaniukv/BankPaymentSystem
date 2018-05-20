@@ -31,7 +31,7 @@ Create database:
 ### Step 5:
 - Start Tomcat server
 - Run 
-```console
-mvn tomcat7:deploy
-```
-in project root folder.
+  ```console
+   mvn tomcat7:deploy
+  ```
+  in project root folder.
