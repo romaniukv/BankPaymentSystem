@@ -28,6 +28,8 @@ GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'localhost' WITH GRANT OPTION;
 ### Step 4:
 Create database:
  - Run SetupDataBase.sql.
+ Create database for testing:
+ - Run SetupTestDataBase.sql.
 ### Step 5:
 - Start Tomcat server
 - Run 
