@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class UserDAO extends AbstractDAO<User> {
 
-    private static final String FIND_BY_USERNAME_AND_PASS = "SELECT * FROM users WHERE username = ? AND password = ?";
+    private static final String FIND_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
 
     public UserDAO() {
         super("SELECT * FROM users;",
@@ -28,12 +28,11 @@ public class UserDAO extends AbstractDAO<User> {
                 User.class);
     }
 
-    public User findUserByUsernameAndPassword(String username, String password) {
+    public User findUserByUsername(String username) {
         User user = null;
         try(Connection connection = DBConnection.getInstance().getConnection()) {
-            PreparedStatement ps = connection.prepareStatement(FIND_BY_USERNAME_AND_PASS);
+            PreparedStatement ps = connection.prepareStatement(FIND_BY_USERNAME);
             ps.setString(1, username);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 user = new User(Role.valueOf(rs.getString(2)), rs.getString(3), rs.getString(4),

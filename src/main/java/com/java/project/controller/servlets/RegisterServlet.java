@@ -4,6 +4,7 @@ import com.java.project.model.domain.Role;
 import com.java.project.model.dao.UserDAO;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.PasswordUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        User user = new User(Role.USER, username, password, email, firstName, lastName);
+        User user = new User(Role.USER, username, PasswordUtils.encryptPassword(password), email, firstName, lastName);
         UserDAO userDAO = new UserDAO();
         if (userDAO.create(user)) {
             req.getSession().setAttribute("user", user);
