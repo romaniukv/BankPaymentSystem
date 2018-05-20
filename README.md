@@ -29,7 +29,8 @@ GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'localhost' WITH GRANT OPTION;
 Create database:
  - Run SetupDataBase.sql.
 ### Step 5:
-Run 
+- Start Tomcat server
+- Run 
 ```console
 mvn tomcat7:deploy
 ```
