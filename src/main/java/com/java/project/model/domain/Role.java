@@ -1,7 +1,7 @@
 package com.java.project.model.domain;
 
 public enum Role {
-    ADMIN("administrator"), USER("user");
+    ADMIN("ADMIN"), USER("USER");
 
     private String roleName;
 

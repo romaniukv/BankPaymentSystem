@@ -10,28 +10,23 @@ import java.util.ResourceBundle;
 public class DBConnection {
     private static final DBConnection INSTANCE = new DBConnection();
 
-    private static ComboPooledDataSource comboPooledDataSource;
+    private static ComboPooledDataSource dataSource;
 
-    private Mode mode = Mode.APPLICATION;
+    private static ComboPooledDataSource testDataSource;
+
+    private static Mode mode = Mode.APPLICATION;
 
     private enum Mode {
         APPLICATION, TEST
     }
 
     private DBConnection() {
-        comboPooledDataSource = setupDataSource();
+        dataSource = setupDataSource("db-config");
+        testDataSource = setupDataSource("test-db-config");
     }
 
-
-    private ComboPooledDataSource setupDataSource() {
-        ResourceBundle config;
-
-        if (mode.equals(Mode.APPLICATION)) {
-            config = ResourceBundle.getBundle("db-config");
-        }
-        else {
-            config = ResourceBundle.getBundle("test-db-config");
-        }
+    private ComboPooledDataSource setupDataSource(String properties) {
+        ResourceBundle config = ResourceBundle.getBundle(properties);
 
         String driverName = config.getString("driverName");
         String url = config.getString("url");
@@ -58,7 +53,12 @@ public class DBConnection {
     }
 
     public Connection getConnection() throws SQLException {
-        return comboPooledDataSource.getConnection();
+        if (mode.equals(Mode.APPLICATION)) {
+            return dataSource.getConnection();
+        }
+        else {
+            return testDataSource.getConnection();
+        }
     }
 
     public static void closeConnection(Connection connection) {
@@ -77,8 +77,12 @@ public class DBConnection {
         }
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
+    public static void setTestMode() {
+        mode = Mode.TEST;
+    }
+
+    public static void setApplicationMode() {
+        mode = Mode.APPLICATION;
     }
 
 }

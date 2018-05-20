@@ -19,15 +19,10 @@ public class User {
 
     private String lastName;
 
-    private List<Account> accounts;
-
-
-
     public User() {
     }
 
     public User(Role role, String username, String password, String email, String firstName, String lastName) {
-        accounts = new ArrayList<>();
         this.role = role;
         this.username = username;
         this.password = password;
@@ -36,32 +31,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int countCreditAccounts() {
-        int count = 0;
-        for (Account account: accounts) {
-            if (account instanceof CreditAccount) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int countDepositAccounts() {
-        int count = 0;
-        for (Account account: accounts) {
-            if (account instanceof DepositAccount) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     public boolean isAdmin() {
         return role.equals(Role.ADMIN);
-    }
-
-    public void addAccount(Account account) {
-        accounts.add(account);
     }
 
     public int getId() {
@@ -118,5 +90,31 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return lastName.equals(user.lastName) &&
+                role == user.role &&
+                username.equals(user.username) &&
+                password.equals(user.password) &&
+                email.equals(user.email) &&
+                firstName.equals(user.firstName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = role.hashCode();
+        result = 31 * result + username.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        return result;
     }
 }

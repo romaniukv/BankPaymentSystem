@@ -186,3 +186,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO `test_banking_system`.`users` (`role`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES ('ADMIN', 'romaniukv', 'YnhKhE8/dy/YGgtqezqJGapWwOeoMHVO', 'romaniukv255@gmail.com', 'Vika', 'Romaniuk');
+
