@@ -8,7 +8,7 @@
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
-<%@ include file="topMenu.jsp"%>
+<%@ include file="../topMenu.jsp"%>
 <div class="main">
     <table class="table table-bordered table-striped table-hover">
         <tr>

@@ -1,4 +1,4 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.transactions;
 
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.services.TransferMoneyService;
@@ -22,7 +22,7 @@ public class TransferMoneyServlet extends HttpServlet {
         CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(userId);
         if (creditAccount != null) {
             req.setAttribute("creditAccount", creditAccount);
-            req.getRequestDispatcher("/views/transferMoney.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/credit/transferMoney.jsp").forward(req, resp);
         }
         else {
             req.setAttribute("errorMessage", "Can not transfer money! No credit account found.");

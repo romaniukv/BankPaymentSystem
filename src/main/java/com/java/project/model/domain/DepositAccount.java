@@ -27,6 +27,12 @@ public class DepositAccount extends Account {
         setId(id);
     }
 
+    public DepositAccount(String name, int term, BigDecimal rate) {
+        this.name = name;
+        this.term = term;
+        this.rate = rate;
+    }
+
     public DepositAccount(int id, long number, BigDecimal balance, int userId, BigDecimal amount,
                           BigDecimal rate, int term, AccountStatus status, Date expirationDate) {
         super(id, number, userId, balance, status, expirationDate);

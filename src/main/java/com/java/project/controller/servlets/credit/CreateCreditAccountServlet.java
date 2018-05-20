@@ -1,4 +1,4 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.credit;
 
 import com.java.project.services.BankConfigService;
 import com.java.project.model.dao.CreditAccountDAO;
@@ -28,7 +28,7 @@ public class CreateCreditAccountServlet extends HttpServlet {
         }
         else {
             req.getSession().setAttribute("creditLimits", new BankConfigService().selectCreditLimits());
-            req.getRequestDispatcher("/views/createCreditAccount.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/credit/createCreditAccount.jsp").forward(req, resp);
         }
     }
 

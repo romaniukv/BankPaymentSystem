@@ -35,7 +35,7 @@ public class ProfileServlet extends HttpServlet {
             req.setAttribute("depositAccounts", depositAccounts);
         }
 
-        req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/profile/profile.jsp").forward(req, resp);
     }
 
 }

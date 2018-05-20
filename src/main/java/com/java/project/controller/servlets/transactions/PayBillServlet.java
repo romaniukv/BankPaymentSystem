@@ -1,4 +1,4 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.transactions;
 
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.domain.CreditAccount;
@@ -23,7 +23,7 @@ public class PayBillServlet extends HttpServlet {
         CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(userId);
         if (creditAccount != null) {
             req.setAttribute("creditAccount", creditAccount);
-            req.getRequestDispatcher("/views/payBill.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/credit/payBill.jsp").forward(req, resp);
         }
         else {
             req.setAttribute("errorMessage", "Can not pay bill! No credit account found.");

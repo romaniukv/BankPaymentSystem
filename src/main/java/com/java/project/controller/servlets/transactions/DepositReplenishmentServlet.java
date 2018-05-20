@@ -1,4 +1,4 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.transactions;
 
 import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.domain.DepositAccount;
@@ -21,7 +21,7 @@ public class DepositReplenishmentServlet extends HttpServlet {
         DepositAccount depositAccount = new DepositAccountDAO().findByKey(id);
         if (depositAccount != null) {
             req.setAttribute("depositAccount", depositAccount);
-            req.getRequestDispatcher("/views/depositReplenishment.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/deposit/depositReplenishment.jsp").forward(req, resp);
         }
         else {
             req.setAttribute("errorMessage", "Deposit account not found.");

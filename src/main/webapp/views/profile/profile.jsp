@@ -6,11 +6,11 @@
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
-    <link href="<c:url value="/css/profile-style.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/css/tabs.css" />" rel="stylesheet"/>
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
-    <%@ include file="topMenu.jsp"%>
+    <%@ include file="../topMenu.jsp"%>
     <div class="main">
         <div class="tabs">
             <input type="radio" name="inset" value="" id="tab_1" checked>

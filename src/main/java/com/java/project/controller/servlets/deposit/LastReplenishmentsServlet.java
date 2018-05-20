@@ -1,4 +1,4 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.deposit;
 
 import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.dao.DepositReplenishmentDAO;
@@ -24,7 +24,7 @@ public class LastReplenishmentsServlet extends HttpServlet {
             req.setAttribute("depositAccount", depositAccount);
             System.out.println(depositAccount.getNumber());
             req.setAttribute("replenishments", new DepositReplenishmentDAO().selectAllByAccountNumber(depositAccount.getNumber()));
-            req.getRequestDispatcher("/views/lastReplenishments.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/deposit/lastReplenishments.jsp").forward(req, resp);
         } else {
             req.setAttribute("errorMessage", "Deposit account is closed or doesn't exist.");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);

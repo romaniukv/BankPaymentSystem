@@ -5,11 +5,11 @@
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
-    <link href="<c:url value="/css/form-style.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/css/login-form.css" />" rel="stylesheet"/>
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
-    <%@ include file="topMenu.jsp"%>
+    <%@ include file="../topMenu.jsp"%>
     <div class="main">
         <div class="my-form">
             <form action="creditAccountManagement" method="post">

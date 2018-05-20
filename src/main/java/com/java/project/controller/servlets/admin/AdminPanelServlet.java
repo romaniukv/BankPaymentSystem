@@ -1,7 +1,9 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.admin;
 
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.domain.CreditAccount;
+import com.java.project.model.domain.DepositAccount;
+import com.java.project.services.BankConfigService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,10 +18,13 @@ public class AdminPanelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
-        List<CreditAccount> newCreditAccounts = creditAccountDAO.selectNewAccounts();
+        List<CreditAccount> newCreditAccounts = new CreditAccountDAO().selectNewAccounts();
         req.setAttribute("newCreditAccounts", newCreditAccounts);
-        req.getRequestDispatcher("/views/adminPanel.jsp").forward(req, resp);
+
+        List<DepositAccount> availableDeposits = new BankConfigService().selectAvailableDepositAccountsFromCatalog();
+        req.setAttribute("availableDeposits", availableDeposits);
+
+        req.getRequestDispatcher("/views/admin/adminPanel.jsp").forward(req, resp);
     }
 
     @Override

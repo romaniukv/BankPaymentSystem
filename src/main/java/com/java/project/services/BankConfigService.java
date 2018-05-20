@@ -24,6 +24,11 @@ public class BankConfigService {
     private static final String FIND_DEPOSIT_IN_CATALOG = "SELECT id, name, term, rate FROM deposit_catalog " +
             "WHERE id = ?";
 
+    private static final String ADD_DEPOSIT_TO_CATALOG = "INSERT INTO deposit_catalog (name, term, rate, available) " +
+            "VALUES(?, ?, ?, ?)";
+
+    private static final String REMOVE_DEPOSIT_FROM_CATALOG = "DELETE FROM deposit_catalog WHERE id = ?;";
+
     public Map<BigDecimal, BigDecimal> selectCreditLimits() {
         Map<BigDecimal, BigDecimal> creditLimits = new TreeMap<>();
         try (Connection connection = DBConnection.getInstance().getConnection()) {
@@ -96,5 +101,28 @@ public class BankConfigService {
             e.printStackTrace();
         }
         return depositAccount;
+    }
+
+    public boolean addDepositToCatalog(DepositAccount deposit) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(ADD_DEPOSIT_TO_CATALOG);
+            ps.setString(1, deposit.getName());
+            ps.setInt(2, deposit.getTerm());
+            ps.setBigDecimal(3, deposit.getRate());
+            ps.setBoolean(4, true);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public void removeDepositFromCatalog(int id) {
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(REMOVE_DEPOSIT_FROM_CATALOG);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException e) {
+        }
     }
 }

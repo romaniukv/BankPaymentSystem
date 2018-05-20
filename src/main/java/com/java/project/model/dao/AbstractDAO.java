@@ -59,8 +59,6 @@ public abstract class AbstractDAO<T> implements DAO<T> {
                     success = setEntityId(entity, rs.getInt(1));
                 }
             }
-        }catch (SQLIntegrityConstraintViolationException e) {
-            success = false;
         } catch (SQLException | IllegalAccessException e) {
             success = false;
         }

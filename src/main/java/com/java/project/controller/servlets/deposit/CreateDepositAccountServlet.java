@@ -1,4 +1,4 @@
-package com.java.project.controller.servlets;
+package com.java.project.controller.servlets.deposit;
 
 import com.java.project.services.BankConfigService;
 import com.java.project.model.dao.DepositAccountDAO;
@@ -28,7 +28,7 @@ public class CreateDepositAccountServlet extends HttpServlet {
             try {
                 int depositId = Integer.valueOf(req.getParameter("id"));
                 req.setAttribute("account", new BankConfigService().findDepositInCatalog(depositId));
-                req.getRequestDispatcher("/views/createDepositAccount.jsp").forward(req, resp);
+                req.getRequestDispatcher("/views/deposit/createDepositAccount.jsp").forward(req, resp);
             } catch (Exception e) {
                 req.setAttribute("errorMessage", "");
                 req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
