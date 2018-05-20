@@ -5,14 +5,14 @@
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/transfer-money-form.css" />" rel="stylesheet">
+    <link href="<c:url value="/css/transactional-form.css" />" rel="stylesheet">
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
 <%@ include file="topMenu.jsp"%>
 <div class="main">
 
-    <div class="transfer-money-form">
+    <div class="transaction-form">
         <form action="transferMoney" method="post">
             <h4>Money transfer</h4>
             <h5>From: <fmt:formatNumber type="number" pattern="####,####,####,####"
@@ -21,9 +21,11 @@
             <input type="hidden"  name="fromAccount" value="${requestScope.creditAccount.number}"/>
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
             <label for="to">To:</label>
-            <input id="to" type="text" placeholder="account number" name="toAccount" required/>
-            <label for="amount">Amount:</label>
-            <input id="amount" type="text" placeholder="amount" name="amount" required/>
+            <input id="to" type="number" placeholder="account number" name="toAccount" required/>
+            <label for="input-amount">Amount:</label>
+            <br>
+            <input id="input-amount" type="number" placeholder="amount" name="amount" required/> ₴
+            <br>
             <button type="submit">Transfer</button>
         </form>
     </div>

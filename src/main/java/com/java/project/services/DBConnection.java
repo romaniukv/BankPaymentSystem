@@ -61,6 +61,22 @@ public class DBConnection {
         return comboPooledDataSource.getConnection();
     }
 
+    public static void closeConnection(Connection connection) {
+        try {
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+        }
+    }
+
+    public static void rollbackConnection(Connection connection) {
+        try {
+            if (connection != null)
+            connection.rollback();
+        } catch (SQLException e) {
+        }
+    }
+
     public void setMode(Mode mode) {
         this.mode = mode;
     }

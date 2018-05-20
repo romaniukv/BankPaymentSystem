@@ -6,25 +6,25 @@ import java.util.Date;
 public class Transaction {
 
     private int id;
-    private long fromNumber;
-    private long toNumber;
+    private long senderAccountNumber;
+    private long receiverAccountNumber;
     private BigDecimal amount;
     private Date date;
 
     public Transaction() {
     }
 
-    public Transaction(long fromNumber, long toNumber, BigDecimal amount, Date date) {
-        this.fromNumber = fromNumber;
-        this.toNumber = toNumber;
+    public Transaction(long senderAccountNumber, long receiverAccountNumber, BigDecimal amount, Date date) {
+        this.senderAccountNumber = senderAccountNumber;
+        this.receiverAccountNumber = receiverAccountNumber;
         this.amount = amount;
         this.date = date;
     }
 
-    public Transaction(int id, long fromNumber, long toNumber, BigDecimal amount, Date date) {
+    public Transaction(int id, long senderAccountNumber, long receiverAccountNumber, BigDecimal amount, Date date) {
         this.id = id;
-        this.fromNumber = fromNumber;
-        this.toNumber = toNumber;
+        this.senderAccountNumber = senderAccountNumber;
+        this.receiverAccountNumber = receiverAccountNumber;
         this.amount = amount;
         this.date = date;
     }
@@ -33,12 +33,12 @@ public class Transaction {
         return id;
     }
 
-    public long getFromNumber() {
-        return fromNumber;
+    public long getSenderAccountNumber() {
+        return senderAccountNumber;
     }
 
-    public long getToNumber() {
-        return toNumber;
+    public long getReceiverAccountNumber() {
+        return receiverAccountNumber;
     }
 
     public BigDecimal getAmount() {

@@ -20,6 +20,10 @@
     font-weight:100;
 }
 
+.my-form #input-amount {
+    width: 120px;
+}
+
 .my-form button {
     text-transform: uppercase;
     outline: 0;

@@ -37,5 +37,14 @@ public class TransferMoneyServlet extends HttpServlet {
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
         boolean flag = new TransferMoneyService().transferMoney(fromAccount, toAccount, amount);
+
+        if (flag) {
+            req.setAttribute("successMessage", "Transaction success.");
+            req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
+        }
+        else {
+            req.setAttribute("errorMessage", "Transaction failed.");
+            req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
+        }
     }
 }

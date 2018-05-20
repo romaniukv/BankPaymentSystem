@@ -60,11 +60,9 @@ public abstract class AbstractDAO<T> implements DAO<T> {
                 }
             }
         }catch (SQLIntegrityConstraintViolationException e) {
-            e.printStackTrace();
             success = false;
         } catch (SQLException | IllegalAccessException e) {
             success = false;
-            e.printStackTrace();
         }
         return success;
     }

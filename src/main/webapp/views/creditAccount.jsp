@@ -49,24 +49,10 @@
             </tr>
         </table>
     </div>
-    <input type="checkbox" class="read-more-state" id="post-1" />
-    <label for="post-1" class="read-more-trigger"></label>
-    <div class="read-more-wrap">
-        <div class="read-more-target">
-            <table class="table table-striped table-hover">
-                <tr>
-                    <th>Date</th>
-                    <th>Destination</th>
-                    <th>Amount</th>
-                </tr>
-                <c:forEach var="transaction" items="${requestScope.transactions}">
-                    <tr>
-                        <td>${transaction.date}</td>
-                        <td>${transaction.toNumber}</td>
-                        <td>${transaction.amount} $</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </div>
-    </div>
+    <a class="history" href="lastTransactions">
+        View last transactions
+    </a>
+    <a class="history" href="lastPayments">
+        View last payments
+    </a>
 </c:if>

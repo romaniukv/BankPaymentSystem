@@ -4,6 +4,12 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema banking_system
+-- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema banking_system
@@ -139,8 +145,8 @@ DROP TABLE IF EXISTS `banking_system`.`transactions` ;
 
 CREATE TABLE IF NOT EXISTS `banking_system`.`transactions` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `from_number` BIGINT(19) NOT NULL,
-  `to_number` BIGINT(19) NOT NULL,
+  `sender_account_number` BIGINT(19) NOT NULL,
+  `receiver_account_number` BIGINT(19) NOT NULL,
   `amount` DECIMAL(12,2) NOT NULL,
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
@@ -162,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`payments` (
   `receiver_account_number` BIGINT(19) NOT NULL,
   `amount` DECIMAL(12,2) NOT NULL,
   `purpose` TEXT NOT NULL,
+  `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB;
 
@@ -169,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`payments` (
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 INSERT INTO `banking_system`.`credit_limits` (`limit`, `rate`) VALUES ('500', '4');
@@ -196,5 +204,5 @@ INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `availab
 
 INSERT INTO `banking_system`.`deposit_catalog` (`name`, `rate`, `term`, `available`) VALUES ('Standard +', '10', '1', '1');
 
-INSERT INTO `banking_system`.`accounts_numbers` (`number`) VALUES ('456700000000000');
+INSERT INTO `banking_system`.`accounts_numbers` (`number`) VALUES ('4567543782332521');
 

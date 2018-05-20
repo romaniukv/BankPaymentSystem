@@ -22,8 +22,33 @@ public class TransferMoneyService {
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
+            if (!withdrawMoneyFromAccount(connection, fromAccount, amount)) {
+                return false;
+            }
+
+            PreparedStatement ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT);
+            ps.setBigDecimal(1, amount);
+            ps.setLong(2,toAccount);
+            ps.execute();
+            System.out.println(new Date());
+            System.out.println(new GregorianCalendar().getTime());
+            Transaction transaction = new Transaction(fromAccount, toAccount, amount, new GregorianCalendar().getTime());
+            if (new TransactionDAO().create(transaction)) {
+                connection.commit();
+            }
+        } catch (SQLException e) {
+            DBConnection.rollbackConnection(connection);
+            return false;
+        } finally {
+            DBConnection.closeConnection(connection);
+        }
+        return true;
+    }
+
+    public boolean withdrawMoneyFromAccount(Connection connection, long accountNumber, BigDecimal amount) {
+        try {
             PreparedStatement ps = connection.prepareStatement(SELECT_BALANCE_BY_NUMBER);
-            ps.setLong(1, fromAccount);
+            ps.setLong(1, accountNumber);
             ResultSet rs = ps.executeQuery();
             BigDecimal fromBalance;
             if (rs.next()) {
@@ -38,38 +63,13 @@ public class TransferMoneyService {
 
             ps = connection.prepareStatement(WITHDRAW_MONEY_FROM_ACCOUNT);
             ps.setBigDecimal(1, amount);
-            ps.setLong(2,fromAccount);
+            ps.setLong(2,accountNumber);
             ps.execute();
             ps.close();
 
-            ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT);
-            ps.setBigDecimal(1, amount);
-            ps.setLong(2,toAccount);
-            ps.execute();
-            System.out.println(new Date());
-            System.out.println(new GregorianCalendar().getTime());
-            Transaction transaction = new Transaction(fromAccount, toAccount, amount, new GregorianCalendar().getTime());
-            if (new TransactionDAO().create(transaction)) {
-                connection.commit();
-            }
         } catch (SQLException e) {
             e.printStackTrace();
-            if (connection != null) {
-                try {
-                    connection.rollback();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                    return false;
-                }
-            }
             return false;
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
         }
         return true;
     }

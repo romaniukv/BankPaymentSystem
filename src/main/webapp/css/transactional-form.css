@@ -1,4 +1,4 @@
-.transfer-money-form {
+.transaction-form {
     position: relative;
     background: #FFFFFF;
     max-width: 500px;
@@ -8,24 +8,24 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.transfer-money-form label {
+.transaction-form label {
     color: #2b542c;
     font-weight:100;
 }
 
-.transfer-money-form h4 {
+.transaction-form h4 {
     font-family: "Calibri Light", serif;
     font-size: 22px;
     text-align: center;
 }
 
-.transfer-money-form h5 {
+.transaction-form h5 {
     border: dotted #2b542c;
     padding: 5px;
     margin-bottom: 0;
 }
 
-.transfer-money-form input {
+.transaction-form input {
     outline: 0;
     background: #f2f2f2;
     width: 100%;
@@ -37,10 +37,14 @@
     font-weight:100;
 }
 
-.transfer-money-form button {
+.transaction-form #input-amount {
+    width: 120px;
+}
+
+.transaction-form button {
     outline: 0;
     background: #4CAF50;
-    width: 40%;
+    width: 100%;
     border: 0;
     padding: 15px;
     color: #FFFFFF;
@@ -48,13 +52,13 @@
     cursor: pointer;
     font-weight:100;
 }
-.transfer-money-form button:hover,.form button:active,.form button:focus {
+.transaction-form button:hover,.form button:active,.form button:focus {
     background: #43A047;
     color: #FFFFFF;
     font-weight:100;
 }
 
-.transfer-money-form .errorMsg {
+.transaction-form .errorMsg {
     margin: 0 0 15px;
     color: red;
     height:15px;
