@@ -1,7 +1,6 @@
 package com.java.project.services.impl;
 
 import com.java.project.model.dao.DepositAccountDAO;
-import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.DepositAccount;
 
 import com.java.project.services.DBConnection;
@@ -32,7 +31,7 @@ public class DepositAccountServiceImpl extends GenericServiceImpl<DepositAccount
             depositAccounts = depositAccountDAO.selectByUserId(userId);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);

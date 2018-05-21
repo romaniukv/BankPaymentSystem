@@ -2,7 +2,6 @@ package com.java.project.model.dao;
 
 import com.java.project.model.domain.DepositReplenishment;
 import com.java.project.services.DBConnection;
-import com.java.project.services.DepositReplenishmentService;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -70,7 +69,7 @@ public class DepositReplenishmentDAO extends AbstractDAO<DepositReplenishment> {
                 connection.commit();
             }
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
             return false;
         } finally {
             DBConnection.closeConnection(connection);

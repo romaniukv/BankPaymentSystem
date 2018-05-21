@@ -32,7 +32,7 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
             payments = paymentDAO.selectAllByAccountNumber(accountNumber);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -53,7 +53,7 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
             connection.commit();
         } catch (SQLException e) {
             flag = false;
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);

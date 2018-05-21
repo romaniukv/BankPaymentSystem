@@ -69,10 +69,12 @@ public class DBConnection {
         }
     }
 
-    public static void rollbackConnection(Connection connection) {
+    public static void rollbackAndCloseConnection(Connection connection) {
         try {
-            if (connection != null)
-            connection.rollback();
+            if (connection != null) {
+                connection.close();
+                connection.rollback();
+            }
         } catch (SQLException e) {
         }
     }

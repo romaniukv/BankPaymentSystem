@@ -77,7 +77,7 @@ public class TransactionDAO extends AbstractDAO<Transaction> {
                 connection.commit();
             }
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
             return false;
         } finally {
             DBConnection.closeConnection(connection);

@@ -30,7 +30,7 @@ public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> 
             creditAccounts = creditAccountDAO.selectNewAccounts();
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -49,7 +49,7 @@ public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> 
             creditAccount = creditAccountDAO.selectByUserId(userId);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);

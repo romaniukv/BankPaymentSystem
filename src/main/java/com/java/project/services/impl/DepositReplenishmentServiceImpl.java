@@ -32,7 +32,7 @@ public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositR
             depositReplenishments = depositReplenishmentDAO.selectAllByAccountNumber(accountNumber);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -52,7 +52,7 @@ public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositR
             connection.commit();
         } catch (SQLException e) {
             flag = false;
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);

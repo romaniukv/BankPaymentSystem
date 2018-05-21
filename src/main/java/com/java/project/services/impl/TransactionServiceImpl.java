@@ -1,7 +1,6 @@
 package com.java.project.services.impl;
 
 import com.java.project.model.dao.TransactionDAO;
-import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.Transaction;
 import com.java.project.services.DBConnection;
 import com.java.project.services.TransactionService;
@@ -31,7 +30,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             transactions = transactionDAO.selectAllByAccountNumber(accountNumber);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -51,7 +50,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             connection.commit();
         } catch (SQLException e) {
             flag = false;
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -70,7 +69,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             connection.commit();
         } catch (SQLException e) {
             flag = false;
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);

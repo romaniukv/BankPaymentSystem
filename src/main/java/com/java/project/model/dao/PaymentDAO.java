@@ -2,7 +2,6 @@ package com.java.project.model.dao;
 
 import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
-import com.java.project.services.impl.TransactionServiceImpl;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -73,7 +72,7 @@ public class PaymentDAO extends AbstractDAO<Payment> {
                 return true;
             }
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
             return false;
         } finally {
             DBConnection.closeConnection(connection);

@@ -29,7 +29,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
             user = userDAO.findUserByUsername(username);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);

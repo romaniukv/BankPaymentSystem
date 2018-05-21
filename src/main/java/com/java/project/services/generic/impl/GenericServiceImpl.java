@@ -31,7 +31,7 @@ public class GenericServiceImpl<T> implements GenericService<T> {
             entities = abstractDAO.selectAll();
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -51,7 +51,7 @@ public class GenericServiceImpl<T> implements GenericService<T> {
             connection.commit();
         } catch (SQLException e) {
             flag = false;
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -72,7 +72,7 @@ public class GenericServiceImpl<T> implements GenericService<T> {
         } catch (SQLException e) {
             e.printStackTrace();
             flag = false;
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -91,7 +91,7 @@ public class GenericServiceImpl<T> implements GenericService<T> {
             entity = abstractDAO.findByKey(key);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
@@ -109,7 +109,7 @@ public class GenericServiceImpl<T> implements GenericService<T> {
             abstractDAO.deleteByKey(key);
             connection.commit();
         } catch (SQLException e) {
-            DBConnection.rollbackConnection(connection);
+            DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
             DBConnection.closeConnection(connection);
