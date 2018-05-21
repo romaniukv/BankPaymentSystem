@@ -10,28 +10,33 @@
 <body>
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
-    <table class="table table-bordered table-striped table-hover">
-        <tr>
-            <th>Date</th>
-            <th>Sender</th>
-            <th>Receiver</th>
-            <th>Amount</th>
-        </tr>
-        <c:forEach var="replenishment" items="${requestScope.replenishments}">
+    <c:if test="${requestScope.replenishments.isEmpty()}">
+        No replenishments
+    </c:if>
+    <c:if test="${requestScope.replenishments.isEmpty()}">
+        <table class="table table-bordered table-striped table-hover">
             <tr>
-                <td>${replenishment.date}</td>
-                <td>
-                    <fmt:formatNumber type="number" pattern="####,####,####,####"
-                                      value="${replenishment.senderAccountNumber}" />
-                </td>
-                <td>
-                    <fmt:formatNumber type="number" pattern="####,####,####,####"
-                                      value="${replenishment.receiverAccountNumber}" />
-                </td>
-                <td>${replenishment.amount} $</td>
+                <th>Date</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="replenishment" items="${requestScope.replenishments}">
+                <tr>
+                    <td>${replenishment.date}</td>
+                    <td>
+                        <fmt:formatNumber type="number" pattern="####,####,####,####"
+                                          value="${replenishment.senderAccountNumber}" />
+                    </td>
+                    <td>
+                        <fmt:formatNumber type="number" pattern="####,####,####,####"
+                                          value="${replenishment.receiverAccountNumber}" />
+                    </td>
+                    <td>${replenishment.amount} $</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </div>
 </body>
 </html>

@@ -10,27 +10,32 @@
 <body>
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
-    <table class="table table-bordered table-striped table-hover">
-        <tr>
-            <th>Date</th>
-            <th>Receiver</th>
-            <th>Receiver account number</th>
-            <th>Amount</th>
-            <th>Purpose of payment</th>
-        </tr>
-        <c:forEach var="payment" items="${requestScope.payments}">
+    <c:if test="${requestScope.payments.isEmpty()}">
+        No payments
+    </c:if>
+    <c:if test="${!requestScope.payments.isEmpty()}">
+        <table class="table table-bordered table-striped table-hover">
             <tr>
-                <td>${payment.date}</td>
-                <td>${payment.receiverFullName}</td>
-                <td>
-                    <fmt:formatNumber type="number" pattern="####,####,####,####"
-                                      value="${payment.receiverAccountNumber}" />
-                </td>
-                <td>${payment.amount} $</td>
-                <td>${payment.purpose}</td>
+                <th>Date</th>
+                <th>Receiver</th>
+                <th>Receiver account number</th>
+                <th>Amount</th>
+                <th>Purpose of payment</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="payment" items="${requestScope.payments}">
+                <tr>
+                    <td>${payment.date}</td>
+                    <td>${payment.receiverFullName}</td>
+                    <td>
+                        <fmt:formatNumber type="number" pattern="####,####,####,####"
+                                          value="${payment.receiverAccountNumber}" />
+                    </td>
+                    <td>${payment.amount} $</td>
+                    <td>${payment.purpose}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </div>
 </body>
 </html>

@@ -10,38 +10,43 @@
 <body>
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
-    <table class="table table-bordered table-striped table-hover">
-        <tr>
-            <th>Date</th>
-            <th>Sender</th>
-            <th>Receiver</th>
-            <th>Amount</th>
-        </tr>
-        <c:forEach var="transaction" items="${requestScope.transactions}">
+    <c:if test="${requestScope.transactions.isEmpty()}">
+        No transactions
+    </c:if>
+    <c:if test="${!requestScope.transactions.isEmpty()}">
+        <table class="table table-bordered table-striped table-hover">
             <tr>
-                <td>${transaction.date}</td>
-                <td>
-                    <c:if test="${transaction.senderAccountNumber.equals(requestScope.creditAccount.number)}">
-                        Me
-                    </c:if>
-                    <c:if test="${!transaction.senderAccountNumber.equals(requestScope.creditAccount.number)}">
-                        <fmt:formatNumber type="number" pattern="####,####,####,####"
-                                          value="${transaction.senderAccountNumber}" />
-                    </c:if>
-                </td>
-                <td>
-                    <c:if test="${transaction.receiverAccountNumber.equals(requestScope.creditAccount.number)}">
-                        Me
-                    </c:if>
-                    <c:if test="${!transaction.receiverAccountNumber.equals(requestScope.creditAccount.number)}">
-                        <fmt:formatNumber type="number" pattern="####,####,####,####"
-                                          value="${transaction.receiverAccountNumber}" />
-                    </c:if>
-                </td>
-                <td>${transaction.amount} $</td>
+                <th>Date</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="transaction" items="${requestScope.transactions}">
+                <tr>
+                    <td>${transaction.date}</td>
+                    <td>
+                        <c:if test="${transaction.senderAccountNumber.equals(requestScope.creditAccount.number)}">
+                            Me
+                        </c:if>
+                        <c:if test="${!transaction.senderAccountNumber.equals(requestScope.creditAccount.number)}">
+                            <fmt:formatNumber type="number" pattern="####,####,####,####"
+                                              value="${transaction.senderAccountNumber}" />
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${transaction.receiverAccountNumber.equals(requestScope.creditAccount.number)}">
+                            Me
+                        </c:if>
+                        <c:if test="${!transaction.receiverAccountNumber.equals(requestScope.creditAccount.number)}">
+                            <fmt:formatNumber type="number" pattern="####,####,####,####"
+                                              value="${transaction.receiverAccountNumber}" />
+                        </c:if>
+                    </td>
+                    <td>${transaction.amount} $</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </div>
 </body>
 </html>

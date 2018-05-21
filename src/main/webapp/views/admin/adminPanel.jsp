@@ -43,22 +43,27 @@
             </div>
 
             <div id="txt_2">
-                <table class="table table-striped table-hover">
-                    <tr>
-                        <th>Number</th>
-                        <th>Limit</th>
-                        <th>Credit rate</th>
-                        <th>Action</th>
-                    </tr>
-                    <c:forEach var="account" items="${requestScope.newCreditAccounts}">
+                <c:if test="${requestScope.newCreditAccounts.isEmpty()}">
+                    Nothing to manage
+                </c:if>
+                <c:if test="${!requestScope.newCreditAccounts.isEmpty()}">
+                    <table class="table table-striped table-hover">
                         <tr>
-                            <td>${account.number}</td>
-                            <td>${account.limit}</td>
-                            <td>${account.creditRate}</td>
-                            <td><a href="<%=request.getContextPath()%>/creditAccountManagement?id=${account.id}">Manage</a></td>
+                            <th>Number</th>
+                            <th>Limit</th>
+                            <th>Credit rate</th>
+                            <th>Action</th>
                         </tr>
-                    </c:forEach>
-                </table>
+                        <c:forEach var="account" items="${requestScope.newCreditAccounts}">
+                            <tr>
+                                <td>${account.number}</td>
+                                <td>${account.limit}</td>
+                                <td>${account.creditRate}</td>
+                                <td><a href="<%=request.getContextPath()%>/creditAccountManagement?id=${account.id}">Manage</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:if>
             </div>
         </div>
     </div>
