@@ -15,8 +15,13 @@
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
             <form action="login" method="post">
                 <input type="hidden" name="redirectId" value="${param.redirectId}" />
-                <input type="text" placeholder="username" name="username" required/>
-                <input type="password" placeholder="password" name="password" required/>
+
+                <label for="username">Username: </label>
+                <input id="username" type="text" placeholder="username" name="username" required/>
+
+                <label for="pass">Password: </label>
+                <input id="pass" type="password" placeholder="password" name="password" required/>
+
                 <button type="submit">Login</button>
                 <p class="message">
                     Not registered?

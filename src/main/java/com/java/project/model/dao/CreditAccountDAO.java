@@ -16,7 +16,7 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
     private static final String SELECT_NEW_ACCOUNTS = "SELECT number, id, user_id, credit_limit, credit_rate " +
             "FROM credit_accounts WHERE status = ?";
 
-    private static final String SELECT_OPENED_ACCOUNT_BY_USER_ID = "SELECT * FROM credit_accounts WHERE user_id = ? AND status = 'OPENED'";
+    private static final String SELECT_BY_USER_ID = "SELECT * FROM credit_accounts WHERE user_id = ?;";
 
     public CreditAccountDAO() {
         super("SELECT * FROM credit_accounts;",
@@ -58,7 +58,7 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
     public CreditAccount selectByUserId(int userId) {
         CreditAccount creditAccount = null;
         try (Connection connection = DBConnection.getInstance().getConnection()) {
-            PreparedStatement ps = connection.prepareStatement(SELECT_OPENED_ACCOUNT_BY_USER_ID);
+            PreparedStatement ps = connection.prepareStatement(SELECT_BY_USER_ID);
             ps.setInt(1,userId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

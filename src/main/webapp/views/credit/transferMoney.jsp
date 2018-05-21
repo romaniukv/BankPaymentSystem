@@ -20,12 +20,14 @@
                 (Balance: <c:out value="${requestScope.creditAccount.balance}"/>)</h5>
             <input type="hidden"  name="fromAccount" value="${requestScope.creditAccount.number}"/>
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
+
             <label for="to">To:</label>
-            <input id="to" type="number" placeholder="account number" name="toAccount" required/>
-            <label for="input-amount">Amount:</label>
-            <br>
-            <input id="input-amount" type="number" placeholder="amount" name="amount" required/> ₴
-            <br>
+            <input id="to" type="number" placeholder="account number" name="toAccount"
+                   min="1000" max="9999999999999999" required/>
+
+            <label for="input-amount">Amount:</label><br>
+            <input id="input-amount" type="number" step="0.01" placeholder="amount" name="amount" required/> ₴ <br>
+
             <button type="submit">Transfer</button>
         </form>
     </div>

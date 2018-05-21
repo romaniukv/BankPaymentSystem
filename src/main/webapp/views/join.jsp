@@ -17,17 +17,23 @@
                 <c:out value="${requestScope.errorMsg}"/>
                 <span id="error"></span>
             </div>
-            <input type="text" placeholder="first name" name="firstName" required/>
+            <label for="firstName">First name: </label>
+            <input id="firstName" type="text" placeholder="first name" name="firstName" required/><br>
 
-            <input type="text" placeholder="last name" name="lastName" required/>
+            <label for="lastName">Last name: </label>
+            <input id="lastName" type="text" placeholder="last name" name="lastName" required/><br>
 
-            <input type="text" placeholder="e-mail" name="email" required/>
+            <label for="email">e-mail: </label>
+            <input id="email" type="text" placeholder="e-mail" name="email" required/><br>
 
-            <input type="text" placeholder="username" name="username" required/>
+            <label for="username">Username: </label>
+            <input id="username" type="text" placeholder="username" name="username" required/><br>
 
-            <input type="password" placeholder="password" name="password" required/>
+            <label for="pass">Password: </label>
+            <input id="pass" type="password" placeholder="password" name="password" required/><br>
 
-            <input type="password" placeholder="confirm password" name="password2" required/>
+            <label for="confPass">Confirm password: </label>
+            <input id="confPass" type="password" placeholder="confirm password" name="password2" required/><br>
 
             <button type="submit" onclick="return validate(this.form);">Create</button>
             <p class="message">

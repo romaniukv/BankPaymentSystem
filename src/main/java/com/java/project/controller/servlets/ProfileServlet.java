@@ -26,7 +26,7 @@ public class ProfileServlet extends HttpServlet {
 
         CreditAccountService creditAccountService = new CreditAccountServiceImpl();
         CreditAccount creditAccount = creditAccountService.selectByUserId(userId);
-        if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
+        if (creditAccount != null && creditAccount.getStatus() == AccountStatus.OPENED) {
             req.setAttribute("creditAccount", creditAccount);
         }
 

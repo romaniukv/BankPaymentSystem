@@ -8,10 +8,17 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     font-family: "Roboto", sans-serif;
 }
+
+.my-form label {
+    width: 100px;
+    text-align: left;
+    font-weight: normal;
+}
+
 .my-form input {
     outline: 0;
     background: #f2f2f2;
-    width: 100%;
+    width: 70%;
     border: 0;
     margin: 0 0 15px;
     padding: 15px;
@@ -74,7 +81,4 @@
     content: "";
     display: block;
     clear: both;
-}
-#selectCL{
-    padding-bottom: 20px;
 }

@@ -20,11 +20,13 @@
                 (Amount: <c:out value="${requestScope.depositAccount.amount}"/>)</h5>
             <input type="hidden"  name="receiverAccountNumber" value="${requestScope.depositAccount.number}"/>
             <div class="errorMsg"><c:out value="${requestScope.errorMsg}"/></div>
-            <label for="input-amount">Amount:</label>
-            <br>
+
             <label for="sender">Sender account number:</label>
-            <input id="sender" type="number" placeholder="account number" name="senderAccountNumber" required/>
-            <input id="input-amount" type="number" placeholder="amount" name="amount" required/> ₴
+            <input id="sender" type="number" placeholder="account number" name="senderAccountNumber"
+                    min="1000" max="9999999999999999" required/>
+
+            <label for="input-amount">Amount:</label>
+            <input id="input-amount" type="number" step="0.01" placeholder="amount" name="amount" required/> ₴
             <br>
             <button type="submit">Replenish</button>
         </form>

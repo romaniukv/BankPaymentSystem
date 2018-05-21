@@ -1,36 +1,12 @@
 function validate(form) {
 
-     var elems = form.elements;
-     resetError();
-    // if (!elems.firstName.value) {
-    //     showError(elems.firstName.parentNode, "Enter first name!");
-    //     return false;
-    // }
-    //
-    // resetError(elems.lastName.parentNode);
-    // if (!elems.lastName.value) {
-    //     showError(elems.lastName.parentNode, "Enter last name!");
-    //     return false;
-    // }
-    //
-    // resetError(elems.email.parentNode);
-    // if (!elems.email.value) {
-    //     showError(elems.email.parentNode, "Enter e-mail!");
-    //     return false;
-    // }
-    //
-    // resetError(elems.username.parentNode);
-    // if (!elems.username.value) {
-    //     showError(elems.username.parentNode, "Enter username");
-    //     return false;
-    // }
-    //
-    // resetError(elems.password.parentNode);
-    // if (!elems.password.value) {
-    //     showError(elems.password.parentNode, "Enter password!");
-    //     return false;
-    // } else
-        if (elems.password.value !== elems.password2.value) {
+    var elems = form.elements;
+    resetError();
+    var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailPattern.test(String(elems.email.value).toLowerCase())) {
+        showError("Enter correct e-mail!");
+        return false;
+    } else if (elems.password.value !== elems.password2.value) {
         showError("Passwords do not match!");
         return false;
     }

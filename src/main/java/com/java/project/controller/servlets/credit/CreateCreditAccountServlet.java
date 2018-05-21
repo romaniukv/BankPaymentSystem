@@ -23,14 +23,18 @@ public class CreateCreditAccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = AppUtils.getLoginedUser(req.getSession());
         CreditAccount creditAccount = new CreditAccountServiceImpl().selectByUserId(user.getId());
-        if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
+        if (creditAccount != null && creditAccount.getStatus() == AccountStatus.OPENED) {
             req.setAttribute("errorMessage", "You're already have credit account in our system!");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
-        }
-        else {
+        } else if (creditAccount != null && creditAccount.getStatus() == AccountStatus.UNDER_CONSIDERATION) {
+            req.setAttribute("errorMessage", "Can't create new credit account! " +
+                    "Your credit account is under consideration!");
+            req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
+        } else {
             req.getSession().setAttribute("creditLimits", new BankConfigService().selectCreditLimits());
             req.getRequestDispatcher("/views/credit/createCreditAccount.jsp").forward(req, resp);
         }
+
     }
 
     @Override

@@ -4,7 +4,6 @@
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
-    <link href="<c:url value="/css/login-form.css" />" rel="stylesheet">
     <link href="<c:url value="/css/credit-from.css" />" rel="stylesheet">
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
@@ -12,7 +11,7 @@
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
 
-    <div class="my-form">
+    <div class="credit-form">
         <form action="createCreditAccount" method="post">
             <h1 id="selectCL">Select credit limit</h1>
             <c:forEach var="limit" items="${sessionScope.creditLimits}">

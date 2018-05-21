@@ -28,10 +28,11 @@
             <input id="receiver" type="text" placeholder="full name" name="receiverName" required/>
 
             <label for="acc_number">Receiver's account number:</label>
-            <input id="acc_number" type="number" placeholder="account number" name="receiverAccount" required/>
+            <input id="acc_number" type="number" placeholder="account number" name="receiverAccount"
+                   min="1000" max="9999999999999999" required/>
 
             <label for="amount">Amount:</label>
-            <input id="amount" type="number" placeholder="amount" name="amount" required/>
+            <input id="amount" type="number" step="0.01" placeholder="amount" name="amount" required/>
 
             <label for="purpose">Purpose of payment:</label>
             <input id="purpose" type="text" placeholder="purpose of payment..." name="purpose" required/>
