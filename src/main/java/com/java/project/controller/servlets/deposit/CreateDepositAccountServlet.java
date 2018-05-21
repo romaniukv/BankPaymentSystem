@@ -27,8 +27,8 @@ public class CreateDepositAccountServlet extends HttpServlet {
         }
         else {
             try {
-                int depositId = Integer.valueOf(req.getParameter("id"));
-                req.setAttribute("account", new BankConfigService().findDepositInCatalog(depositId));
+                int id = AppUtils.getIdFromRequest(req, resp);
+                req.setAttribute("account", new BankConfigService().findDepositInCatalog(id));
                 req.getRequestDispatcher("/views/deposit/createDepositAccount.jsp").forward(req, resp);
             } catch (Exception e) {
                 req.setAttribute("errorMessage", "");
@@ -44,7 +44,7 @@ public class CreateDepositAccountServlet extends HttpServlet {
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
         long accountNumber = new BankConfigService().getNewAccountNumber();
 
-        int id = Integer.valueOf(req.getParameter("depositId"));
+        int id = AppUtils.getIdFromRequest(req, resp);
         DepositAccount depositAccount = new BankConfigService().findDepositInCatalog(id);
         depositAccount.setAmount(amount);
         depositAccount.setBalance(amount);

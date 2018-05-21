@@ -7,6 +7,7 @@ import com.java.project.services.CreditAccountService;
 import com.java.project.services.UserService;
 import com.java.project.services.impl.CreditAccountServiceImpl;
 import com.java.project.services.impl.UserServiceImpl;
+import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ public class CreditAccountManagementServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int accountId = Integer.valueOf(req.getParameter("id"));
+        int accountId = AppUtils.getIdFromRequest(req, resp);
 
         CreditAccount creditAccount = new CreditAccountServiceImpl().findByKey(accountId);
 
@@ -40,7 +41,7 @@ public class CreditAccountManagementServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountStatus status = AccountStatus.valueOf(req.getParameter("accountStatus"));
 
-        int id = Integer.valueOf(req.getParameter("id"));
+        int id = AppUtils.getIdFromRequest(req, resp);
 
         CreditAccountService creditAccountService = new CreditAccountServiceImpl();
         CreditAccount creditAccount = creditAccountService.findByKey(id);

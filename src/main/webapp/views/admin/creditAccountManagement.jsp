@@ -22,7 +22,7 @@
                     <tr>
                         <td>Owner</td>
                         <td>
-                            <a href="<%=request.getContextPath()%>/userInfo?userId=${requestScope.accountOwner.id}">
+                            <a href="<%=request.getContextPath()%>/userInfo?id=${requestScope.accountOwner.id}">
                                 ${requestScope.accountOwner.lastName} ${requestScope.accountOwner.firstName}
                             </a>
                         </td>

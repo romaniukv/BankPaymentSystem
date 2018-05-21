@@ -12,18 +12,20 @@
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
     <div class="my-form">
-        <form action="addNewDeposit" method="post">
+        <form action="editDeposit" method="post">
             <div class="errorMsg">
                 <c:out value="${requestScope.errorMsg}"/>
                 <span id="error"></span>
             </div>
-            <input type="text" placeholder="name" name="name" required/>
+            <input type="hidden" name="id" value="${requestScope.deposit.id}"/>
 
-            <input type="number" placeholder="term(months)" name="term" required/>
+            <input type="text" value="${requestScope.deposit.name}"  name="name" required/>
 
-            <input type="number" placeholder="rate" step="0.01" name="rate" required/>
+            <input type="number" value="${requestScope.deposit.term}"  name="term" required/>
 
-            <button type="submit" onclick="return validate(this.form);">Add</button>
+            <input type="number" value="${requestScope.deposit.rate}" step="0.01" name="rate" required/>
+
+            <button type="submit" onclick="return validate(this.form);">Save</button>
         </form>
     </div>
 </div>

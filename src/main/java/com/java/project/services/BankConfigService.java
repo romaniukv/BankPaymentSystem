@@ -29,6 +29,9 @@ public class BankConfigService {
 
     private static final String REMOVE_DEPOSIT_FROM_CATALOG = "DELETE FROM deposit_catalog WHERE id = ?;";
 
+    private static final String UPDATE_DEPOSIT_IN_CATALOG = "UPDATE deposit_catalog SET name = ?, rate = ?," +
+            "term = ? WHERE id = ?";
+
     public Map<BigDecimal, BigDecimal> selectCreditLimits() {
         Map<BigDecimal, BigDecimal> creditLimits = new TreeMap<>();
         try (Connection connection = DBConnection.getInstance().getConnection()) {
@@ -124,5 +127,22 @@ public class BankConfigService {
             ps.execute();
         } catch (SQLException e) {
         }
+    }
+
+    public boolean updateDepositInCatalog(String name, int term, BigDecimal rate, int id) {
+        boolean flag;
+        try(Connection connection = DBConnection.getInstance().getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(UPDATE_DEPOSIT_IN_CATALOG);
+            ps.setString(1, name);
+            ps.setBigDecimal(2, rate);
+            ps.setInt(3, term);
+            ps.setInt(4, id);
+            ps.executeUpdate();
+            flag = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            flag = false;
+        }
+        return flag;
     }
 }

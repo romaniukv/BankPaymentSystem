@@ -13,7 +13,7 @@
 
     <div class="my-form">
         <form action="createDepositAccount" method="post">
-            <input type="hidden" name="depositId" value="${param.id}" />
+            <input type="hidden" name="id" value="${param.id}" />
             <table class="table">
                 <tr>
                     <td>Deposit: </td>

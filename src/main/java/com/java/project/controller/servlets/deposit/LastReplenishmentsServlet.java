@@ -6,6 +6,7 @@ import com.java.project.services.DepositAccountService;
 import com.java.project.services.DepositReplenishmentService;
 import com.java.project.services.impl.DepositAccountServiceImpl;
 import com.java.project.services.impl.DepositReplenishmentServiceImpl;
+import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ public class LastReplenishmentsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.valueOf(req.getParameter("id"));
+        int id = AppUtils.getIdFromRequest(req, resp);
 
         DepositAccountService depositAccountService = new DepositAccountServiceImpl();
         DepositAccount depositAccount = depositAccountService.findByKey(id);
