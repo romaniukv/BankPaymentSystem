@@ -11,7 +11,7 @@ public class TestEntities {
     }
 
     public static User getTestUser2() {
-        return new User(Role.ADMIN, "romaniukv2", "password",
+        return new User(Role.USER, "romaniukv2", "password",
                 "romaniukv255@gmail.com", "Vika", "Romaniuk");
     }
 }

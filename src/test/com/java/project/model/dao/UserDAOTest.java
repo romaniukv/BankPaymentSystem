@@ -40,11 +40,13 @@ public class UserDAOTest {
 
     @Test
     public void update() {
-        User expectedUser = TestEntities.getTestUser2();
         UserDAO userDAO = new UserDAO();
+        User expectedUser = TestEntities.getTestUser2();
         userDAO.create(expectedUser);
-        User createdUser = userDAO.findByKey(expectedUser.getId());
-        assertEquals(expectedUser, createdUser);
+        expectedUser.setEmail("newEmail");
+        userDAO.update(expectedUser);
+        User updatedUser = userDAO.findByKey(expectedUser.getId());
+        assertEquals(expectedUser, updatedUser);
     }
 
     @Test

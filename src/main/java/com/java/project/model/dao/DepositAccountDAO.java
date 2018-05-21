@@ -37,7 +37,8 @@ public class DepositAccountDAO extends AbstractDAO<DepositAccount> {
 
     public List<DepositAccount> selectByUserId(int userId) {
         List<DepositAccount> depositAccounts = new ArrayList<>();
-        try (Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
+            Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_OPENED_ACCOUNT_BY_USER_ID);
             ps.setInt(1,userId);
             ResultSet rs = ps.executeQuery();

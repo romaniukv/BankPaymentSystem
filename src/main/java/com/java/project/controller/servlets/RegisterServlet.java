@@ -1,8 +1,9 @@
 package com.java.project.controller.servlets;
 
 import com.java.project.model.domain.Role;
-import com.java.project.model.dao.UserDAO;
 import com.java.project.model.domain.User;
+import com.java.project.services.UserService;
+import com.java.project.services.impl.UserServiceImpl;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.PasswordUtils;
 
@@ -33,8 +34,8 @@ public class RegisterServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         User user = new User(Role.USER, username, PasswordUtils.encryptPassword(password), email, firstName, lastName);
-        UserDAO userDAO = new UserDAO();
-        if (userDAO.create(user)) {
+        UserService userService = new UserServiceImpl();
+        if (userService.create(user)) {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/profile");
         }

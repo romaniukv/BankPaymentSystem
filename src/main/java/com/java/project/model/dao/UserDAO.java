@@ -30,7 +30,8 @@ public class UserDAO extends AbstractDAO<User> {
 
     public User findUserByUsername(String username) {
         User user = null;
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
+            Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement(FIND_BY_USERNAME);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();

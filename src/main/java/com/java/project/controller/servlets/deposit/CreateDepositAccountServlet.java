@@ -1,9 +1,10 @@
 package com.java.project.controller.servlets.deposit;
 
 import com.java.project.services.BankConfigService;
-import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.model.domain.User;
+import com.java.project.services.DepositAccountService;
+import com.java.project.services.impl.DepositAccountServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -51,7 +52,8 @@ public class CreateDepositAccountServlet extends HttpServlet {
         depositAccount.setNumber(accountNumber);
         depositAccount.calculateExpirationDate();
 
-        boolean flag = new DepositAccountDAO().create(depositAccount);
+        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
+        boolean flag = depositAccountService.create(depositAccount);
 
         if (flag) {
             req.setAttribute("successMessage", "");

@@ -1,10 +1,11 @@
 package com.java.project.controller.servlets.credit;
 
 import com.java.project.services.BankConfigService;
-import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
+import com.java.project.services.CreditAccountService;
+import com.java.project.services.impl.CreditAccountServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class CreateCreditAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = AppUtils.getLoginedUser(req.getSession());
-        CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(user.getId());
+        CreditAccount creditAccount = new CreditAccountServiceImpl().selectByUserId(user.getId());
         if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("errorMessage", "You're already have credit account in our system!");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
@@ -39,11 +40,11 @@ public class CreateCreditAccountServlet extends HttpServlet {
         User user = AppUtils.getLoginedUser(req.getSession());
         long accountNumber = new BankConfigService().getNewAccountNumber();
 
-        CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
+        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
         CreditAccount creditAccount = new CreditAccount(accountNumber, user.getId(), creditLimit, creditRate);
         creditAccount.calculateExpirationDate();
         creditAccount.setStatus(AccountStatus.UNDER_CONSIDERATION);
-        boolean flag = creditAccountDAO.create(creditAccount);
+        boolean flag = creditAccountService.create(creditAccount);
 
         if (flag) {
             req.setAttribute("successMessage", "Application for opening a credit account was successfully sent");

@@ -1,8 +1,10 @@
 package com.java.project.controller.servlets.transactions;
 
-import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.domain.DepositAccount;
-import com.java.project.services.ReplenishDepositService;
+import com.java.project.services.DepositAccountService;
+import com.java.project.services.DepositReplenishmentService;
+import com.java.project.services.impl.DepositAccountServiceImpl;
+import com.java.project.services.impl.DepositReplenishmentServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,8 @@ public class DepositReplenishmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.valueOf(req.getParameter("id"));
-        DepositAccount depositAccount = new DepositAccountDAO().findByKey(id);
+        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
+        DepositAccount depositAccount = depositAccountService.findByKey(id);
         if (depositAccount != null) {
             req.setAttribute("depositAccount", depositAccount);
             req.getRequestDispatcher("/views/deposit/depositReplenishment.jsp").forward(req, resp);
@@ -35,7 +38,8 @@ public class DepositReplenishmentServlet extends HttpServlet {
         long receiverAccountNumber = Long.valueOf(req.getParameter("receiverAccountNumber"));
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
-        if (new ReplenishDepositService().replenishDeposit(senderAccountNumber, receiverAccountNumber, amount)) {
+        DepositReplenishmentService replenishmentService = new DepositReplenishmentServiceImpl();
+        if (replenishmentService.replenishDeposit(senderAccountNumber, receiverAccountNumber, amount)) {
             req.setAttribute("successMessage", "Transaction success.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {

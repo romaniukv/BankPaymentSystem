@@ -1,10 +1,12 @@
 package com.java.project.controller.servlets.admin;
 
-import com.java.project.model.dao.CreditAccountDAO;
-import com.java.project.model.dao.UserDAO;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
+import com.java.project.services.CreditAccountService;
+import com.java.project.services.UserService;
+import com.java.project.services.impl.CreditAccountServiceImpl;
+import com.java.project.services.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +22,13 @@ public class CreditAccountManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountId = Integer.valueOf(req.getParameter("id"));
 
-        CreditAccount creditAccount = new CreditAccountDAO().findByKey(accountId);
+        CreditAccount creditAccount = new CreditAccountServiceImpl().findByKey(accountId);
 
         if (creditAccount != null) {
             req.setAttribute("creditAccount", creditAccount);
 
-            User accountOwner = new UserDAO().findByKey(creditAccount.getUserId());
+            UserService userService = new UserServiceImpl();
+            User accountOwner = userService.findByKey(creditAccount.getUserId());
             req.setAttribute("accountOwner", accountOwner);
 
             req.setAttribute("statuses", AccountStatus.values());
@@ -39,13 +42,13 @@ public class CreditAccountManagementServlet extends HttpServlet {
 
         int id = Integer.valueOf(req.getParameter("id"));
 
-        CreditAccountDAO creditAccountDAO = new CreditAccountDAO();
-        CreditAccount creditAccount = creditAccountDAO.findByKey(id);
+        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+        CreditAccount creditAccount = creditAccountService.findByKey(id);
 
         boolean flag = false;
         if (creditAccount != null) {
             creditAccount.setStatus(status);
-            flag = creditAccountDAO.update(creditAccount);
+            flag = creditAccountService.update(creditAccount);
         }
 
         if (flag) {

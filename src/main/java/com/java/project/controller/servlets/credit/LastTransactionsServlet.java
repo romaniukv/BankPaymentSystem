@@ -1,10 +1,12 @@
 package com.java.project.controller.servlets.credit;
 
 import com.java.project.model.dao.CreditAccountDAO;
-import com.java.project.model.dao.PaymentDAO;
-import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
+import com.java.project.services.CreditAccountService;
+import com.java.project.services.TransactionService;
+import com.java.project.services.impl.CreditAccountServiceImpl;
+import com.java.project.services.impl.TransactionServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -21,10 +23,12 @@ public class LastTransactionsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
 
-        CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(userId);
+        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+        CreditAccount creditAccount = creditAccountService.selectByUserId(userId);
         if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("creditAccount", creditAccount);
-            req.setAttribute("transactions", new TransactionDAO().selectAllByAccountNumber(creditAccount.getNumber()));
+            TransactionService transactionService = new TransactionServiceImpl();
+            req.setAttribute("transactions", transactionService.selectAllByAccountNumber(creditAccount.getNumber()));
             req.getRequestDispatcher("/views/credit/lastTransactions.jsp").forward(req, resp);
         }  else {
             req.setAttribute("errorMessage", "Credit account is closed or doesn't exist.");

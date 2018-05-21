@@ -1,7 +1,9 @@
 package com.java.project.controller.servlets.transactions;
 
-import com.java.project.model.dao.CreditAccountDAO;
-import com.java.project.services.TransferMoneyService;
+import com.java.project.services.CreditAccountService;
+import com.java.project.services.TransactionService;
+import com.java.project.services.impl.CreditAccountServiceImpl;
+import com.java.project.services.impl.TransactionServiceImpl;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.utils.AppUtils;
 
@@ -19,7 +21,8 @@ public class TransferMoneyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
-        CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(userId);
+        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+        CreditAccount creditAccount = creditAccountService.selectByUserId(userId);
         if (creditAccount != null) {
             req.setAttribute("creditAccount", creditAccount);
             req.getRequestDispatcher("/views/credit/transferMoney.jsp").forward(req, resp);
@@ -36,7 +39,8 @@ public class TransferMoneyServlet extends HttpServlet {
         long toAccount = Long.valueOf(req.getParameter("toAccount"));
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
-        if (new TransferMoneyService().transferMoney(fromAccount, toAccount, amount)) {
+        TransactionService transactionService = new TransactionServiceImpl();
+        if (transactionService.transferMoney(fromAccount, toAccount, amount)) {
             req.setAttribute("successMessage", "Transaction success.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {

@@ -1,7 +1,8 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.model.dao.UserDAO;
 import com.java.project.model.domain.User;
+import com.java.project.services.UserService;
+import com.java.project.services.impl.UserServiceImpl;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.PasswordUtils;
 
@@ -28,8 +29,8 @@ public class LogInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        UserDAO userDAO = new UserDAO();
-        User user = userDAO.findUserByUsername(username);
+        UserService userService = new UserServiceImpl();
+        User user = userService.findUserByUsername(username);
         if (user == null || !PasswordUtils.checkPassword(password, user.getPassword())) {
             req.setAttribute("errorMsg", "Wrong username and(or) password! Try again.");
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);

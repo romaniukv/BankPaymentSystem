@@ -40,7 +40,8 @@ public class CreditAccountDAO extends AbstractDAO<CreditAccount> {
 
     public List<CreditAccount> selectNewAccounts() {
         List<CreditAccount> creditAccounts = new ArrayList<>();
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
+            Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_NEW_ACCOUNTS);
             ps.setString(1, AccountStatus.UNDER_CONSIDERATION.toString());
             ResultSet rs = ps.executeQuery();

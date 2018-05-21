@@ -20,6 +20,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     private final String DELETE_BY_KEY;
     private String[][] nameMapping;
     private Class<T> entityClass;
+    private Connection connection;
 
     public AbstractDAO(String find_all, String create, String update, String find_by_key, String delete_by_key, String[][] nameMapping, Class<T> entityClass) {
         FIND_ALL = find_all;
@@ -31,10 +32,18 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         this.entityClass = entityClass;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public List<T> selectAll() {
         List<T> entities = new ArrayList<>();
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
             PreparedStatement ps = connection.prepareStatement(FIND_ALL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -50,7 +59,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public boolean create(T entity) {
         boolean success = false;
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
             PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
             if(addParameters(entity, ps)) {
                 ps.execute();
@@ -60,6 +69,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
                 }
             }
         } catch (SQLException | IllegalAccessException e) {
+            e.printStackTrace();
             success = false;
         }
         return success;
@@ -68,7 +78,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public boolean update(T entity) {
         boolean flag = false;
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
             PreparedStatement ps = connection.prepareStatement(UPDATE);
             addParameters(entity, ps);
             int indexOfLastParameter = ps.getParameterMetaData().getParameterCount();
@@ -76,12 +86,12 @@ public abstract class AbstractDAO<T> implements DAO<T> {
             if (field != null) {
                 field.setAccessible(true);
                 ps.setInt(indexOfLastParameter, field.getInt(entity));
+                System.out.println(indexOfLastParameter);
                 ps.execute();
                 flag = true;
             }
         } catch (SQLException | IllegalAccessException e) {
             flag = false;
-            e.printStackTrace();
         }
         return flag;
     }
@@ -89,7 +99,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public T findByKey(int key) {
         T entity = null;
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
             PreparedStatement ps = connection.prepareStatement(FIND_BY_KEY);
             ps.setInt(1,key);
             ResultSet rs = ps.executeQuery();
@@ -104,7 +114,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
     @Override
     public void deleteByKey(int key) {
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
             PreparedStatement ps = connection.prepareStatement(DELETE_BY_KEY);
             ps.setInt(1,key);
             ps.execute();

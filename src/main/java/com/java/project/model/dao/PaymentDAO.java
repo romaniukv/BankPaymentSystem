@@ -1,14 +1,16 @@
 package com.java.project.model.dao;
 
 import com.java.project.model.domain.Payment;
-import com.java.project.model.domain.Transaction;
 import com.java.project.services.DBConnection;
+import com.java.project.services.impl.TransactionServiceImpl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class PaymentDAO extends AbstractDAO<Payment> {
@@ -37,7 +39,8 @@ public class PaymentDAO extends AbstractDAO<Payment> {
 
     public List<Payment> selectAllByAccountNumber(long accountNumber) {
         List<Payment> payments = new ArrayList<>();
-        try (Connection connection = DBConnection.getInstance().getConnection()) {
+        try {
+            Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_ALL_BY_ACCOUNT_NUMBER);
             ps.setLong(1, accountNumber);
             ResultSet rs = ps.executeQuery();
@@ -50,5 +53,31 @@ public class PaymentDAO extends AbstractDAO<Payment> {
             e.printStackTrace();
         }
         return payments;
+    }
+
+    public boolean payBill(String senderName, long senderAccount, String receiverName, long receiverAccount, BigDecimal amount, String purpose) {
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            boolean flag = new TransactionDAO().withdrawMoneyFromAccount(connection, senderAccount, amount);
+            if (!flag) {
+                return false;
+            }
+
+            Payment payment = new Payment(senderName, senderAccount, receiverName, receiverAccount, amount, purpose,
+                    new GregorianCalendar().getTime());
+
+            if (create(payment)) {
+                connection.commit();
+                return true;
+            }
+        } catch (SQLException e) {
+            DBConnection.rollbackConnection(connection);
+            return false;
+        } finally {
+            DBConnection.closeConnection(connection);
+        }
+        return false;
     }
 }

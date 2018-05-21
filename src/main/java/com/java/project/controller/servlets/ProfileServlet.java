@@ -1,12 +1,12 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.model.dao.CreditAccountDAO;
-import com.java.project.model.dao.DepositAccountDAO;
-import com.java.project.model.dao.PaymentDAO;
-import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.DepositAccount;
+import com.java.project.services.CreditAccountService;
+import com.java.project.services.DepositAccountService;
+import com.java.project.services.impl.CreditAccountServiceImpl;
+import com.java.project.services.impl.DepositAccountServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -24,13 +24,14 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
 
-        CreditAccount creditAccount = new CreditAccountDAO().selectByUserId(userId);
+        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+        CreditAccount creditAccount = creditAccountService.selectByUserId(userId);
         if (creditAccount != null && creditAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("creditAccount", creditAccount);
         }
 
-
-        List<DepositAccount> depositAccounts = new DepositAccountDAO().selectByUserId(userId);
+        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
+        List<DepositAccount> depositAccounts = depositAccountService.selectByUserId(userId);
         if (depositAccounts.size() != 0) {
             req.setAttribute("depositAccounts", depositAccounts);
         }
