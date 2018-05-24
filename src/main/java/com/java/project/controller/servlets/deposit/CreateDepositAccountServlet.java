@@ -1,10 +1,9 @@
 package com.java.project.controller.servlets.deposit;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.services.BankConfigService;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.model.domain.User;
-import com.java.project.services.DepositAccountService;
-import com.java.project.services.impl.DepositAccountServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -28,7 +27,7 @@ public class CreateDepositAccountServlet extends HttpServlet {
         else {
             try {
                 int id = AppUtils.getIdFromRequest(req, resp);
-                req.setAttribute("account", new BankConfigService().findDepositInCatalog(id));
+                req.setAttribute("account", ServiceFactory.getBankConfigService().findDepositInCatalog(id));
                 req.getRequestDispatcher("/views/deposit/createDepositAccount.jsp").forward(req, resp);
             } catch (Exception e) {
                 req.setAttribute("errorMessage", "");
@@ -39,21 +38,21 @@ public class CreateDepositAccountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
-        long accountNumber = new BankConfigService().getNewAccountNumber();
-
         int id = AppUtils.getIdFromRequest(req, resp);
-        DepositAccount depositAccount = new BankConfigService().findDepositInCatalog(id);
+
+        BankConfigService bankConfigService = ServiceFactory.getBankConfigService();
+        long accountNumber = bankConfigService.getNewAccountNumber();
+
+        DepositAccount depositAccount = bankConfigService.findDepositInCatalog(id);
         depositAccount.setAmount(amount);
         depositAccount.setBalance(amount);
         depositAccount.setUserId(userId);
         depositAccount.setNumber(accountNumber);
         depositAccount.calculateExpirationDate();
 
-        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
-        boolean flag = depositAccountService.create(depositAccount);
+        boolean flag = ServiceFactory.getDepositAccountSrvice().create(depositAccount);
 
         if (flag) {
             req.setAttribute("successMessage", "");

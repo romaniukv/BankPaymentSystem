@@ -1,6 +1,7 @@
-package com.java.project.model.dao;
+package com.java.project.model.dao.generic.impl;
 
 
+import com.java.project.model.dao.generic.GenericDAO;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.Role;
 
@@ -10,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractDAO<T> implements DAO<T> {
+public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     private final String FIND_ALL;
     private final String CREATE;
@@ -21,7 +22,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     private Class<T> entityClass;
     private Connection connection;
 
-    public AbstractDAO(String find_all, String create, String update, String find_by_key, String delete_by_key, String[][] nameMapping, Class<T> entityClass) {
+    public GenericDAOImpl(String find_all, String create, String update, String find_by_key, String delete_by_key, String[][] nameMapping, Class<T> entityClass) {
         FIND_ALL = find_all;
         CREATE = create;
         UPDATE = update;
@@ -42,8 +43,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public List<T> selectAll() {
         List<T> entities = new ArrayList<>();
-        try {
-            PreparedStatement ps = connection.prepareStatement(FIND_ALL);
+        try (PreparedStatement ps = connection.prepareStatement(FIND_ALL)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 T entity = createEntityFromResultSet(rs);
@@ -58,8 +58,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public boolean create(T entity) {
         boolean success = false;
-        try {
-            PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
             if(addParameters(entity, ps)) {
                 ps.execute();
                 ResultSet rs = ps.getGeneratedKeys();
@@ -77,8 +76,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public boolean update(T entity) {
         boolean flag = false;
-        try {
-            PreparedStatement ps = connection.prepareStatement(UPDATE);
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE)) {
             addParameters(entity, ps);
             int indexOfLastParameter = ps.getParameterMetaData().getParameterCount();
             Field field = getField("id");
@@ -97,8 +95,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public T findByKey(int key) {
         T entity = null;
-        try {
-            PreparedStatement ps = connection.prepareStatement(FIND_BY_KEY);
+        try (PreparedStatement ps = connection.prepareStatement(FIND_BY_KEY);) {
             ps.setInt(1,key);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -112,8 +109,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
     @Override
     public void deleteByKey(int key) {
-        try {
-            PreparedStatement ps = connection.prepareStatement(DELETE_BY_KEY);
+        try (PreparedStatement ps = connection.prepareStatement(DELETE_BY_KEY)) {
             ps.setInt(1,key);
             ps.execute();
         } catch (SQLException e) {

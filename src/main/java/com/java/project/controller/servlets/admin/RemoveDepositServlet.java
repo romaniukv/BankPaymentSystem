@@ -1,6 +1,6 @@
 package com.java.project.controller.servlets.admin;
 
-import com.java.project.services.BankConfigService;
+import com.java.project.factory.ServiceFactory;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ public class RemoveDepositServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int id = AppUtils.getIdFromRequest(req, resp);
-        new BankConfigService().removeDepositFromCatalog(id);
+        ServiceFactory.getBankConfigService().removeDepositFromCatalog(id);
         resp.sendRedirect(req.getContextPath() + "/adminPanel");
     }
 }

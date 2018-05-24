@@ -1,11 +1,8 @@
 package com.java.project.controller.servlets.deposit;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.DepositAccount;
-import com.java.project.services.DepositAccountService;
-import com.java.project.services.DepositReplenishmentService;
-import com.java.project.services.impl.DepositAccountServiceImpl;
-import com.java.project.services.impl.DepositReplenishmentServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -22,18 +19,17 @@ public class LastReplenishmentsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = AppUtils.getIdFromRequest(req, resp);
 
-        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
-        DepositAccount depositAccount = depositAccountService.findByKey(id);
+        DepositAccount depositAccount = ServiceFactory.getDepositAccountSrvice().findByKey(id);
+
         if (depositAccount != null && depositAccount.getStatus() != AccountStatus.CLOSED) {
             req.setAttribute("depositAccount", depositAccount);
-            DepositReplenishmentService replenishmentService = new DepositReplenishmentServiceImpl();
-            req.setAttribute("replenishments", replenishmentService.selectAllByAccountNumber(depositAccount.getNumber()));
+
+            req.setAttribute("replenishments", ServiceFactory.getDepositReplenishmentService()
+                    .selectAllByAccountNumber(depositAccount.getNumber()));
             req.getRequestDispatcher("/views/deposit/lastReplenishments.jsp").forward(req, resp);
         } else {
             req.setAttribute("errorMessage", "Deposit account is closed or doesn't exist.");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
-
-
     }
 }

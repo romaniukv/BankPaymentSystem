@@ -1,12 +1,9 @@
 package com.java.project.controller.servlets;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.DepositAccount;
-import com.java.project.services.CreditAccountService;
-import com.java.project.services.DepositAccountService;
-import com.java.project.services.impl.CreditAccountServiceImpl;
-import com.java.project.services.impl.DepositAccountServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -24,14 +21,12 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = AppUtils.getLoginedUser(req.getSession()).getId();
 
-        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
-        CreditAccount creditAccount = creditAccountService.selectByUserId(userId);
+        CreditAccount creditAccount = ServiceFactory.getCreditAccountService().selectByUserId(userId);
         if (creditAccount != null && creditAccount.getStatus() == AccountStatus.OPENED) {
             req.setAttribute("creditAccount", creditAccount);
         }
 
-        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
-        List<DepositAccount> depositAccounts = depositAccountService.selectByUserId(userId);
+        List<DepositAccount> depositAccounts = ServiceFactory.getDepositAccountSrvice().selectByUserId(userId);
         if (depositAccounts.size() != 0) {
             req.setAttribute("depositAccounts", depositAccounts);
         }

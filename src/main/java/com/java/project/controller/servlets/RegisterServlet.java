@@ -1,5 +1,6 @@
 package com.java.project.controller.servlets;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.Role;
 import com.java.project.model.domain.User;
 import com.java.project.services.UserService;
@@ -33,9 +34,10 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+
         User user = new User(Role.USER, username, PasswordUtils.encryptPassword(password), email, firstName, lastName);
-        UserService userService = new UserServiceImpl();
-        if (userService.create(user)) {
+
+        if (ServiceFactory.getUserService().create(user)) {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/profile");
         }

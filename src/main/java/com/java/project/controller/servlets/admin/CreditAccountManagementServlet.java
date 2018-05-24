@@ -1,12 +1,10 @@
 package com.java.project.controller.servlets.admin;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
 import com.java.project.services.CreditAccountService;
-import com.java.project.services.UserService;
-import com.java.project.services.impl.CreditAccountServiceImpl;
-import com.java.project.services.impl.UserServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -23,13 +21,12 @@ public class CreditAccountManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountId = AppUtils.getIdFromRequest(req, resp);
 
-        CreditAccount creditAccount = new CreditAccountServiceImpl().findByKey(accountId);
+        CreditAccount creditAccount = ServiceFactory.getCreditAccountService().findByKey(accountId);
 
         if (creditAccount != null) {
             req.setAttribute("creditAccount", creditAccount);
 
-            UserService userService = new UserServiceImpl();
-            User accountOwner = userService.findByKey(creditAccount.getUserId());
+            User accountOwner = ServiceFactory.getUserService().findByKey(creditAccount.getUserId());
             req.setAttribute("accountOwner", accountOwner);
 
             req.setAttribute("statuses", AccountStatus.values());
@@ -39,11 +36,12 @@ public class CreditAccountManagementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         AccountStatus status = AccountStatus.valueOf(req.getParameter("accountStatus"));
 
         int id = AppUtils.getIdFromRequest(req, resp);
 
-        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+        CreditAccountService creditAccountService = ServiceFactory.getCreditAccountService();
         CreditAccount creditAccount = creditAccountService.findByKey(id);
 
         boolean flag = false;

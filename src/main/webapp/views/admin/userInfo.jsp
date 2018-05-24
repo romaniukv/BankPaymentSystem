@@ -1,8 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
@@ -14,29 +17,29 @@
 <div class="main">
     <div class="tabs">
         <input type="radio" name="inset" value="" id="tab_1" checked>
-        <label for="tab_1">Info</label>
+        <label for="tab_1"><fmt:message key="info"/></label>
 
         <input type="radio" name="inset" value="" id="tab_2">
-        <label for="tab_2">Deposit Accounts</label>
+        <label for="tab_2"><fmt:message key="depositAccounts"/></label>
 
         <div id="txt_1">
             <div class="my-table">
                 <table class="table">
                     <tr>
-                        <td>Имя:</td>
-                        <td>${sessionScope.user.firstName}</td>
+                        <td><fmt:message key="user.firstName"/>:</td>
+                        <td>${requestScope.userInfo.firstName}</td>
                     </tr>
                     <tr>
-                        <td>Фамилия:</td>
-                        <td>${sessionScope.user.lastName}</td>
+                        <td><fmt:message key="user.lastName"/>:</td>
+                        <td>${requestScope.userInfo.lastName}</td>
                     </tr>
                     <tr>
-                        <td>e-mail:</td>
-                        <td>${sessionScope.user.email}</td>
+                        <td><fmt:message key="user.email"/>:</td>
+                        <td>${requestScope.userInfo.email}</td>
                     </tr>
                     <tr>
-                        <td>username:</td>
-                        <td>${sessionScope.user.username}</td>
+                        <td><fmt:message key="user.username"/>:</td>
+                        <td>${requestScope.userInfo.username}</td>
                     </tr>
                 </table>
             </div>
@@ -45,32 +48,32 @@
         <div id="txt_2">
             <c:if test="${requestScope.depositAccounts != null}">
                 <hr>
-                <h4>Deposit accounts:</h4>
+                <h4><fmt:message key="depositAccounts"/></h4>
                 <hr>
                 <c:forEach var="depositAccount" items="${requestScope.depositAccounts}">
                     <div class="my-table">
                         <table class="table">
                             <tr>
-                                <td>Number:</td>
+                                <td><fmt:message key="account.number"/></td>
                                 <td>
                                     <fmt:formatNumber type="number" pattern="####,####,####,####"
                                                       value="${depositAccount.number}" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>Balance:</td>
+                                <td><fmt:message key="account.balance"/></td>
                                 <td>${depositAccount.balance}</td>
                             </tr>
                             <tr>
-                                <td>Expiration date:</td>
+                                <td><fmt:message key="account.expirationDate"/></td>
                                 <td>${depositAccount.expirationDate}</td>
                             </tr>
                             <tr>
-                                <td>Deposit amount:</td>
+                                <td><fmt:message key="deposit.amount"/></td>
                                 <td>${depositAccount.amount}</td>
                             </tr>
                             <tr>
-                                <td>Deposit rate:</td>
+                                <td><fmt:message key="deposit.rate"/></td>
                                 <td>${depositAccount.rate} %</td>
                             </tr>
                             <tr>
@@ -78,7 +81,7 @@
                                 </td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/historyOfReplenishments?id=${depositAccount.id}">
-                                        More info
+                                        <fmt:message key="deposit.history"/>
                                     </a>
                                 </td>
                             </tr>

@@ -1,10 +1,7 @@
 package com.java.project.controller.servlets.transactions;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
-import com.java.project.services.DepositAccountService;
-import com.java.project.services.DepositReplenishmentService;
-import com.java.project.services.impl.DepositAccountServiceImpl;
-import com.java.project.services.impl.DepositReplenishmentServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -21,8 +18,9 @@ public class DepositReplenishmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = AppUtils.getIdFromRequest(req, resp);
-        DepositAccountService depositAccountService = new DepositAccountServiceImpl();
-        DepositAccount depositAccount = depositAccountService.findByKey(id);
+
+        DepositAccount depositAccount = ServiceFactory.getDepositAccountSrvice().findByKey(id);
+
         if (depositAccount != null) {
             req.setAttribute("depositAccount", depositAccount);
             req.getRequestDispatcher("/views/deposit/depositReplenishment.jsp").forward(req, resp);
@@ -39,8 +37,8 @@ public class DepositReplenishmentServlet extends HttpServlet {
         long receiverAccountNumber = Long.valueOf(req.getParameter("receiverAccountNumber"));
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
-        DepositReplenishmentService replenishmentService = new DepositReplenishmentServiceImpl();
-        if (replenishmentService.replenishDeposit(senderAccountNumber, receiverAccountNumber, amount)) {
+        if (ServiceFactory.getDepositReplenishmentService()
+                .replenishDeposit(senderAccountNumber, receiverAccountNumber, amount)) {
             req.setAttribute("successMessage", "Transaction success.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {

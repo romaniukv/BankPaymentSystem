@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
@@ -16,17 +19,17 @@
     <c:if test="${!requestScope.transactions.isEmpty()}">
         <table class="table table-bordered table-striped table-hover">
             <tr>
-                <th>Date</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>Amount</th>
+                <th><fmt:message key="date"/></th>
+                <th><fmt:message key="senderAccountNumber"/></th>
+                <th><fmt:message key="receiverAccountNumber"/></th>
+                <th><fmt:message key="amount"/></th>
             </tr>
             <c:forEach var="transaction" items="${requestScope.transactions}">
                 <tr>
                     <td>${transaction.date}</td>
                     <td>
                         <c:if test="${transaction.senderAccountNumber.equals(requestScope.creditAccount.number)}">
-                            Me
+                            <fmt:message key="me"/>
                         </c:if>
                         <c:if test="${!transaction.senderAccountNumber.equals(requestScope.creditAccount.number)}">
                             <fmt:formatNumber type="number" pattern="####,####,####,####"
@@ -35,7 +38,7 @@
                     </td>
                     <td>
                         <c:if test="${transaction.receiverAccountNumber.equals(requestScope.creditAccount.number)}">
-                            Me
+                            <fmt:message key="me"/>
                         </c:if>
                         <c:if test="${!transaction.receiverAccountNumber.equals(requestScope.creditAccount.number)}">
                             <fmt:formatNumber type="number" pattern="####,####,####,####"

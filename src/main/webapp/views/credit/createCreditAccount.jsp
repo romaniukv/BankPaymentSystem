@@ -1,6 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
@@ -13,15 +17,15 @@
 
     <div class="credit-form">
         <form action="createCreditAccount" method="post">
-            <h1 id="selectCL">Select credit limit</h1>
+            <h1 id="selectCL"><fmt:message key="selectCreditLimit"/></h1>
             <c:forEach var="limit" items="${sessionScope.creditLimits}">
                 <label class="container">${limit.key}
                     <input type="radio" checked="checked" name="creditLimit" value="${limit.key}">
-                    <p class="message">Credit rate is : ${limit.value} %</p>
+                    <p class="message"><fmt:message key="creditRateIs"/> : ${limit.value} %</p>
                     <span class="checkmark"></span>
                 </label>
             </c:forEach>
-            <button type="submit">Create</button>
+            <button type="submit"><fmt:message key="create"/></button>
         </form>
     </div>
 </div>

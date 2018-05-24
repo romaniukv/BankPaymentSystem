@@ -1,10 +1,8 @@
 package com.java.project.controller.servlets.admin;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.DepositAccount;
-import com.java.project.services.BankConfigService;
-import com.java.project.services.CreditAccountService;
-import com.java.project.services.impl.CreditAccountServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,18 +17,14 @@ public class AdminPanelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
-        List<CreditAccount> newCreditAccounts = creditAccountService.selectNewAccounts();
+
+        List<CreditAccount> newCreditAccounts = ServiceFactory.getCreditAccountService().selectNewAccounts();
         req.setAttribute("newCreditAccounts", newCreditAccounts);
 
-        List<DepositAccount> availableDeposits = new BankConfigService().selectAvailableDepositAccountsFromCatalog();
+        List<DepositAccount> availableDeposits = ServiceFactory.getBankConfigService().selectAvailableDepositAccountsFromCatalog();
         req.setAttribute("availableDeposits", availableDeposits);
 
         req.getRequestDispatcher("/views/admin/adminPanel.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }

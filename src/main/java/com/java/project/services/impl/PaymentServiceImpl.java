@@ -1,6 +1,8 @@
 package com.java.project.services.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.PaymentDAO;
+import com.java.project.model.dao.impl.PaymentDAOImpl;
 import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
 import com.java.project.services.PaymentService;
@@ -16,9 +18,13 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
 
     private PaymentDAO paymentDAO;
 
+    public PaymentServiceImpl(PaymentDAO paymentDAO) {
+        this.paymentDAO = paymentDAO;
+        setDAOImpl(paymentDAO);
+    }
+
     public PaymentServiceImpl() {
-        this.paymentDAO = new PaymentDAO();
-        setAbstractDAO(paymentDAO);
+        this(DAOFactory.getPaymentDAO());
     }
 
     @Override
@@ -50,7 +56,10 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
             connection.setAutoCommit(false);
             paymentDAO.setConnection(connection);
             flag = paymentDAO.payBill(senderName, senderAccount, receiverName, receiverAccount, amount, purpose);
-            connection.commit();
+            if (flag)
+                connection.commit();
+            else
+                connection.rollback();
         } catch (SQLException e) {
             flag = false;
             DBConnection.rollbackAndCloseConnection(connection);

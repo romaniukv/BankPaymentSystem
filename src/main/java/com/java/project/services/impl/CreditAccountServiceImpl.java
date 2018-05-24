@@ -1,5 +1,6 @@
 package com.java.project.services.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.services.CreditAccountService;
@@ -14,9 +15,13 @@ public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> 
 
     private CreditAccountDAO creditAccountDAO;
 
+    public CreditAccountServiceImpl(CreditAccountDAO creditAccountDAO) {
+        this.creditAccountDAO = creditAccountDAO;
+        setDAOImpl(creditAccountDAO);
+    }
+
     public CreditAccountServiceImpl() {
-        this.creditAccountDAO = new CreditAccountDAO();
-        setAbstractDAO(creditAccountDAO);
+        this(DAOFactory.getCreditAccountDAO());
     }
 
     @Override

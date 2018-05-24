@@ -1,6 +1,6 @@
 package com.java.project.services.generic.impl;
 
-import com.java.project.model.dao.AbstractDAO;
+import com.java.project.model.dao.generic.GenericDAO;
 import com.java.project.services.DBConnection;
 import com.java.project.services.generic.GenericService;
 
@@ -10,14 +10,14 @@ import java.util.List;
 
 public class GenericServiceImpl<T> implements GenericService<T> {
 
-    private AbstractDAO<T> abstractDAO;
+    private GenericDAO<T> genericDAO;
 
     public GenericServiceImpl() {
 
     }
 
-    public void setAbstractDAO(AbstractDAO<T> abstractDAO) {
-        this.abstractDAO = abstractDAO;
+    public void setDAOImpl(GenericDAO<T> genericDAO) {
+        this.genericDAO = genericDAO;
     }
 
     @Override
@@ -27,13 +27,12 @@ public class GenericServiceImpl<T> implements GenericService<T> {
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
-            abstractDAO.setConnection(connection);
-            entities = abstractDAO.selectAll();
+            genericDAO.setConnection(connection);
+            entities = genericDAO.selectAll();
             connection.commit();
         } catch (SQLException e) {
             DBConnection.rollbackAndCloseConnection(connection);
-        }
-        finally {
+        } finally {
             DBConnection.closeConnection(connection);
         }
         return entities;
@@ -46,14 +45,13 @@ public class GenericServiceImpl<T> implements GenericService<T> {
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
-            abstractDAO.setConnection(connection);
-            flag = abstractDAO.create(entity);
+            genericDAO.setConnection(connection);
+            flag = genericDAO.create(entity);
             connection.commit();
         } catch (SQLException e) {
             flag = false;
             DBConnection.rollbackAndCloseConnection(connection);
-        }
-        finally {
+        } finally {
             DBConnection.closeConnection(connection);
         }
         return flag;
@@ -66,15 +64,14 @@ public class GenericServiceImpl<T> implements GenericService<T> {
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
-            abstractDAO.setConnection(connection);
-            flag = abstractDAO.update(entity);
+            genericDAO.setConnection(connection);
+            flag = genericDAO.update(entity);
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             flag = false;
             DBConnection.rollbackAndCloseConnection(connection);
-        }
-        finally {
+        } finally {
             DBConnection.closeConnection(connection);
         }
         return flag;
@@ -87,13 +84,12 @@ public class GenericServiceImpl<T> implements GenericService<T> {
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
-            abstractDAO.setConnection(connection);
-            entity = abstractDAO.findByKey(key);
+            genericDAO.setConnection(connection);
+            entity = genericDAO.findByKey(key);
             connection.commit();
         } catch (SQLException e) {
             DBConnection.rollbackAndCloseConnection(connection);
-        }
-        finally {
+        } finally {
             DBConnection.closeConnection(connection);
         }
         return entity;
@@ -105,13 +101,12 @@ public class GenericServiceImpl<T> implements GenericService<T> {
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
-            abstractDAO.setConnection(connection);
-            abstractDAO.deleteByKey(key);
+            genericDAO.setConnection(connection);
+            genericDAO.deleteByKey(key);
             connection.commit();
         } catch (SQLException e) {
             DBConnection.rollbackAndCloseConnection(connection);
-        }
-        finally {
+        } finally {
             DBConnection.closeConnection(connection);
         }
     }

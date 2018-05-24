@@ -1,6 +1,6 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.services.BankConfigService;
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,8 @@ public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<DepositAccount> availableDepositAccounts = new BankConfigService().selectAvailableDepositAccountsFromCatalog();
+        List<DepositAccount> availableDepositAccounts = ServiceFactory.getBankConfigService()
+                .selectAvailableDepositAccountsFromCatalog();
         req.setAttribute("depositAccounts", availableDepositAccounts);
         req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
     }

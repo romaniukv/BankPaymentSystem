@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
@@ -11,15 +14,15 @@
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
     <c:if test="${requestScope.replenishments.isEmpty()}">
-        No replenishments
+        <fmt:message key="emptyReplenishments"/>
     </c:if>
-    <c:if test="${requestScope.replenishments.isEmpty()}">
+    <c:if test="${!requestScope.replenishments.isEmpty()}">
         <table class="table table-bordered table-striped table-hover">
             <tr>
-                <th>Date</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>Amount</th>
+                <th><fmt:message key="date"/></th>
+                <th><fmt:message key="sender"/></th>
+                <th><fmt:message key="receiver"/></th>
+                <th><fmt:message key="amount"/></th>
             </tr>
             <c:forEach var="replenishment" items="${requestScope.replenishments}">
                 <tr>

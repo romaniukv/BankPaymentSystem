@@ -1,5 +1,6 @@
 package com.java.project.services.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.domain.Transaction;
 import com.java.project.services.DBConnection;
@@ -14,9 +15,13 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
 
     private TransactionDAO transactionDAO;
 
+    public TransactionServiceImpl(TransactionDAO transactionDAO) {
+        this.transactionDAO = transactionDAO;
+        setDAOImpl(transactionDAO);
+    }
+
     public TransactionServiceImpl() {
-        this.transactionDAO = new TransactionDAO();
-        setAbstractDAO(transactionDAO);
+        this(DAOFactory.getTransacionDAO());
     }
 
     @Override

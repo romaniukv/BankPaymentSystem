@@ -1,7 +1,7 @@
 package com.java.project.controller.servlets.admin;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
-import com.java.project.services.BankConfigService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +25,7 @@ public class AddNewDepositServlet extends HttpServlet {
         int term = Integer.valueOf(req.getParameter("term"));
         BigDecimal rate = BigDecimal.valueOf(Double.valueOf(req.getParameter("rate")));
 
-        if (new BankConfigService().addDepositToCatalog(new DepositAccount(name, term, rate))) {
+        if (ServiceFactory.getBankConfigService().addDepositToCatalog(new DepositAccount(name, term, rate))) {
             req.setAttribute("successMessage", "New deposit added.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {

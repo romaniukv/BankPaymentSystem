@@ -1,8 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
@@ -14,34 +17,34 @@
     <div class="main">
         <div class="tabs">
             <input type="radio" name="inset" value="" id="tab_1" checked>
-            <label for="tab_1">Info</label>
+            <label for="tab_1"><fmt:message key="info"/></label>
 
             <input type="radio" name="inset" value="" id="tab_2">
-            <label for="tab_2">Deposit Accounts</label>
+            <label for="tab_2"><fmt:message key="depositAccounts"/></label>
 
             <input type="radio" name="inset" value="" id="tab_3">
-            <label for="tab_3">Credit Account</label>
+            <label for="tab_3"><fmt:message key="creditAccount"/></label>
 
             <input type="radio" name="inset" value="" id="tab_4">
-            <label for="tab_4">Settings</label>
+            <label for="tab_4"><fmt:message key="settings"/></label>
 
             <div id="txt_1">
                 <div class="my-table">
                     <table class="table">
                         <tr>
-                            <td>Имя:</td>
+                            <td><fmt:message key="user.firstName"/>:</td>
                             <td>${sessionScope.user.firstName}</td>
                         </tr>
                         <tr>
-                            <td>Фамилия:</td>
+                            <td><fmt:message key="user.lastName"/>:</td>
                             <td>${sessionScope.user.lastName}</td>
                         </tr>
                         <tr>
-                            <td>e-mail:</td>
+                            <td><fmt:message key="user.email"/>:</td>
                             <td>${sessionScope.user.email}</td>
                         </tr>
                         <tr>
-                            <td>username:</td>
+                            <td><fmt:message key="user.username"/>:</td>
                             <td>${sessionScope.user.username}</td>
                         </tr>
                     </table>
@@ -58,7 +61,7 @@
 
             <div id="txt_4">
                 <form action="logOut" method="post">
-                    <button type="submit">Log out</button>
+                    <button type="submit"><fmt:message key="logOut"/></button>
                 </form>
             </div>
 

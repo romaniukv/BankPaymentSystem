@@ -3,11 +3,11 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/SetupDataBase.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/SetupTestDataBase.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/CreditAccountDAO.java" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/DepositReplenishmentDAO.java" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/PaymentDAO.java" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/TransactionDAO.java" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/services/BankConfigService.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/impl/CreditAccountDAOImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/impl/DepositReplenishmentDAOImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/impl/PaymentDAOImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/impl/TransactionDAOImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/services/impl/BankConfigServiceImpl.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/services/impl/TransactionServiceImpl.java" dialect="MySQL" />
   </component>
 </project>

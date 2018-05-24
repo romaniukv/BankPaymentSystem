@@ -1,5 +1,6 @@
 package com.java.project.services.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.DepositAccountDAO;
 import com.java.project.model.domain.DepositAccount;
 
@@ -15,9 +16,13 @@ public class DepositAccountServiceImpl extends GenericServiceImpl<DepositAccount
 
     private DepositAccountDAO depositAccountDAO;
 
+    public DepositAccountServiceImpl(DepositAccountDAO depositAccountDAO) {
+        this.depositAccountDAO = depositAccountDAO;
+        setDAOImpl(depositAccountDAO);
+    }
+
     public DepositAccountServiceImpl() {
-        this.depositAccountDAO = new DepositAccountDAO();
-        setAbstractDAO(depositAccountDAO);
+        this(DAOFactory.getDepositAccountDAO());
     }
 
     @Override

@@ -1,11 +1,10 @@
 package com.java.project.controller.servlets.credit;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.services.BankConfigService;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
-import com.java.project.services.CreditAccountService;
-import com.java.project.services.impl.CreditAccountServiceImpl;
 import com.java.project.utils.AppUtils;
 
 import javax.servlet.ServletException;
@@ -21,18 +20,27 @@ public class CreateCreditAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         User user = AppUtils.getLoginedUser(req.getSession());
-        CreditAccount creditAccount = new CreditAccountServiceImpl().selectByUserId(user.getId());
+
+        CreditAccount creditAccount = ServiceFactory.getCreditAccountService().selectByUserId(user.getId());
+
         if (creditAccount != null && creditAccount.getStatus() == AccountStatus.OPENED) {
+
             req.setAttribute("errorMessage", "You're already have credit account in our system!");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
+
         } else if (creditAccount != null && creditAccount.getStatus() == AccountStatus.UNDER_CONSIDERATION) {
+
             req.setAttribute("errorMessage", "Can't create new credit account! " +
                     "Your credit account is under consideration!");
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
+
         } else {
-            req.getSession().setAttribute("creditLimits", new BankConfigService().selectCreditLimits());
+
+            req.getSession().setAttribute("creditLimits", ServiceFactory.getBankConfigService().selectCreditLimits());
             req.getRequestDispatcher("/views/credit/createCreditAccount.jsp").forward(req, resp);
+
         }
 
     }
@@ -40,15 +48,17 @@ public class CreateCreditAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BigDecimal creditLimit = new BigDecimal(req.getParameter("creditLimit"));
-        BigDecimal creditRate = new BankConfigService().selectCreditLimits().get(creditLimit);
         User user = AppUtils.getLoginedUser(req.getSession());
-        long accountNumber = new BankConfigService().getNewAccountNumber();
 
-        CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+        BankConfigService bankConfigService = ServiceFactory.getBankConfigService();
+        BigDecimal creditRate = bankConfigService.selectCreditLimits().get(creditLimit);
+        long accountNumber = bankConfigService.getNewAccountNumber();
+
+
         CreditAccount creditAccount = new CreditAccount(accountNumber, user.getId(), creditLimit, creditRate);
         creditAccount.calculateExpirationDate();
         creditAccount.setStatus(AccountStatus.UNDER_CONSIDERATION);
-        boolean flag = creditAccountService.create(creditAccount);
+        boolean flag = ServiceFactory.getCreditAccountService().create(creditAccount);
 
         if (flag) {
             req.setAttribute("successMessage", "Application for opening a credit account was successfully sent");

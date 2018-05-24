@@ -59,6 +59,7 @@
 }
 
 .transaction-form .errorMsg {
+    text-align: center;
     margin: 0 0 15px;
     color: red;
     height:15px;
@@ -74,7 +75,4 @@
     content: "";
     display: block;
     clear: both;
-}
-#selectCL{
-    padding-bottom: 20px;
 }

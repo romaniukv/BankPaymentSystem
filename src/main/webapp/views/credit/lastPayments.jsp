@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet">
@@ -11,16 +14,16 @@
 <%@ include file="../topMenu.jsp"%>
 <div class="main">
     <c:if test="${requestScope.payments.isEmpty()}">
-        No payments
+        <fmt:message key="emptyPayments"/>
     </c:if>
     <c:if test="${!requestScope.payments.isEmpty()}">
         <table class="table table-bordered table-striped table-hover">
             <tr>
-                <th>Date</th>
-                <th>Receiver</th>
-                <th>Receiver account number</th>
-                <th>Amount</th>
-                <th>Purpose of payment</th>
+                <th><fmt:message key="date"/></th>
+                <th><fmt:message key="receiver"/></th>
+                <th><fmt:message key="receiverAccountNumber"/></th>
+                <th><fmt:message key="amount"/></th>
+                <th><fmt:message key="purpose"/></th>
             </tr>
             <c:forEach var="payment" items="${requestScope.payments}">
                 <tr>

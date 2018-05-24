@@ -1,8 +1,7 @@
 package com.java.project.controller.servlets;
 
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.User;
-import com.java.project.services.UserService;
-import com.java.project.services.impl.UserServiceImpl;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.PasswordUtils;
 
@@ -29,8 +28,9 @@ public class LogInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        UserService userService = new UserServiceImpl();
-        User user = userService.findUserByUsername(username);
+
+        User user = ServiceFactory.getUserService().findUserByUsername(username);
+
         if (user == null || !PasswordUtils.checkPassword(password, user.getPassword())) {
             req.setAttribute("errorMsg", "Wrong username and(or) password! Try again.");
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
@@ -39,10 +39,8 @@ public class LogInServlet extends HttpServlet {
         req.getSession().setAttribute("user", user);
 
         try {
-            System.out.println(req.getParameter("redirectId"));
             int redirectId = Integer.parseInt(req.getParameter("redirectId"));
-            System.out.println(redirectId);
-            String requestUri = AppUtils.getRedirectAfterLoginUrl(redirectId);
+            String requestUri = AppUtils.getRedirectUrl(redirectId);
             if (requestUri != null) {
                 resp.sendRedirect(requestUri);
             }

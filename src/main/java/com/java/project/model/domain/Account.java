@@ -12,7 +12,7 @@ public abstract class Account {
     private Date expirationDate;
     private AccountStatus status;
 
-    //for AbstractDAO
+    //for GenericDAOImpl
     public Account() {
 
     }

@@ -1,11 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope['language']}"/>
+<fmt:setBundle basename="app_localization"/>
+
+<html lang="${sessionScope['language']}">
 <head>
     <title>Banking System</title>
     <link href="<c:url value="/css/topMenu.css" />" rel="stylesheet"/>
-    <link href="<c:url value="/css/login-form.css" />" rel="stylesheet"/>
+    <link href="<c:url value="/css/my-form.css" />" rel="stylesheet"/>
     <link href="<c:url value="/bootstrap/css/bootstrap.css" />" rel="stylesheet"/>
 </head>
 <body>
@@ -16,11 +20,11 @@
                 <input type="hidden" name="id" value="${param.id}" />
                 <table class="table">
                     <tr>
-                        <td>Account number</td>
+                        <td><fmt:message key="account.number"/></td>
                         <td>${requestScope.creditAccount.number}</td>
                     </tr>
                     <tr>
-                        <td>Owner</td>
+                        <td><fmt:message key="account.owner"/></td>
                         <td>
                             <a href="<%=request.getContextPath()%>/userInfo?id=${requestScope.accountOwner.id}">
                                 ${requestScope.accountOwner.lastName} ${requestScope.accountOwner.firstName}
@@ -28,26 +32,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Limit</td>
+                        <td><fmt:message key="creditAccount.limit"/></td>
                         <td>${requestScope.creditAccount.limit}</td>
                     </tr>
                     <tr>
-                        <td>Credit rate</td>
+                        <td><fmt:message key="creditAccount.rate"/></td>
                         <td>${requestScope.creditAccount.creditRate}</td>
                     </tr>
 
                     <tr>
-                        <td>Expiration date</td>
+                        <td><fmt:message key="account.expirationDate"/></td>
                         <td>
                             ${requestScope.creditAccount.expirationDate}
                         </td>
                     </tr>
                     <tr>
-                        <td>Status</td>
+                        <td><fmt:message key="creditAccount.status"/></td>
                         <td>
                             <select name="accountStatus">
                                 <c:forEach var="status" items="${requestScope.statuses}">
-                                    <option value="${status}" <c:if test="${status.equals(requestScope.creditAccount.status)}">selected</c:if>>
+                                    ${sessionScope.language == 'uk' ? 'selected' : ''}
+                                    <option value="${status}" ${status.equals(requestScope.creditAccount.status)? 'selected' : ''}>
                                         ${status.value}
                                     </option>
                                 </c:forEach>
@@ -55,7 +60,7 @@
                         </td>
                     </tr>
                 </table>
-                <button type="submit">Submit</button>
+                <button type="submit"><fmt:message key="save"/></button>
             </form>
         </div>
     </div>

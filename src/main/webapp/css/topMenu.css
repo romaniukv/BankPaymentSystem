@@ -38,3 +38,20 @@
 #link a:hover{
     color: #286330;
 }
+
+.languagepicker {
+    background-color: #FFF;
+    display: inline-block;
+    padding: 0;
+    overflow: hidden;
+    margin: 5px 5px 5px 0;
+    float: right;
+    width: 92px;
+}
+
+
+.languagepicker option:hover{
+    background-color: #EEE;
+}
+
+

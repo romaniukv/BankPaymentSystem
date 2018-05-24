@@ -1,6 +1,8 @@
 package com.java.project.services.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.DepositReplenishmentDAO;
+import com.java.project.model.dao.impl.DepositReplenishmentDAOImpl;
 import com.java.project.model.domain.DepositReplenishment;
 import com.java.project.services.DBConnection;
 import com.java.project.services.DepositReplenishmentService;
@@ -16,9 +18,13 @@ public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositR
 
     private DepositReplenishmentDAO depositReplenishmentDAO;
 
-    public DepositReplenishmentServiceImpl() {
-        this.depositReplenishmentDAO = new DepositReplenishmentDAO();
-        setAbstractDAO(depositReplenishmentDAO);
+    public DepositReplenishmentServiceImpl(DepositReplenishmentDAO depositReplenishmentDAO) {
+        this.depositReplenishmentDAO = depositReplenishmentDAO;
+        setDAOImpl(depositReplenishmentDAO);
+    }
+
+    public DepositReplenishmentServiceImpl(){
+        this(DAOFactory.getDepositReplenishmentDAO());
     }
 
     @Override

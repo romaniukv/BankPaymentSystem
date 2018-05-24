@@ -1,5 +1,6 @@
 package com.java.project.services.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.UserDAO;
 import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
@@ -13,9 +14,13 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 
     private UserDAO userDAO;
 
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+        setDAOImpl(userDAO);
+    }
+
     public UserServiceImpl() {
-        this.userDAO = new UserDAO();
-        setAbstractDAO(userDAO);
+        this(DAOFactory.getUserDAO());
     }
 
     @Override

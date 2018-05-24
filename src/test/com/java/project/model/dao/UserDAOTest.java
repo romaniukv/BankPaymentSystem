@@ -1,5 +1,6 @@
 package com.java.project.model.dao;
 
+import com.java.project.model.dao.impl.UserDAOImpl;
 import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
 import entities.TestEntities;
@@ -29,7 +30,7 @@ public class UserDAOTest {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAOImpl userDAO = new UserDAOImpl();
         userDAO.setConnection(connection);
 
         User expectedUser = TestEntities.getTestUser();
@@ -45,7 +46,7 @@ public class UserDAOTest {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAOImpl userDAO = new UserDAOImpl();
         userDAO.setConnection(connection);
 
         User expectedUser = TestEntities.getTestUser2();
@@ -63,7 +64,7 @@ public class UserDAOTest {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAOImpl userDAO = new UserDAOImpl();
         userDAO.setConnection(connection);
 
         User expectedUser = TestEntities.getTestUser2();
@@ -84,7 +85,7 @@ public class UserDAOTest {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAOImpl userDAO = new UserDAOImpl();
         userDAO.setConnection(connection);
 
         User user = TestEntities.getTestUser2();
