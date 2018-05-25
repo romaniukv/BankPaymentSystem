@@ -4,6 +4,7 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,7 @@ public class LastReplenishmentsServlet extends HttpServlet {
                     .selectAllByAccountNumber(depositAccount.getNumber()));
             req.getRequestDispatcher("/views/deposit/lastReplenishments.jsp").forward(req, resp);
         } else {
-            req.setAttribute("errorMessage", "Deposit account is closed or doesn't exist.");
+            req.setAttribute("errorMessage", LocalizationUtils.DEPOSIT_IS_CLOSED);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

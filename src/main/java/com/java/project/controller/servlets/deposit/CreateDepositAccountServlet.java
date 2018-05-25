@@ -5,6 +5,7 @@ import com.java.project.services.BankConfigService;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,19 +21,15 @@ public class CreateDepositAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = AppUtils.getLoginedUser(req.getSession());
-        if (user == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+        int id = AppUtils.getIdFromRequest(req, resp);
+        DepositAccount deposit = ServiceFactory.getBankConfigService().findDepositInCatalog(id);
+        if (deposit != null) {
+            req.setAttribute("account", deposit);
+            req.getRequestDispatcher("/views/deposit/createDepositAccount.jsp").forward(req, resp);
         }
         else {
-            try {
-                int id = AppUtils.getIdFromRequest(req, resp);
-                req.setAttribute("account", ServiceFactory.getBankConfigService().findDepositInCatalog(id));
-                req.getRequestDispatcher("/views/deposit/createDepositAccount.jsp").forward(req, resp);
-            } catch (Exception e) {
-                req.setAttribute("errorMessage", "");
-                req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
-            }
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_CREATE_DEPOSIT);
+            req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }
 
@@ -55,11 +52,10 @@ public class CreateDepositAccountServlet extends HttpServlet {
         boolean flag = ServiceFactory.getDepositAccountSrvice().create(depositAccount);
 
         if (flag) {
-            req.setAttribute("successMessage", "");
-            req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
-            req.setAttribute("errorMessage", "There was an error opening the deposit account. Try again.");
+            req.setAttribute("errorMessage", LocalizationUtils.CREATE_DEPOSIT_ERROR);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

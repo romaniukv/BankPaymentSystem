@@ -4,6 +4,7 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,7 @@ public class LastPaymentsServlet extends HttpServlet {
             req.getRequestDispatcher("/views/credit/lastPayments.jsp").forward(req, resp);
         }
         else {
-            req.setAttribute("errorMessage", "Credit account is closed or doesn't exist.");
+            req.setAttribute("errorMessage", LocalizationUtils.CREDIT_IS_CLOSED);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

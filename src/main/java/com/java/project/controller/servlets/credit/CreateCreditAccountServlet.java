@@ -6,6 +6,7 @@ import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,13 +28,12 @@ public class CreateCreditAccountServlet extends HttpServlet {
 
         if (creditAccount != null && creditAccount.getStatus() == AccountStatus.OPENED) {
 
-            req.setAttribute("errorMessage", "You're already have credit account in our system!");
+            req.setAttribute("errorMessage", LocalizationUtils.ALREADY_HAVE_CREDIT);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
 
         } else if (creditAccount != null && creditAccount.getStatus() == AccountStatus.UNDER_CONSIDERATION) {
 
-            req.setAttribute("errorMessage", "Can't create new credit account! " +
-                    "Your credit account is under consideration!");
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_CREATE_CREDIT);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
 
         } else {
@@ -61,11 +61,11 @@ public class CreateCreditAccountServlet extends HttpServlet {
         boolean flag = ServiceFactory.getCreditAccountService().create(creditAccount);
 
         if (flag) {
-            req.setAttribute("successMessage", "Application for opening a credit account was successfully sent");
+            req.setAttribute("successMessage", LocalizationUtils.CREATE_CREDIT_SUCCESS);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         }
         else {
-            req.setAttribute("errorMessage", "There was an error opening the credit account. Try again.");
+            req.setAttribute("errorMessage", LocalizationUtils.CREATE_CREDIT_ERROR);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

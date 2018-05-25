@@ -1,6 +1,6 @@
 package com.java.project.controller.servlets;
 
-import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,10 @@ public class ChangeLanguageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setAttribute("language", req.getParameter("language"));
+        String language =  req.getParameter("language");
+
+        LocalizationUtils.changeLanguage(language);
+        req.getSession().setAttribute("language", language);
 
         resp.sendRedirect(req.getContextPath() + "/home");
     }

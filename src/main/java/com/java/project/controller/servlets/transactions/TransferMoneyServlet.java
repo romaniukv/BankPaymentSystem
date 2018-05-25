@@ -3,6 +3,7 @@ package com.java.project.controller.servlets.transactions;
 import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +26,7 @@ public class TransferMoneyServlet extends HttpServlet {
             req.getRequestDispatcher("/views/credit/transferMoney.jsp").forward(req, resp);
         }
         else {
-            req.setAttribute("errorMessage", "Can not transfer money! No credit account found.");
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_TRANSFER_MONEY);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }
@@ -37,10 +38,10 @@ public class TransferMoneyServlet extends HttpServlet {
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
         if (ServiceFactory.getTransactionService().transferMoney(fromAccount, toAccount, amount)) {
-            req.setAttribute("successMessage", "Transaction success.");
+            req.setAttribute("successMessage", LocalizationUtils.TRANSACTION_SUCCESS);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
-            req.setAttribute("errorMessage", "Transaction failed.");
+            req.setAttribute("errorMessage", LocalizationUtils.TRANSACTION_FAILED);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

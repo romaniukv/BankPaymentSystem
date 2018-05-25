@@ -50,7 +50,6 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 entities.add(entity);
             }
         } catch (SQLException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
         }
         return entities;
     }
@@ -59,7 +58,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     public boolean create(T entity) {
         boolean success = false;
         try (PreparedStatement ps = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
-            if(addParameters(entity, ps)) {
+            if (addParameters(entity, ps)) {
                 ps.execute();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
@@ -67,7 +66,6 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 }
             }
         } catch (SQLException | IllegalAccessException e) {
-            e.printStackTrace();
             success = false;
         }
         return success;

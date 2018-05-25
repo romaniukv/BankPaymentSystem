@@ -3,6 +3,7 @@ package com.java.project.controller.servlets.transactions;
 import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,7 @@ public class DepositReplenishmentServlet extends HttpServlet {
             req.getRequestDispatcher("/views/deposit/depositReplenishment.jsp").forward(req, resp);
         }
         else {
-            req.setAttribute("errorMessage", "Deposit account not found.");
+            req.setAttribute("errorMessage", LocalizationUtils.DEPOSIT_NOT_FOUND);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }
@@ -42,7 +43,7 @@ public class DepositReplenishmentServlet extends HttpServlet {
             req.setAttribute("successMessage", "Transaction success.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
-            req.setAttribute("errorMessage", "Can not replenish deposit. Try again.");
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_REPLENISH);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

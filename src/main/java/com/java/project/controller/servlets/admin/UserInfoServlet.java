@@ -4,6 +4,7 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,7 @@ public class UserInfoServlet extends HttpServlet {
             req.getRequestDispatcher("/views/admin/userInfo.jsp").forward(req, resp);
 
         } else {
-            req.setAttribute("errorMessage", "Such user doesn't exist.");
+            req.setAttribute("errorMessage", LocalizationUtils.USER_NOT_EXIST);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

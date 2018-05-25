@@ -4,6 +4,7 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class PayBillServlet extends HttpServlet {
             req.getRequestDispatcher("/views/credit/payBill.jsp").forward(req, resp);
         }
         else {
-            req.setAttribute("errorMessage", "Can not pay bill! No credit account found.");
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_PAY_BILL);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }
@@ -45,10 +46,10 @@ public class PayBillServlet extends HttpServlet {
 
         if (ServiceFactory.getPaymentService()
                 .payBill(senderName, senderAccount, receiverName, receiverAccount, amount, purpose)) {
-            req.setAttribute("successMessage", "Payment success.");
+            req.setAttribute("successMessage", LocalizationUtils.PAYMENT_SUCCESS);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
-            req.setAttribute("errorMessage", "Payment failed.");
+            req.setAttribute("errorMessage", LocalizationUtils.PAYMENT_FAILED);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

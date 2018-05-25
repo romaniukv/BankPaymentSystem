@@ -3,6 +3,7 @@ package com.java.project.controller.servlets.admin;
 import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,7 @@ public class EditDepositServlet extends HttpServlet {
             req.setAttribute("deposit", deposit);
             req.getRequestDispatcher("/views/admin/editDeposit.jsp").forward(req, resp);
         } else {
-            req.setAttribute("errorMessage", "This deposit doesn't exist.");
+            req.setAttribute("errorMessage", LocalizationUtils.DEPOSIT_NOT_EXIST);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }
@@ -41,7 +42,7 @@ public class EditDepositServlet extends HttpServlet {
         if (ServiceFactory.getBankConfigService().updateDepositInCatalog(name, term, rate, id)) {
             resp.sendRedirect(req.getContextPath() + "/adminPanel");
         } else {
-            req.setAttribute("errorMessage", "An error occurred while editing. Try again.");
+            req.setAttribute("errorMessage", LocalizationUtils.EDITING_ERROR);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

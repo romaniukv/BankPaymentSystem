@@ -3,9 +3,8 @@ package com.java.project.controller.servlets;
 import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.Role;
 import com.java.project.model.domain.User;
-import com.java.project.services.UserService;
-import com.java.project.services.impl.UserServiceImpl;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 import com.java.project.utils.PasswordUtils;
 
 import javax.servlet.ServletException;
@@ -42,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
-            req.setAttribute("errorMsg", "Username is already taken!");
+            req.setAttribute("errorMsg", LocalizationUtils.REGISTER_ERROR);
             req.getRequestDispatcher("/views/join.jsp").forward(req, resp);
         }
     }

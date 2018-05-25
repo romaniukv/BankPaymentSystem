@@ -6,6 +6,7 @@ import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
 import com.java.project.services.CreditAccountService;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,10 @@ public class CreditAccountManagementServlet extends HttpServlet {
             req.setAttribute("statuses", AccountStatus.values());
             req.getRequestDispatcher("/views/admin/creditAccountManagement.jsp").forward(req, resp);
         }
+        else {
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_MANAGE_ACCOUNT);
+            req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
+        }
     }
 
     @Override
@@ -51,11 +56,11 @@ public class CreditAccountManagementServlet extends HttpServlet {
         }
 
         if (flag) {
-            req.setAttribute("successMessage", "Changes successfully saved.");
+            req.setAttribute("successMessage", LocalizationUtils.CHANGES_SAVED);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         }
         else {
-            req.setAttribute("errorMessage", "Can not manage this account.");
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_MANAGE_ACCOUNT);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }
