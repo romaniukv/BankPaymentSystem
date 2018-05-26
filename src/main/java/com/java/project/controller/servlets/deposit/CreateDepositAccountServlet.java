@@ -6,6 +6,8 @@ import com.java.project.model.domain.DepositAccount;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,8 @@ import java.math.BigDecimal;
 
 @WebServlet("/createDepositAccount")
 public class CreateDepositAccountServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(CreateDepositAccountServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +40,7 @@ public class CreateDepositAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
-        int userId = AppUtils.getLoginedUser(req.getSession()).getId();
+        User user = AppUtils.getLoginedUser(req.getSession());
         int id = AppUtils.getIdFromRequest(req, resp);
 
         BankConfigService bankConfigService = ServiceFactory.getBankConfigService();
@@ -45,16 +49,18 @@ public class CreateDepositAccountServlet extends HttpServlet {
         DepositAccount depositAccount = bankConfigService.findDepositInCatalog(id);
         depositAccount.setAmount(amount);
         depositAccount.setBalance(amount);
-        depositAccount.setUserId(userId);
+        depositAccount.setUserId(user.getId());
         depositAccount.setNumber(accountNumber);
         depositAccount.calculateExpirationDate();
 
         boolean flag = ServiceFactory.getDepositAccountSrvice().create(depositAccount);
 
         if (flag) {
+            logger.info("User " + user.getUsername() + " opened new deposit account.");
             resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
+            logger.error("User " + user.getUsername() + "failed to open new deposit account.");
             req.setAttribute("errorMessage", LocalizationUtils.CREATE_DEPOSIT_ERROR);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

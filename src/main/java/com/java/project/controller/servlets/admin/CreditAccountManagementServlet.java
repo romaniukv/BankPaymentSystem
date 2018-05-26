@@ -7,6 +7,8 @@ import com.java.project.model.domain.User;
 import com.java.project.services.CreditAccountService;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet("/creditAccountManagement")
 public class CreditAccountManagementServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(CreditAccountManagementServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,10 +62,14 @@ public class CreditAccountManagementServlet extends HttpServlet {
         }
 
         if (flag) {
+            logger.info("Admin " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " successfully managed credit account: id = " + creditAccount.getId());
             req.setAttribute("successMessage", LocalizationUtils.CHANGES_SAVED);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         }
         else {
+            logger.error("Admin " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " failed to manage credit account.");
             req.setAttribute("errorMessage", LocalizationUtils.CANT_MANAGE_ACCOUNT);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

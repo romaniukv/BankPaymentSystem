@@ -6,6 +6,8 @@ import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
 import com.java.project.utils.PasswordUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,9 @@ import java.io.IOException;
 
 @WebServlet("/join")
 public class RegisterServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(RegisterServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (AppUtils.getLoginedUser(req.getSession()) != null) {
@@ -37,10 +42,12 @@ public class RegisterServlet extends HttpServlet {
         User user = new User(Role.USER, username, PasswordUtils.encryptPassword(password), email, firstName, lastName);
 
         if (ServiceFactory.getUserService().create(user)) {
+            logger.info("User " + username + " successfully registered.");
             req.getSession().setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/profile");
         }
         else {
+            logger.error("User " + username + " failed to register.");
             req.setAttribute("errorMsg", LocalizationUtils.REGISTER_ERROR);
             req.getRequestDispatcher("/views/join.jsp").forward(req, resp);
         }

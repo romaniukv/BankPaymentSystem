@@ -4,6 +4,8 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,9 @@ import java.math.BigDecimal;
 
 @WebServlet("/replenishDeposit")
 public class DepositReplenishmentServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(DepositReplenishmentServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,9 +45,13 @@ public class DepositReplenishmentServlet extends HttpServlet {
 
         if (ServiceFactory.getDepositReplenishmentService()
                 .replenishDeposit(senderAccountNumber, receiverAccountNumber, amount)) {
+            logger.info("User " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " replenished deposit account.");
             req.setAttribute("successMessage", "Transaction success.");
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
+            logger.error("User " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " failed to replenish deposit account.");
             req.setAttribute("errorMessage", LocalizationUtils.CANT_REPLENISH);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

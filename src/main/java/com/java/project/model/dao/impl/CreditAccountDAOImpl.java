@@ -1,9 +1,12 @@
 package com.java.project.model.dao.impl;
 
 import com.java.project.model.dao.CreditAccountDAO;
+import com.java.project.model.dao.generic.GenericDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.CreditAccount;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreditAccountDAOImpl extends GenericDAOImpl<CreditAccount> implements CreditAccountDAO {
+
+    private static final Logger logger = LogManager.getLogger(CreditAccountDAOImpl.class);
 
     private static final String SELECT_NEW_ACCOUNTS = "SELECT number, id, user_id, credit_limit, credit_rate " +
             "FROM credit_accounts WHERE status = ?";
@@ -51,7 +56,7 @@ public class CreditAccountDAOImpl extends GenericDAOImpl<CreditAccount> implemen
                         rs.getInt(3), rs.getBigDecimal(4), rs.getBigDecimal(5)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return creditAccounts;
     }
@@ -70,7 +75,7 @@ public class CreditAccountDAOImpl extends GenericDAOImpl<CreditAccount> implemen
                         AccountStatus.valueOf(rs.getString(9)), rs.getDate(10));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return creditAccount;
     }

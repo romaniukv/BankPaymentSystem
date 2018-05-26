@@ -7,6 +7,8 @@ import com.java.project.model.domain.DepositReplenishment;
 import com.java.project.services.DBConnection;
 import com.java.project.services.DepositReplenishmentService;
 import com.java.project.services.generic.impl.GenericServiceImpl;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,6 +17,8 @@ import java.util.List;
 
 public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositReplenishment>
         implements DepositReplenishmentService {
+
+    private static final Logger logger = LogManager.getLogger(DepositReplenishmentServiceImpl.class);
 
     private DepositReplenishmentDAO depositReplenishmentDAO;
 
@@ -38,6 +42,7 @@ public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositR
             depositReplenishments = depositReplenishmentDAO.selectAllByAccountNumber(accountNumber);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
@@ -57,6 +62,7 @@ public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositR
             flag = depositReplenishmentDAO.replenishDeposit(senderAccountNumber, receiverAccountNumber, amount);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             flag = false;
             DBConnection.rollbackAndCloseConnection(connection);
         }

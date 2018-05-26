@@ -6,11 +6,15 @@ import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
 import com.java.project.services.UserService;
 import com.java.project.services.generic.impl.GenericServiceImpl;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
+
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     private UserDAO userDAO;
 
@@ -34,6 +38,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
             user = userDAO.findUserByUsername(username);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {

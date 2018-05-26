@@ -4,6 +4,8 @@ package com.java.project.model.dao.generic.impl;
 import com.java.project.model.dao.generic.GenericDAO;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.Role;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
+
+    private static final Logger logger = LogManager.getLogger(GenericDAO.class);
 
     private final String FIND_ALL;
     private final String CREATE;
@@ -50,6 +54,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 entities.add(entity);
             }
         } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            logger.error(e);
         }
         return entities;
     }
@@ -66,6 +71,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 }
             }
         } catch (SQLException | IllegalAccessException e) {
+            logger.error(e);
             success = false;
         }
         return success;
@@ -85,6 +91,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 flag = true;
             }
         } catch (SQLException | IllegalAccessException e) {
+            logger.error(e);
             flag = false;
         }
         return flag;
@@ -100,6 +107,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 entity = createEntityFromResultSet(rs);
             }
         } catch (SQLException | IllegalAccessException | InstantiationException e) {
+            logger.error(e);
             e.printStackTrace();
         }
         return entity;
@@ -111,9 +119,8 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             ps.setInt(1,key);
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
-
     }
 
     private T createEntityFromResultSet(ResultSet rs) throws IllegalAccessException, InstantiationException, SQLException {
@@ -180,6 +187,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             try {
                 field = entityClass.getSuperclass().getDeclaredField(fieldName);
             } catch (NoSuchFieldException e1) {
+                logger.error(e);
                 return null;
             }
         }

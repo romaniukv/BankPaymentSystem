@@ -7,6 +7,8 @@ import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
 import com.java.project.services.PaymentService;
 import com.java.project.services.generic.impl.GenericServiceImpl;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,6 +17,8 @@ import java.util.List;
 
 
 public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements PaymentService {
+
+    private static final Logger logger = LogManager.getLogger(PaymentServiceImpl.class);
 
     private PaymentDAO paymentDAO;
 
@@ -38,6 +42,7 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
             payments = paymentDAO.selectAllByAccountNumber(accountNumber);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
@@ -61,6 +66,7 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
             else
                 connection.rollback();
         } catch (SQLException e) {
+            logger.error(e);
             flag = false;
             DBConnection.rollbackAndCloseConnection(connection);
         }

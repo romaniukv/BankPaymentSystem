@@ -7,6 +7,8 @@ import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,9 @@ import java.math.BigDecimal;
 
 @WebServlet("/createCreditAccount")
 public class CreateCreditAccountServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(CreateCreditAccountServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -61,10 +66,12 @@ public class CreateCreditAccountServlet extends HttpServlet {
         boolean flag = ServiceFactory.getCreditAccountService().create(creditAccount);
 
         if (flag) {
+            logger.info("User " + user.getUsername() + " opened new credit account.");
             req.setAttribute("successMessage", LocalizationUtils.CREATE_CREDIT_SUCCESS);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         }
         else {
+            logger.error("User " + user.getUsername() + "failed to open new credit account.");
             req.setAttribute("errorMessage", LocalizationUtils.CREATE_CREDIT_ERROR);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

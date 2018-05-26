@@ -2,6 +2,10 @@ package com.java.project.controller.servlets.admin;
 
 import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
+import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +17,8 @@ import java.math.BigDecimal;
 
 @WebServlet("/addNewDeposit")
 public class AddNewDepositServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(AddNewDepositServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,10 +32,14 @@ public class AddNewDepositServlet extends HttpServlet {
         BigDecimal rate = BigDecimal.valueOf(Double.valueOf(req.getParameter("rate")));
 
         if (ServiceFactory.getBankConfigService().addDepositToCatalog(new DepositAccount(name, term, rate))) {
-            req.setAttribute("successMessage", "New deposit added.");
+            logger.info("Admin " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " added new deposit to catalog");
+            req.setAttribute("successMessage", LocalizationUtils.NEW_DEPOSIT_ADDED);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
-            req.setAttribute("errorMessage", "Can add deposit. Try again");
+            logger.error("Admin " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " failed to add new deposit to catalog");
+            req.setAttribute("errorMessage", LocalizationUtils.CANT_ADD_DEPOSIT);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
     }

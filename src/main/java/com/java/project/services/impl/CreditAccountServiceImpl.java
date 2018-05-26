@@ -6,12 +6,16 @@ import com.java.project.model.domain.CreditAccount;
 import com.java.project.services.CreditAccountService;
 import com.java.project.services.DBConnection;
 import com.java.project.services.generic.impl.GenericServiceImpl;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> implements CreditAccountService {
+
+    private static final Logger logger = LogManager.getLogger(CreditAccountServiceImpl.class);
 
     private CreditAccountDAO creditAccountDAO;
 
@@ -35,6 +39,7 @@ public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> 
             creditAccounts = creditAccountDAO.selectNewAccounts();
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
@@ -54,6 +59,7 @@ public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> 
             creditAccount = creditAccountDAO.selectByUserId(userId);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {

@@ -5,6 +5,8 @@ import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
 import com.java.project.utils.PasswordUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,9 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LogInServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(LogInServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (AppUtils.getLoginedUser(req.getSession()) != null) {
@@ -33,11 +38,13 @@ public class LogInServlet extends HttpServlet {
         User user = ServiceFactory.getUserService().findUserByUsername(username);
 
         if (user == null || !PasswordUtils.checkPassword(password, user.getPassword())) {
+            logger.warn("User " + username + " failed to log in.");
             req.setAttribute("errorMsg", LocalizationUtils.WRONG_USERNAME_PASS);
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
         }
         else {
             req.getSession().setAttribute("user", user);
+            logger.info("User " + username + " successfully logged in.");
             try {
                 int redirectId = Integer.parseInt(req.getParameter("redirectId"));
                 String requestUri = AppUtils.getRedirectUrl(redirectId);

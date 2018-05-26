@@ -31,6 +31,11 @@ public class LocalizationUtils {
     public static String TRANSACTION_FAILED;
     public static String WRONG_USERNAME_PASS;
     public static String REGISTER_ERROR;
+    public static String OPENED;
+    public static String CLOSED;
+    public static String UNDER_CONSIDERATION;
+    public static String NEW_DEPOSIT_ADDED;
+    public static String CANT_ADD_DEPOSIT;
 
     static {
         updateLocale();
@@ -68,6 +73,11 @@ public class LocalizationUtils {
         TRANSACTION_FAILED = resourceBundle.getString("transactionFailed");
         WRONG_USERNAME_PASS = resourceBundle.getString("wrongUsernamePass");
         REGISTER_ERROR = resourceBundle.getString("registerError");
+        OPENED = resourceBundle.getString("opened");
+        CLOSED = resourceBundle.getString("closed");
+        UNDER_CONSIDERATION = resourceBundle.getString("underConsideration");
+        NEW_DEPOSIT_ADDED = resourceBundle.getString("newDepositAdded");
+        CANT_ADD_DEPOSIT = resourceBundle.getString("cantAddDeposit");
     }
 
 }

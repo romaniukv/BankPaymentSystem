@@ -5,6 +5,8 @@ import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.Transaction;
 import com.java.project.services.DBConnection;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -16,6 +18,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements TransactionDAO {
+
+    private static final Logger logger = LogManager.getLogger(TransactionDAOImpl.class);
 
     private static final String SELECT_ALL_BY_ACCOUNT_NUMBER = "SELECT id, sender_account_number, receiver_account_number, " +
             "amount, date FROM transactions WHERE " +
@@ -54,7 +58,7 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
                         rs.getLong(3), rs.getBigDecimal(4), rs.getTimestamp(5)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return transactions;
     }
@@ -74,6 +78,7 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
                 connection.commit();
             }
         } catch (SQLException e) {
+            logger.error(e);
             return false;
         }
         return true;
@@ -104,6 +109,7 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
             withdrawMoney.close();
 
         } catch (SQLException e) {
+            logger.error(e);
             return false;
         }
         return true;

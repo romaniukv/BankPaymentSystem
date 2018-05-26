@@ -3,6 +3,8 @@ package com.java.project.services.impl;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.services.BankConfigService;
 import com.java.project.services.DBConnection;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -12,6 +14,9 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class BankConfigServiceImpl implements BankConfigService {
+
+    private static final Logger logger = LogManager.getLogger(BankConfigServiceImpl.class);
+
 
     private static final String SELECT_CREDIT_LIMITS = "SELECT * FROM credit_limits";
 
@@ -44,7 +49,7 @@ public class BankConfigServiceImpl implements BankConfigService {
                 creditLimits.put(rs.getBigDecimal("limit"), rs.getBigDecimal("rate"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return creditLimits;
     }
@@ -67,14 +72,11 @@ public class BankConfigServiceImpl implements BankConfigService {
             ps.execute();
             connection.commit();
         } catch (SQLException e) {
-            if (connection != null) {
-                try {
-                    connection.rollback();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            e.printStackTrace();
+            DBConnection.rollbackAndCloseConnection(connection);
+            logger.error(e);
+        }
+        finally {
+            DBConnection.closeConnection(connection);
         }
         return accountNumber;
     }
@@ -90,7 +92,7 @@ public class BankConfigServiceImpl implements BankConfigService {
                 rs.getInt(3), rs.getBigDecimal(4)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return depositAccounts;
     }
@@ -107,40 +109,63 @@ public class BankConfigServiceImpl implements BankConfigService {
                         rs.getInt(3), rs.getBigDecimal(4));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return depositAccount;
     }
 
     @Override
     public boolean addDepositToCatalog(DepositAccount deposit) {
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        Connection connection = null;
+        boolean flag;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(ADD_DEPOSIT_TO_CATALOG);
             ps.setString(1, deposit.getName());
             ps.setInt(2, deposit.getTerm());
             ps.setBigDecimal(3, deposit.getRate());
             ps.setBoolean(4, true);
             ps.execute();
-            return true;
+            connection.commit();
+            flag = true;
         } catch (SQLException e) {
-            return false;
+            logger.error(e);
+            DBConnection.rollbackAndCloseConnection(connection);
+            flag = false;
         }
+        finally {
+            DBConnection.closeConnection(connection);
+        }
+        return flag;
     }
 
     @Override
     public void removeDepositFromCatalog(int id) {
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(REMOVE_DEPOSIT_FROM_CATALOG);
             ps.setInt(1, id);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
+            DBConnection.rollbackAndCloseConnection(connection);
+        }
+        finally {
+            DBConnection.closeConnection(connection);
         }
     }
 
     @Override
     public boolean updateDepositInCatalog(String name, int term, BigDecimal rate, int id) {
         boolean flag;
-        try(Connection connection = DBConnection.getInstance().getConnection()) {
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(UPDATE_DEPOSIT_IN_CATALOG);
             ps.setString(1, name);
             ps.setBigDecimal(2, rate);
@@ -148,9 +173,14 @@ public class BankConfigServiceImpl implements BankConfigService {
             ps.setInt(4, id);
             ps.executeUpdate();
             flag = true;
+            connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
             flag = false;
+            DBConnection.rollbackAndCloseConnection(connection);
+        }
+        finally {
+            DBConnection.closeConnection(connection);
         }
         return flag;
     }

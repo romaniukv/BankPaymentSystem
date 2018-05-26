@@ -1,15 +1,18 @@
 package com.java.project.services;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DBConnection {
+
+    private static final Logger logger = LogManager.getLogger(DBConnection.class);
+
     private static final DBConnection INSTANCE = new DBConnection();
 
     private static ComboPooledDataSource dataSource;
@@ -36,6 +39,7 @@ public class DBConnection {
         String password = config.getString("password");
 
         ComboPooledDataSource cpds = new ComboPooledDataSource();
+
         try {
             cpds.setDriverClass(driverName);
         } catch (PropertyVetoException e) {
@@ -48,6 +52,15 @@ public class DBConnection {
         cpds.setAcquireIncrement(5);
         cpds.setMaxPoolSize(20);
         return cpds;
+    }
+
+    public static void closeDataSource() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
+        if (testDataSource != null) {
+            testDataSource.close();
+        }
     }
 
     public static DBConnection getInstance() {
@@ -68,6 +81,7 @@ public class DBConnection {
             if (connection != null)
                 connection.close();
         } catch (SQLException e) {
+            logger.error("Failed to close connection", e);
         }
     }
 
@@ -78,6 +92,7 @@ public class DBConnection {
                 connection.rollback();
             }
         } catch (SQLException e) {
+            logger.error("Failed to rollback and close connection", e);
         }
     }
 

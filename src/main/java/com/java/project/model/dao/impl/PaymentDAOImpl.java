@@ -4,6 +4,8 @@ import com.java.project.model.dao.PaymentDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,6 +17,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDAO {
+
+    private static final Logger logger = LogManager.getLogger(PaymentDAOImpl.class);
 
     private static final String SELECT_ALL_BY_ACCOUNT_NUMBER = "SELECT sender, sender_account_number, receiver, " +
             "receiver_account_number, amount, purpose, date FROM payments WHERE " +
@@ -51,7 +55,7 @@ public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDA
                         rs.getBigDecimal(5), rs.getString(6), rs.getTimestamp(7)));
             }
         } catch (SQLException e) {
-
+            logger.error(e);
         }
         return payments;
     }
@@ -68,6 +72,5 @@ public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDA
                 new GregorianCalendar().getTime());
 
         return create(payment);
-
     }
 }

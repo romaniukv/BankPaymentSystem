@@ -5,6 +5,8 @@ import com.java.project.model.dao.DepositReplenishmentDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.DepositReplenishment;
 import com.java.project.services.DBConnection;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -16,6 +18,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class DepositReplenishmentDAOImpl extends GenericDAOImpl<DepositReplenishment> implements DepositReplenishmentDAO {
+
+    private static final Logger logger = LogManager.getLogger(DepositReplenishmentDAOImpl.class);
 
     private static final String SELECT_ALL_BY_ACCOUNT_NUMBER = "SELECT id,  sender_account_number, receiver_account_number, " +
             "amount, date FROM deposit_replenishments WHERE " +
@@ -50,6 +54,7 @@ public class DepositReplenishmentDAOImpl extends GenericDAOImpl<DepositReplenish
                         rs.getLong(3), rs.getBigDecimal(4), rs.getTimestamp(5)));
             }
         } catch (SQLException e) {
+            logger.error(e);
         }
         return depositReplenishments;
     }
@@ -72,6 +77,7 @@ public class DepositReplenishmentDAOImpl extends GenericDAOImpl<DepositReplenish
             return replenishmentDAO.create(depositReplenishment);
 
         } catch (SQLException e) {
+            logger.error(e);
             return false;
         }
     }

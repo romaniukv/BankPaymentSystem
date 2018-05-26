@@ -4,6 +4,8 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.DepositAccount;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,9 @@ import java.math.BigDecimal;
 
 @WebServlet("/editDeposit")
 public class EditDepositServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(EditDepositServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,8 +45,12 @@ public class EditDepositServlet extends HttpServlet {
         BigDecimal rate = BigDecimal.valueOf(Double.valueOf(req.getParameter("rate")));
 
         if (ServiceFactory.getBankConfigService().updateDepositInCatalog(name, term, rate, id)) {
+            logger.info("Admin " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " successfully updated deposit: id = " + id);
             resp.sendRedirect(req.getContextPath() + "/adminPanel");
         } else {
+            logger.error("Admin " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " failed to update deposit: id = " + id);
             req.setAttribute("errorMessage", LocalizationUtils.EDITING_ERROR);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }

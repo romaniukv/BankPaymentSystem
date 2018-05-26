@@ -6,12 +6,16 @@ import com.java.project.model.domain.Transaction;
 import com.java.project.services.DBConnection;
 import com.java.project.services.TransactionService;
 import com.java.project.services.generic.impl.GenericServiceImpl;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 
 public class TransactionServiceImpl extends GenericServiceImpl<Transaction> implements TransactionService {
+
+    private static final Logger logger = LogManager.getLogger(TransactionServiceImpl.class);
 
     private TransactionDAO transactionDAO;
 
@@ -35,6 +39,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             transactions = transactionDAO.selectAllByAccountNumber(accountNumber);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
         }
         finally {
@@ -54,6 +59,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             flag = transactionDAO.transferMoney(fromAccount, toAccount, amount);
             connection.commit();
         } catch (SQLException e) {
+            logger.error(e);
             flag = false;
             DBConnection.rollbackAndCloseConnection(connection);
         }

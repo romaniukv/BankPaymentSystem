@@ -1,9 +1,12 @@
 package com.java.project.model.dao.impl;
 
 import com.java.project.model.dao.DepositAccountDAO;
+import com.java.project.model.dao.generic.GenericDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.AccountStatus;
 import com.java.project.model.domain.DepositAccount;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +17,8 @@ import java.util.List;
 
 
 public class DepositAccountDAOImpl extends GenericDAOImpl<DepositAccount> implements DepositAccountDAO {
+
+    private static final Logger logger = LogManager.getLogger(DepositAccountDAOImpl.class);
 
     private static final String SELECT_OPENED_ACCOUNT_BY_USER_ID = "SELECT * FROM deposit_accounts WHERE user_id = ? AND status = 'OPENED'";
 
@@ -50,7 +55,7 @@ public class DepositAccountDAOImpl extends GenericDAOImpl<DepositAccount> implem
                         AccountStatus.valueOf(rs.getString(8)), rs.getDate(9)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return depositAccounts;
     }

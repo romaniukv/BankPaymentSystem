@@ -4,6 +4,8 @@ import com.java.project.model.dao.UserDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.Role;
 import com.java.project.model.domain.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
+
+    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
 
     private static final String FIND_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
 
@@ -42,7 +46,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
                 user.setId(rs.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return user;
     }

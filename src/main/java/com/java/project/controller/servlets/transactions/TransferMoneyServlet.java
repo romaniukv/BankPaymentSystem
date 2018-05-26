@@ -4,6 +4,8 @@ import com.java.project.factory.ServiceFactory;
 import com.java.project.model.domain.CreditAccount;
 import com.java.project.utils.AppUtils;
 import com.java.project.utils.LocalizationUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,9 @@ import java.math.BigDecimal;
 
 @WebServlet("/transferMoney")
 public class TransferMoneyServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(TransferMoneyServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,9 +43,13 @@ public class TransferMoneyServlet extends HttpServlet {
         BigDecimal amount = BigDecimal.valueOf(Double.valueOf(req.getParameter("amount")));
 
         if (ServiceFactory.getTransactionService().transferMoney(fromAccount, toAccount, amount)) {
+            logger.info("User " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " transferred money.");
             req.setAttribute("successMessage", LocalizationUtils.TRANSACTION_SUCCESS);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
+            logger.error("User " + AppUtils.getLoginedUser(req.getSession()).getUsername()
+                    + " failed to transfer money.");
             req.setAttribute("errorMessage", LocalizationUtils.TRANSACTION_FAILED);
             req.getRequestDispatcher("/views/errorMessage.jsp").forward(req, resp);
         }
