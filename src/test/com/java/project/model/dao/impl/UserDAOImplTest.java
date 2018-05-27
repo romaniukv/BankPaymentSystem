@@ -2,7 +2,7 @@ package com.java.project.model.dao.impl;
 
 import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
-import entities.TestEntities;
+import com.java.project.entities.TestEntities;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

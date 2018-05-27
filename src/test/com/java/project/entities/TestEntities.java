@@ -1,10 +1,8 @@
-package entities;
+package com.java.project.entities;
 
 import com.java.project.model.domain.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestEntities {
 
