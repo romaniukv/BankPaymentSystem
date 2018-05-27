@@ -1,6 +1,8 @@
 package com.java.project.controller.filters;
 
 
+import com.java.project.utils.LocalizationUtils;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public class LanguageFilter implements Filter{
         HttpSession session = ((HttpServletRequest) servletRequest).getSession();
         if (session.getAttribute("language") == null) {
             session.setAttribute("language", "uk");
+            LocalizationUtils.changeLanguage("uk");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
