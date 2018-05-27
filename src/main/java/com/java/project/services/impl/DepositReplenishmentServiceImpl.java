@@ -15,6 +15,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Implementation of deposit replenishment service.
+ */
 public class DepositReplenishmentServiceImpl extends GenericServiceImpl<DepositReplenishment>
         implements DepositReplenishmentService {
 

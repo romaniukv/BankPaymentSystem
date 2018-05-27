@@ -3,12 +3,34 @@ package com.java.project.model.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Represents credit account transaction.
+ */
 public class Transaction {
 
+    /**
+     * Id of transaction
+     */
     private int id;
+
+    /**
+     * Sender's account number.
+     */
     private long senderAccountNumber;
+
+    /**
+     * Receiver's account number.
+     */
     private long receiverAccountNumber;
+
+    /**
+     * Amount of transaction.
+     */
     private BigDecimal amount;
+
+    /**
+     * Date of transaction.
+     */
     private Date date;
 
     public Transaction() {

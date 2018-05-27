@@ -14,7 +14,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-
+/**
+ * Implementation of payment service.
+ */
 public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements PaymentService {
 
     private static final Logger logger = LogManager.getLogger(PaymentServiceImpl.class);

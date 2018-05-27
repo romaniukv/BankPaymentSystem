@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 
+/**
+ * Implementation of transaction service.
+ */
 public class TransactionServiceImpl extends GenericServiceImpl<Transaction> implements TransactionService {
 
     private static final Logger logger = LogManager.getLogger(TransactionServiceImpl.class);

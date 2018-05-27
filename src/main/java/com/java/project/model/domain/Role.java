@@ -1,5 +1,8 @@
 package com.java.project.model.domain;
 
+/**
+ * Role of user in system(admin or user).
+ */
 public enum Role {
     ADMIN("ADMIN"), USER("USER");
 

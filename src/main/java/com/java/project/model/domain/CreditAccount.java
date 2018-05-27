@@ -5,18 +5,38 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Credit account.
+ */
 public class CreditAccount extends Account {
 
+    /**
+     * Limit of credit account
+     */
     private BigDecimal limit;
+
+    /**
+     * Indebtedness of credit account
+     */
     private BigDecimal indebtedness = new BigDecimal(0.0);
+
+    /**
+     * Accrued interests of credit account
+     */
     private BigDecimal accruedInterest = new BigDecimal(0.0);
+
+    /**
+     * Rate of credit account
+     */
     private BigDecimal creditRate;
 
     public CreditAccount() {
 
     }
 
-
+    /**
+     * Constructor which is used for creating new credit account.
+     */
     public CreditAccount(long number, int userId,  BigDecimal limit, BigDecimal creditRate) {
         super(number, userId, limit);
         this.limit = limit;
@@ -32,6 +52,9 @@ public class CreditAccount extends Account {
         setBalance(limit);
     }
 
+    /**
+     * Constructor which is used for reading existing credit account from database.
+     */
     public CreditAccount(int id, long number, BigDecimal balance, int userId, BigDecimal limit,
                          BigDecimal indebtedness, BigDecimal accruedInterest, BigDecimal creditRate,
                          AccountStatus status, Date expirationDate) {

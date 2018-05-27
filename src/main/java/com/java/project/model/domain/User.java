@@ -1,22 +1,43 @@
 package com.java.project.model.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Represents user.
+ */
 public class User {
 
+    /**
+     * User's id.
+     */
     private int id;
 
+    /**
+     * User's role(admin or user).
+     */
     private Role role;
 
+    /**
+     * User's username.
+     */
     private String username;
 
+    /**
+     * User's password.
+     */
     private String password;
 
+    /**
+     * User's e-mail.
+     */
     private String email;
 
+    /**
+     * User's first name.
+     */
     private String firstName;
 
+    /**
+     * User's last name.
+     */
     private String lastName;
 
     public User() {

@@ -5,11 +5,29 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Deposit account.
+ */
 public class DepositAccount extends Account {
 
+    /**
+     * Name of deposit.
+     */
     private String name;
+
+    /**
+     * Term of deposit (in months).
+     */
     private int term;
+
+    /**
+     * Amount of deposit.
+     */
     private BigDecimal amount;
+
+    /**
+     * Rate of deposit.
+     */
     private BigDecimal rate;
 
     {

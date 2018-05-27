@@ -13,6 +13,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Implementation of credit account service.
+ */
 public class CreditAccountServiceImpl extends GenericServiceImpl<CreditAccount> implements CreditAccountService {
 
     private static final Logger logger = LogManager.getLogger(CreditAccountServiceImpl.class);

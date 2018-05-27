@@ -14,6 +14,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Implementation of deposit account service.
+ */
 public class DepositAccountServiceImpl extends GenericServiceImpl<DepositAccount> implements DepositAccountService {
 
     private static final Logger logger = LogManager.getLogger(DepositAccountServiceImpl.class);

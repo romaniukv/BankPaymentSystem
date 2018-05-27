@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Implementation of BankConfigService.
+ */
 public class BankConfigServiceImpl implements BankConfigService {
 
     private static final Logger logger = LogManager.getLogger(BankConfigServiceImpl.class);

@@ -3,6 +3,9 @@ package com.java.project.utils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Stores constants for localization and changes language of web app.
+ */
 public class LocalizationUtils {
 
     private static ResourceBundle resourceBundle = ResourceBundle

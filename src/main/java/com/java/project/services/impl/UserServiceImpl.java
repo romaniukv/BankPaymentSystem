@@ -12,6 +12,9 @@ import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Implementation of user service.
+ */
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);

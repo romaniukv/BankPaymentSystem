@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Auxiliary methods for application.
+ */
 public class AppUtils {
 
     private static int REDIRECT_ID = 0;

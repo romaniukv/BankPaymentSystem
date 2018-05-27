@@ -9,14 +9,23 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Instantiate c3p0 DataSource, manages connections.
+ */
 public class DBConnection {
 
     private static final Logger logger = LogManager.getLogger(DBConnection.class);
 
     private static final DBConnection INSTANCE = new DBConnection();
 
+    /**
+     * Data source for web application.
+     */
     private static ComboPooledDataSource dataSource;
 
+    /**
+     * Data source for tests.
+     */
     private static ComboPooledDataSource testDataSource;
 
     private static Mode mode = Mode.APPLICATION;

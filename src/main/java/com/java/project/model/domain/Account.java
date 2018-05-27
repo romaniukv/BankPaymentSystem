@@ -3,28 +3,60 @@ package com.java.project.model.domain;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * Represents abstract entity Account
+ */
 public abstract class Account {
 
+    /**
+     * Account id.
+     */
     private int id;
+
+    /**
+     * Account number.
+     */
     private long number;
+
+    /**
+     * Account balance.
+     */
     private BigDecimal balance;
+
+    /**
+     * Account owner's id.
+     */
     private int userId;
+
+    /**
+     * Account expiration date.
+     */
     private Date expirationDate;
+
+    /**
+     * Account status(Opened, Closed or Under consideration.
+     */
     private AccountStatus status;
 
-    //for GenericDAOImpl
+    /**
+     * Constructor which is used in  GenericDAOImpl.
+     */
     public Account() {
 
     }
 
-    //for creating new
+    /**
+     * Constructor which is used for creating new account.
+     */
     public Account(long number, int userId, BigDecimal balance) {
         this.number = number;
         this.userId = userId;
         this.balance = balance;
     }
 
-    //for reading from database
+    /**
+     * Constructor which is used for reading existing account from database.
+     */
     public Account(int id, long number, int userId, BigDecimal balance, AccountStatus status, Date expirationDate) {
         this.id = id;
         this.number = number;
@@ -34,11 +66,16 @@ public abstract class Account {
         this.expirationDate = expirationDate;
     }
 
+    /**
+     * Calculates account expiration date.
+     */
     public abstract void calculateExpirationDate();
+
 
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
