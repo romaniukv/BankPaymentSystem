@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet shows deposit catalog.
+ */
 @WebServlet({"","/home"})
 public class HomePageServlet extends HttpServlet {
 

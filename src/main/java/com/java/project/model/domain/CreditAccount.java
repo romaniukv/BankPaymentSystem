@@ -8,8 +8,8 @@ import java.util.GregorianCalendar;
 public class CreditAccount extends Account {
 
     private BigDecimal limit;
-    private BigDecimal indebtedness;
-    private BigDecimal accruedInterest;
+    private BigDecimal indebtedness = new BigDecimal(0.0);
+    private BigDecimal accruedInterest = new BigDecimal(0.0);
     private BigDecimal creditRate;
 
     public CreditAccount() {
@@ -63,5 +63,41 @@ public class CreditAccount extends Account {
 
     public BigDecimal getCreditRate() {
         return creditRate;
+    }
+
+    public void setIndebtedness(BigDecimal indebtedness) {
+        this.indebtedness = indebtedness;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CreditAccount that = (CreditAccount) o;
+
+        return creditRate.compareTo(that.creditRate) == 0
+                && limit.compareTo(that.limit) == 0
+                && indebtedness.compareTo(that.indebtedness) == 0
+                && accruedInterest.compareTo(that.accruedInterest) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = limit.hashCode();
+        result = 31 * result + indebtedness.hashCode();
+        result = 31 * result + accruedInterest.hashCode();
+        result = 31 * result + creditRate.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditAccount{" +
+                "limit=" + limit +
+                ", indebtedness=" + indebtedness +
+                ", accruedInterest=" + accruedInterest +
+                ", creditRate=" + creditRate +
+                '}';
     }
 }

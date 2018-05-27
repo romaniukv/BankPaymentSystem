@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlets used to show information about user to admin.
+ * Searches user by id from request and if there is such user
+ * sets user and list of user's deposit accounts as request attributes.
+ * Forwards to user info page.
+ */
 @WebServlet("/userInfo")
 public class UserInfoServlet extends HttpServlet {
 

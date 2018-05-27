@@ -18,6 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Servlet used for managing new credit accounts by admin.
+ * Searches credit account by id from request and if there is such account
+ * sets it as request attribute.
+ * Sets owner of an account as request parameter.
+ * Forwards to credit account management page and then updates credit account in database.
+ */
 @WebServlet("/creditAccountManagement")
 public class CreditAccountManagementServlet extends HttpServlet {
 

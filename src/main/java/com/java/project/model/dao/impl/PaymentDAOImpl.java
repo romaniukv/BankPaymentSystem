@@ -1,6 +1,8 @@
 package com.java.project.model.dao.impl;
 
+import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.PaymentDAO;
+import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
@@ -16,6 +18,9 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * Implementation of PaymentDAO
+ */
 public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDAO {
 
     private static final Logger logger = LogManager.getLogger(PaymentDAOImpl.class);
@@ -24,6 +29,9 @@ public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDA
             "receiver_account_number, amount, purpose, date FROM payments WHERE " +
             "sender_account_number = ? ORDER BY date DESC LIMIT 10;";
 
+    /**
+     * Passes query strings, name mapping and Payment.class to constructor in superclass.
+     */
     public PaymentDAOImpl() {
         super("SELECT * FROM payments LIMIT 10;",
                 "INSERT INTO payments (sender, sender_account_number, receiver, receiver_account_number, amount, purpose," +
@@ -63,7 +71,9 @@ public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDA
     @Override
     public boolean payBill(String senderName, long senderAccount, String receiverName, long receiverAccount, BigDecimal amount, String purpose) {
         Connection connection = getConnection();
-        boolean flag = new TransactionDAOImpl().withdrawMoneyFromAccount(connection, senderAccount, amount);
+        TransactionDAO transactionDAO = DAOFactory.getTransacionDAO();
+        transactionDAO.setConnection(connection);
+        boolean flag = transactionDAO.withdrawMoneyFromAccount(senderAccount, amount);
         if (!flag) {
             return false;
         }

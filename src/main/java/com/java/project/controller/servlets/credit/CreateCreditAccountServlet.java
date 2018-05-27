@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Servlet used to create new credit account.
+ * Checks whether a user already has a credit account and if he has forwards to error page.
+ * If he hasn't forwards to create credit account page and then creates new account in database.
+ */
 @WebServlet("/createCreditAccount")
 public class CreateCreditAccountServlet extends HttpServlet {
 

@@ -33,6 +33,14 @@ public class DepositAccount extends Account {
         this.rate = rate;
     }
 
+    public DepositAccount(String name, int term, BigDecimal rate, BigDecimal amount) {
+        this.name = name;
+        this.term = term;
+        this.rate = rate;
+        this.amount = amount;
+        setBalance(amount);
+    }
+
     public DepositAccount(int id, long number, BigDecimal balance, int userId, BigDecimal amount,
                           BigDecimal rate, int term, AccountStatus status, Date expirationDate) {
         super(id, number, userId, balance, status, expirationDate);
@@ -79,5 +87,34 @@ public class DepositAccount extends Account {
 
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DepositAccount that = (DepositAccount) o;
+
+        return term == that.term
+                && amount.compareTo(that.amount) == 0
+                && rate.compareTo(that.rate) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = term;
+        result = 31 * result + amount.hashCode();
+        result = 31 * result + rate.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "DepositAccount{" +
+                "term=" + term +
+                ", amount=" + amount +
+                ", rate=" + rate +
+                '}';
     }
 }

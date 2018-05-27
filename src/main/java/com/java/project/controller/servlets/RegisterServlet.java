@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet for registration new user.
+ * If user with given username is not registered encrypts password and
+ * saved new user.
+ */
 @WebServlet("/join")
 public class RegisterServlet extends HttpServlet {
 

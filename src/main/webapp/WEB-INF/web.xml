@@ -35,15 +35,20 @@
     <url-pattern>/logOut</url-pattern>
     <url-pattern>/createCreditAccount</url-pattern>
     <url-pattern>/createDepositAccount</url-pattern>
-    <url-pattern>/adminPanel</url-pattern>
-    <url-pattern>/creditAccountManagement</url-pattern>
-    <url-pattern>/userInfo</url-pattern>
     <url-pattern>/transferMoney</url-pattern>
     <url-pattern>/payBill</url-pattern>
     <url-pattern>/replenishDeposit</url-pattern>
     <url-pattern>/lastTransactions</url-pattern>
     <url-pattern>/lastPayments</url-pattern>
     <url-pattern>/historyOfReplenishments</url-pattern>
+
+    <url-pattern>/adminPanel</url-pattern>
+    <url-pattern>/creditAccountManagement</url-pattern>
+    <url-pattern>/userInfo</url-pattern>
+    <url-pattern>/addNewDeposit</url-pattern>
+    <url-pattern>/removeDeposit</url-pattern>
+    <url-pattern>/editDeposit</url-pattern>
+
   </filter-mapping>
 
   <filter-mapping>
@@ -53,6 +58,7 @@
     <url-pattern>/removeDeposit</url-pattern>
     <url-pattern>/editDeposit</url-pattern>
     <url-pattern>/userInfo</url-pattern>
+    <url-pattern>/addNewDeposit</url-pattern>
   </filter-mapping>
 
 </web-app>

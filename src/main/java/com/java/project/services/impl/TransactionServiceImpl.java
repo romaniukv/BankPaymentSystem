@@ -76,7 +76,8 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
         try {
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
-            flag = transactionDAO.withdrawMoneyFromAccount(connection, accountNumber, amount);
+            transactionDAO.setConnection(connection);
+            flag = transactionDAO.withdrawMoneyFromAccount(accountNumber, amount);
             connection.commit();
         } catch (SQLException e) {
             flag = false;

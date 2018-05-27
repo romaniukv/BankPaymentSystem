@@ -18,6 +18,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 
+/**
+ * Servlet used to create new deposit account.
+ * Forwards to create deposit accounts page, takes user's input
+ * and then creates new deposit account.
+ */
 @WebServlet("/createDepositAccount")
 public class CreateDepositAccountServlet extends HttpServlet {
 

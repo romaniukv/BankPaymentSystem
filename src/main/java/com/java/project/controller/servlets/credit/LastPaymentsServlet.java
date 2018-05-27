@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet used to show user's last payments.
+ * Searches credit account by user id and if there is such sets it as request attribute.
+ * Sets list of last payments as request attribute.
+ * Forwards to last payments page.
+ */
 @WebServlet("/lastPayments")
 public class LastPaymentsServlet extends HttpServlet {
 

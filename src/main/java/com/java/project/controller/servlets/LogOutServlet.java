@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet for logout.
+ * Removes user from session.
+ * Redirects to main page.
+ */
 @WebServlet("/logOut")
 public class LogOutServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(LogOutServlet.class);
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

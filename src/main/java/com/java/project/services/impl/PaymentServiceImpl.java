@@ -2,7 +2,6 @@ package com.java.project.services.impl;
 
 import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.PaymentDAO;
-import com.java.project.model.dao.impl.PaymentDAOImpl;
 import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
 import com.java.project.services.PaymentService;

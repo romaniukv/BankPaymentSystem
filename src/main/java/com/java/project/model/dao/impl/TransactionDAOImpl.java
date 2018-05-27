@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * Implementation of TransactionDAO
+ */
 public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements TransactionDAO {
 
     private static final Logger logger = LogManager.getLogger(TransactionDAOImpl.class);
@@ -32,6 +35,9 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
     private static final String PUT_MONEY_TO_ACCOUNT = "UPDATE credit_accounts SET balance = balance + ? WHERE number = ?";
 
 
+    /**
+     * Passes query strings, name mapping and Transaction.class to constructor in superclass.
+     */
     public TransactionDAOImpl() {
         super("SELECT * FROM transactions;",
                 "INSERT INTO transactions (sender_account_number, receiver_account_number, amount, date) VALUES(?, ?, ?, ?);",
@@ -67,7 +73,7 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
     public boolean transferMoney(long fromAccount, long toAccount, BigDecimal amount) {
         Connection connection = getConnection();
         try (PreparedStatement ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT)) {
-            if (!withdrawMoneyFromAccount(connection, fromAccount, amount)) {
+            if (!withdrawMoneyFromAccount(fromAccount, amount)) {
                 return false;
             }
             ps.setBigDecimal(1, amount);
@@ -85,7 +91,8 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
     }
 
     @Override
-    public boolean withdrawMoneyFromAccount(Connection connection, long accountNumber, BigDecimal amount) {
+    public boolean withdrawMoneyFromAccount(long accountNumber, BigDecimal amount) {
+        Connection connection = getConnection();
         try (PreparedStatement selectBalance = connection.prepareStatement(SELECT_BALANCE_BY_NUMBER);
              PreparedStatement withdrawMoney = connection.prepareStatement(WITHDRAW_MONEY_FROM_ACCOUNT)) {
 

@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Servlet for adding new deposit in catalog by admin.
+ */
 @WebServlet("/addNewDeposit")
 public class AddNewDepositServlet extends HttpServlet {
 

@@ -1,6 +1,5 @@
-package com.java.project.model.dao;
+package com.java.project.model.dao.impl;
 
-import com.java.project.model.dao.impl.UserDAOImpl;
 import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
 import entities.TestEntities;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
-public class UserDAOTest {
+public class UserDAOImplTest {
 
     @Before
     public void setUp() {
@@ -24,6 +23,7 @@ public class UserDAOTest {
     public void tearDown() {
         DBConnection.setApplicationMode();
     }
+
 
     @Test
     public void findUserByUsername() throws SQLException {

@@ -12,12 +12,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Implementation of UserDAO.
+ */
 public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
     private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
 
     private static final String FIND_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
 
+    /**
+     * Passes query strings, name mapping and User.class to constructor in superclass.
+     */
     public UserDAOImpl() {
         super("SELECT * FROM users;",
                 "INSERT INTO users (role, username, password, email, first_name, last_name) VALUES(?, ?, ?, ?, ?, ?);",

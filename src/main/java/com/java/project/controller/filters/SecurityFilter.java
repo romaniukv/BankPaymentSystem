@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * Checks if user has permission to requested page.
+ * If user hasn't permission filter sends user to error page.
+ */
 @WebFilter(filterName = "SecurityFilter")
 public class SecurityFilter implements Filter {
 

@@ -15,13 +15,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Implementation of CreditAccountDAO
+ */
 public class DepositAccountDAOImpl extends GenericDAOImpl<DepositAccount> implements DepositAccountDAO {
 
     private static final Logger logger = LogManager.getLogger(DepositAccountDAOImpl.class);
 
     private static final String SELECT_OPENED_ACCOUNT_BY_USER_ID = "SELECT * FROM deposit_accounts WHERE user_id = ? AND status = 'OPENED'";
 
+    /**
+     * Passes query strings, name mapping and DepositAccount.class to constructor in superclass.
+     */
     public DepositAccountDAOImpl() {
         super("SELECT * FROM deposit_accounts;",
                 "INSERT INTO deposit_accounts (balance, number, user_id, amount, rate, term, status, expiration_date) " +

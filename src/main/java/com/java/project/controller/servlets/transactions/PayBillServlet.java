@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Servlet used to pay bill.
+ * Forwards to pay bill page, takes user's input and then pays bill.
+ */
 @WebServlet("/payBill")
 public class PayBillServlet extends HttpServlet {
 

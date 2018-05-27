@@ -15,6 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of CreditAccountDAO
+ */
 public class CreditAccountDAOImpl extends GenericDAOImpl<CreditAccount> implements CreditAccountDAO {
 
     private static final Logger logger = LogManager.getLogger(CreditAccountDAOImpl.class);
@@ -24,6 +27,9 @@ public class CreditAccountDAOImpl extends GenericDAOImpl<CreditAccount> implemen
 
     private static final String SELECT_BY_USER_ID = "SELECT * FROM credit_accounts WHERE user_id = ?;";
 
+    /**
+     * Passes query strings, name mapping and CreditAccount.class to constructor in superclass.
+     */
     public CreditAccountDAOImpl() {
         super("SELECT * FROM credit_accounts;",
                 "INSERT INTO credit_accounts (balance, number, user_id, expiration_date, credit_limit, indebtedness, accrued_interest, " +

@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Servlet used to edit deposit in catalog by admin.
+ * Searches deposit in catalog by id from request and if there is such deposit
+ * sets it as request attribute.
+ * Forwards to deposit editing page and then updates deposit in database.
+ */
 @WebServlet("/editDeposit")
 public class EditDepositServlet extends HttpServlet {
 

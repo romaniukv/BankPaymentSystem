@@ -13,6 +13,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of GenericDAO
+ * @param <T> entity
+ */
 public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     private static final Logger logger = LogManager.getLogger(GenericDAO.class);
@@ -26,6 +30,17 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     private Class<T> entityClass;
     private Connection connection;
 
+    /**
+     * Constructor for GenericDAOImpl. Used in subclasses.
+     *
+     * @param find_all      query string to find all entities.
+     * @param create        query string to create entity.
+     * @param update        query string to update entity.
+     * @param find_by_key   query string to find entity by key
+     * @param delete_by_key query string to delete entity by key
+     * @param nameMapping   maps field in entity with column names in database.
+     * @param entityClass   entity class.
+     */
     public GenericDAOImpl(String find_all, String create, String update, String find_by_key, String delete_by_key, String[][] nameMapping, Class<T> entityClass) {
         FIND_ALL = find_all;
         CREATE = create;
@@ -36,10 +51,12 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         this.entityClass = entityClass;
     }
 
+    @Override
     public Connection getConnection() {
         return connection;
     }
 
+    @Override
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
@@ -71,6 +88,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 }
             }
         } catch (SQLException | IllegalAccessException e) {
+            e.printStackTrace();
             logger.error(e);
             success = false;
         }
@@ -101,7 +119,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     public T findByKey(int key) {
         T entity = null;
         try (PreparedStatement ps = connection.prepareStatement(FIND_BY_KEY);) {
-            ps.setInt(1,key);
+            ps.setInt(1, key);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 entity = createEntityFromResultSet(rs);
@@ -116,7 +134,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     @Override
     public void deleteByKey(int key) {
         try (PreparedStatement ps = connection.prepareStatement(DELETE_BY_KEY)) {
-            ps.setInt(1,key);
+            ps.setInt(1, key);
             ps.execute();
         } catch (SQLException e) {
             logger.error(e);
@@ -150,7 +168,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     private boolean addParameters(T entity, PreparedStatement ps) throws SQLException, IllegalAccessException {
         int i = 1;
-        for (String[] parameterName: nameMapping) {
+        for (String[] parameterName : nameMapping) {
             String fieldType;
             Field field = getField(parameterName[0]);
             if (field != null) {
@@ -170,20 +188,18 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                         ps.setObject(i, field.get(entity));
                 }
                 i++;
-            }
-            else {
+            } else {
                 return false;
             }
         }
-        return  true;
+        return true;
     }
 
     private Field getField(String fieldName) {
         Field field;
         try {
             field = entityClass.getDeclaredField(fieldName);
-        }
-        catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e) {
             try {
                 field = entityClass.getSuperclass().getDeclaredField(fieldName);
             } catch (NoSuchFieldException e1) {

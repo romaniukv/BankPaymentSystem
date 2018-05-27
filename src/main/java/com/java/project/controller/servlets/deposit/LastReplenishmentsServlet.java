@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet used to show user's last replenishments.
+ * Searches deposit account by id from request and if there is such sets it as request attribute.
+ * Sets list of last replenishments as request attribute.
+ * Forwards to last replenishments page.
+ */
 @WebServlet("/historyOfReplenishments")
 public class LastReplenishmentsServlet extends HttpServlet {
 

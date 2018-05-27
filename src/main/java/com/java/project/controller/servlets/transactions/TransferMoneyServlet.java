@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Servlet makes money transactions.
+ * Checks whether user has credit account and if he hasn't forwards to error page.
+ * If he has forwards to transfer money page, takes user's input
+ * and then transfers money.
+ */
 @WebServlet("/transferMoney")
 public class TransferMoneyServlet extends HttpServlet {
 

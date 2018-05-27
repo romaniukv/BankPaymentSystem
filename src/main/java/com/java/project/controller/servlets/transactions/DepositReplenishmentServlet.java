@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Servlet used to replenish user's deposit account
+ * Forwards to replenish deposit page, takes user's input and then replenish deposit.
+ */
 @WebServlet("/replenishDeposit")
 public class DepositReplenishmentServlet extends HttpServlet {
 

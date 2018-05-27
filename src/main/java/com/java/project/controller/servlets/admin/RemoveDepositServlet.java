@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet used to remove deposit from catalog by admin.
+ */
 @WebServlet("/removeDeposit")
 public class RemoveDepositServlet extends HttpServlet {
 

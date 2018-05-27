@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Sets list of new credit accounts as request attribute "newCreditAccounts".
+ * Sets list of available deposits in catalog as request attribute "availableDeposits".
+ * Forwards to admin panel page.
+ */
 @WebServlet("/adminPanel")
 public class AdminPanelServlet extends HttpServlet {
 

@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Changes language of web application.
+ * Gets language from request, sets it as session attribute.
+ */
 @WebServlet("/changeLanguage")
 public class ChangeLanguageServlet extends HttpServlet {
 

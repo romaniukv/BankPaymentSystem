@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet for user's profile.
+ * Sets user's credit account and list of deposit accounts as request attributes.
+ * Forwards to profile page.
+ */
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
 

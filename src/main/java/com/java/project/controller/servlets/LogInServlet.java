@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet for login.
+ * Searches user by username and password and if there is no such shows error message.
+ * If there is such user sets it as session attribute and then redirects by redirect id or
+ * (if it is no redirect id in request) to profile page.
+ */
 @WebServlet("/login")
 public class LogInServlet extends HttpServlet {
 

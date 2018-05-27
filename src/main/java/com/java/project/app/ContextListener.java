@@ -9,6 +9,10 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.util.Properties;
 
+/**
+ * App context listener.
+ * Used to set some system properties and to close DataSource
+ */
 @WebListener
 public class ContextListener implements ServletContextListener {
 

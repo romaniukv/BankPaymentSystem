@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * Implementation of DepositReplenishmentDAO.
+ */
 public class DepositReplenishmentDAOImpl extends GenericDAOImpl<DepositReplenishment> implements DepositReplenishmentDAO {
 
     private static final Logger logger = LogManager.getLogger(DepositReplenishmentDAOImpl.class);
@@ -29,6 +32,9 @@ public class DepositReplenishmentDAOImpl extends GenericDAOImpl<DepositReplenish
             "amount = amount + ? WHERE number = ?";
 
 
+    /**
+     * Passes query strings, name mapping and DepositReplenishment.class to constructor in superclass.
+     */
     public DepositReplenishmentDAOImpl() {
         super("SELECT * FROM deposit_replenishments;",
                 "INSERT INTO deposit_replenishments (sender_account_number, receiver_account_number, amount, date) VALUES(?, ?, ?, ?);",
