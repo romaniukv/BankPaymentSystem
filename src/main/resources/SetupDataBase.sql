@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`accounts_numbers` (
   `number` BIGINT(19) NOT NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 90
+  AUTO_INCREMENT = 91
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 26
+  AUTO_INCREMENT = 27
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -70,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`credit_accounts` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 28
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -111,7 +110,6 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`deposit_accounts` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 2
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -128,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`deposit_catalog` (
   `available` TINYINT(4) NOT NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB
-  AUTO_INCREMENT = 19
+  AUTO_INCREMENT = 25
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -151,7 +149,6 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`deposit_replenishments` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 4
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -177,7 +174,6 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`payments` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 9
   DEFAULT CHARACTER SET = utf8;
 
 
@@ -192,9 +188,14 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`transactions` (
   `receiver_account_number` BIGINT(19) NOT NULL,
   `amount` DECIMAL(12,2) NOT NULL,
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `sender_account_number_idx` (`sender_account_number` ASC),
+  CONSTRAINT `sender_account_number`
+  FOREIGN KEY (`sender_account_number`)
+  REFERENCES `banking_system`.`credit_accounts` (`number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 4
   DEFAULT CHARACTER SET = utf8;
 
 

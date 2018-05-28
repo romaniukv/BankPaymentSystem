@@ -25,6 +25,7 @@ public class SetupTestDataBase {
                         new FileReader(scriptFile));
 
                 ScriptRunner sr = new ScriptRunner(connection);
+                sr.setLogWriter(null);
 
 
                 sr.runScript(reader);

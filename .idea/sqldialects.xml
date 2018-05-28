@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/model/dao/impl/TransactionDAOImpl.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/services/impl/BankConfigServiceImpl.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/java/project/services/impl/TransactionServiceImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/SetupDataBase.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/SetupDataBase.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/SetupTestDataBase.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/SetupTestDataBase.sql" dialect="MySQL" />
   </component>
