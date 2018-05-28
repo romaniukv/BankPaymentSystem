@@ -18,7 +18,7 @@ function validateTransferMoneyFrom(form, creditBalance) {
     var elements = form.elements;
     resetError();
 
-    if (elements.amount.value > creditBalance) {
+    if (elements.amount.value >= creditBalance) {
         showError("Not enough money on credit account!");
         return false;
     }

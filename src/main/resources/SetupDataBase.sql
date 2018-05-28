@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`deposit_accounts` (
   FOREIGN KEY (`user_id`)
   REFERENCES `banking_system`.`users` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 
@@ -193,8 +193,8 @@ CREATE TABLE IF NOT EXISTS `banking_system`.`transactions` (
   CONSTRAINT `sender_account_number`
   FOREIGN KEY (`sender_account_number`)
   REFERENCES `banking_system`.`credit_accounts` (`number`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 

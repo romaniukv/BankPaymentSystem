@@ -41,6 +41,7 @@ public class CreditAccount extends Account {
         super(number, userId, limit);
         this.limit = limit;
         this.creditRate = creditRate;
+        this.indebtedness = limit;
         setBalance(limit);
     }
 

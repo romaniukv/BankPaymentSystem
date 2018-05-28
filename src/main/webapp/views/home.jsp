@@ -23,7 +23,7 @@
             <c:forEach var="account" items="${requestScope.depositAccounts}">
                 <tr>
                     <td>${account.name}</td>
-                    <td>${account.term} months</td>
+                    <td>${account.term}</td>
                     <td>${account.rate} %</td>
                     <td>
                         <a id="link" href="<%=request.getContextPath()%>/createDepositAccount?id=${account.id}">

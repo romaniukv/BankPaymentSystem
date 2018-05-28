@@ -60,7 +60,10 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
     @Override
     public boolean payBill(String senderName, long senderAccount, String receiverName, long receiverAccount,
                            BigDecimal amount, String purpose) {
-        try (Connection connection = DBConnection.getInstance().getConnection()) {
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
             TransactionDAO transactionDAO = DAOFactory.getTransacionDAO();
             transactionDAO.setConnection(connection);
 
@@ -71,12 +74,18 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
 
             Payment payment = new Payment(senderName, senderAccount, receiverName, receiverAccount, amount, purpose,
                     new GregorianCalendar().getTime());
-
-            return create(payment);
+            if (create(payment)) {
+                connection.commit();
+                return true;
+            }
         } catch (SQLException e) {
             logger.error(e);
+            DBConnection.rollbackAndCloseConnection(connection);
             return false;
         }
-
+        finally {
+            DBConnection.closeConnection(connection);
+        }
+        return false;
     }
 }

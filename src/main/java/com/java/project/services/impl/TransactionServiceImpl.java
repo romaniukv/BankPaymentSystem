@@ -63,6 +63,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
         PreparedStatement ps = null;
         try {
             connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
             ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT);
             if (! new CreditAccountServiceImpl().withdrawMoneyFromAccount(fromAccount, amount)) {
                 return false;
@@ -71,10 +72,12 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             ps.setLong(2,toAccount);
             ps.execute();
             Transaction transaction = new Transaction(fromAccount, toAccount, amount, new GregorianCalendar().getTime());
-            if (ServiceFactory.getTransactionService().create(transaction)) {
+            if (create(transaction)) {
                 connection.commit();
+                return true;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             logger.error(e);
             DBConnection.rollbackAndCloseConnection(connection);
             return false;
@@ -89,7 +92,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
             }
             DBConnection.closeConnection(connection);
         }
-        return true;
+        return false;
     }
 
 }
