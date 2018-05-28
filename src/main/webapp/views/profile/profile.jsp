@@ -32,19 +32,19 @@
                 <div class="my-table">
                     <table class="table">
                         <tr>
-                            <td><fmt:message key="user.firstName"/>:</td>
+                            <td><fmt:message key="user.firstName"/></td>
                             <td>${sessionScope.user.firstName}</td>
                         </tr>
                         <tr>
-                            <td><fmt:message key="user.lastName"/>:</td>
+                            <td><fmt:message key="user.lastName"/></td>
                             <td>${sessionScope.user.lastName}</td>
                         </tr>
                         <tr>
-                            <td><fmt:message key="user.email"/>:</td>
+                            <td><fmt:message key="user.email"/></td>
                             <td>${sessionScope.user.email}</td>
                         </tr>
                         <tr>
-                            <td><fmt:message key="user.username"/>:</td>
+                            <td><fmt:message key="user.username"/></td>
                             <td>${sessionScope.user.username}</td>
                         </tr>
                     </table>

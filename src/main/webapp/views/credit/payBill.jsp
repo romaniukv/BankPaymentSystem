@@ -35,7 +35,7 @@
                    min="1000" max="9999999999999999" required/>
 
             <label for="input-amount"><fmt:message key="amount"/></label>
-            <input id="input-amount" type="number" step="0.01" name="amount" required/> ₴ <br>
+            <input id="input-amount" type="number" step="0.01" name="amount" required/> $ <br>
 
             <label for="purpose"><fmt:message key="purpose"/>:</label>
             <input id="purpose" type="text" name="purpose" required/>

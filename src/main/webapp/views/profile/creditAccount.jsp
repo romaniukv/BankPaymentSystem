@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <td><fmt:message key="account.balance"/>:</td>
-                <td>${requestScope.creditAccount.balance}</td>
+                <td>${requestScope.creditAccount.balance} $</td>
             </tr>
             <tr>
                 <td><fmt:message key="account.expirationDate"/>:</td>
@@ -21,15 +21,15 @@
             </tr>
             <tr>
                 <td><fmt:message key="creditAccount.limit"/>:</td>
-                <td>${requestScope.creditAccount.limit}</td>
+                <td>${requestScope.creditAccount.limit} $</td>
             </tr>
             <tr>
                 <td><fmt:message key="indebtedness"/>:</td>
-                <td>${requestScope.creditAccount.indebtedness}</td>
+                <td>${requestScope.creditAccount.indebtedness} $</td>
             </tr>
             <tr>
                 <td><fmt:message key="accruedInterest"/>:</td>
-                <td>${requestScope.creditAccount.accruedInterest}</td>
+                <td>${requestScope.creditAccount.accruedInterest} $</td>
             </tr>
             <tr>
                 <td><fmt:message key="deposit.rate"/>:</td>

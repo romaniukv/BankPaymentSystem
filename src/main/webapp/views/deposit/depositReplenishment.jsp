@@ -29,7 +29,7 @@
                     min="1000" max="9999999999999999" required/>
 
             <label for="input-amount"><fmt:message key="amount"/>:</label>
-            <input id="input-amount" type="number" step="0.01" placeholder="amount" name="amount" required/> ₴
+            <input id="input-amount" type="number" step="0.01" placeholder="amount" name="amount" required/> $
             <br>
             <button type="submit"><fmt:message key="replenish"/></button>
         </form>

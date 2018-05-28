@@ -1,6 +1,8 @@
 package com.java.project.utils;
 
 import com.java.project.model.domain.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import java.util.Map;
  */
 public class AppUtils {
 
+    private static final Logger logger = LogManager.getLogger(AppUtils.class);
+
     private static int REDIRECT_ID = 0;
 
     private static final Map<Integer, String> id_url_map = new HashMap<>();
@@ -25,6 +29,7 @@ public class AppUtils {
         try {
             id = Integer.valueOf(request.getParameter("id"));
         } catch (Exception e) {
+            logger.error(e);
             request.getRequestDispatcher("/views/errorMessage.jsp").forward(request, response);
         }
         return id;

@@ -51,7 +51,7 @@ public class DepositReplenishmentServlet extends HttpServlet {
                 .replenishDeposit(senderAccountNumber, receiverAccountNumber, amount)) {
             logger.info("User " + AppUtils.getLoginedUser(req.getSession()).getUsername()
                     + " replenished deposit account.");
-            req.setAttribute("successMessage", "Transaction success.");
+            req.setAttribute("successMessage", LocalizationUtils.TRANSACTION_SUCCESS);
             req.getRequestDispatcher("/views/successMessage.jsp").forward(req, resp);
         } else {
             logger.error("User " + AppUtils.getLoginedUser(req.getSession()).getUsername()

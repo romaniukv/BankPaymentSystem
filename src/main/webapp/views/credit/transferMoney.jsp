@@ -30,7 +30,7 @@
                    min="1000" max="9999999999999999" required/>
 
             <label for="input-amount"><fmt:message key="amount"/>:</label><br>
-            <input id="input-amount" type="number" step="0.01" name="amount" required/> ₴ <br>
+            <input id="input-amount" type="number" step="0.01" name="amount" required/> $ <br>
 
             <button type="submit" onclick="return validateTransferMoneyFrom(this.form, ${requestScope.creditAccount.balance});">
                 <fmt:message key="submit"/>

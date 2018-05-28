@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td><fmt:message key="amount"/>:</td>
-                    <td><input id="input-amount" type="number" step="0.01" placeholder="amount" name="amount" required/> ₴</td>
+                    <td><input id="input-amount" type="number" step="0.01" placeholder="amount" name="amount" required/> $</td>
                 </tr>
             </table>
             <button type="submit"><fmt:message key="create"/></button>

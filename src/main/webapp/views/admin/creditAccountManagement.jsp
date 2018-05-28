@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td><fmt:message key="creditAccount.limit"/></td>
-                        <td>${requestScope.creditAccount.limit}</td>
+                        <td>${requestScope.creditAccount.limit} $</td>
                     </tr>
                     <tr>
                         <td><fmt:message key="creditAccount.rate"/></td>
@@ -51,7 +51,6 @@
                         <td>
                             <select name="accountStatus">
                                 <c:forEach var="status" items="${requestScope.statuses}">
-                                    ${sessionScope.language == 'uk' ? 'selected' : ''}
                                     <option value="${status}" ${status.equals(requestScope.creditAccount.status)? 'selected' : ''}>
                                         ${status.value}
                                     </option>

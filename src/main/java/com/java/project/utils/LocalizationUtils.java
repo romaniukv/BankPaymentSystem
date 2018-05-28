@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 public class LocalizationUtils {
 
     private static ResourceBundle resourceBundle = ResourceBundle
-            .getBundle("app_localization", Locale.getDefault());
+            .getBundle("app_localization", new Locale("uk"));
 
     public static String CHANGES_SAVED;
     public static String CANT_MANAGE_ACCOUNT;

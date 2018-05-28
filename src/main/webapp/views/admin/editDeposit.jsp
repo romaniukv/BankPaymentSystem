@@ -29,8 +29,8 @@
             <label for="term"><fmt:message key="deposit.term"/></label>
             <input id="term" type="number" value="${requestScope.deposit.term}"  name="term" required/>
 
-            <label for="rate"><fmt:message key="deposit.rate"/></label>
-            <input id="rate" type="number" value="${requestScope.deposit.rate}" step="0.01" name="rate" required/>
+            <label for="input-amount"><fmt:message key="deposit.rate"/></label>
+            <input id="input-amount" type="number" value="${requestScope.deposit.rate}" step="0.01" name="rate" required/>
 
             <button type="submit">
                 <fmt:message key="save"/>

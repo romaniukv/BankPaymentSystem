@@ -20,7 +20,7 @@
             <h1 id="selectCL"><fmt:message key="selectCreditLimit"/></h1>
             <c:forEach var="limit" items="${sessionScope.creditLimits}">
                 <label class="container">${limit.key}
-                    <input type="radio" checked="checked" name="creditLimit" value="${limit.key}">
+                    <input type="radio" checked="checked" name="creditLimit" value="${limit.key}"> $
                     <p class="message"><fmt:message key="creditRateIs"/> : ${limit.value} %</p>
                     <span class="checkmark"></span>
                 </label>

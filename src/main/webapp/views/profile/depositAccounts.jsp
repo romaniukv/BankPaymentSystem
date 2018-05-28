@@ -15,7 +15,7 @@
                 </tr>
                 <tr>
                     <td><fmt:message key="account.balance"/>:</td>
-                    <td>${depositAccount.balance}</td>
+                    <td>${depositAccount.balance} $</td>
                 </tr>
                 <tr>
                     <td><fmt:message key="account.expirationDate"/>:</td>
@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td><fmt:message key="deposit.amount"/>:</td>
-                    <td>${depositAccount.amount}</td>
+                    <td>${depositAccount.amount} $</td>
                 </tr>
                 <tr>
                     <td><fmt:message key="deposit.rate"/>:</td>

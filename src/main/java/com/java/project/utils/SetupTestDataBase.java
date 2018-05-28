@@ -2,6 +2,8 @@ package com.java.project.utils;
 
 import com.java.project.services.DBConnection;
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -9,9 +11,12 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Creates and fills database for tests.
+ */
 public class SetupTestDataBase {
 
-
+    private static final Logger logger = LogManager.getLogger(SetupTestDataBase.class);
 
     public static void setup() {
 
@@ -31,8 +36,7 @@ public class SetupTestDataBase {
                 sr.runScript(reader);
             }
         } catch (SQLException | FileNotFoundException | URISyntaxException e) {
-            //TODO logging
-            e.printStackTrace();
+            logger.error(e);
         }
 
 
