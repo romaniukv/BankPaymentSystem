@@ -51,14 +51,19 @@ public class LogInServlet extends HttpServlet {
         else {
             req.getSession().setAttribute("user", user);
             logger.info("User " + username + " successfully logged in.");
-            try {
-                int redirectId = Integer.parseInt(req.getParameter("redirectId"));
-                String requestUri = AppUtils.getRedirectUrl(redirectId);
-                if (requestUri != null) {
-                    resp.sendRedirect(requestUri);
+            if (user.isAdmin()) {
+                resp.sendRedirect(req.getContextPath() + "/adminPanel");
+            }
+            else {
+                try {
+                    int redirectId = Integer.parseInt(req.getParameter("redirectId"));
+                    String requestUri = AppUtils.getRedirectUrl(redirectId);
+                    if (requestUri != null) {
+                        resp.sendRedirect(requestUri);
+                    }
+                } catch (Exception e) {
+                    resp.sendRedirect(req.getContextPath() + "/profile");
                 }
-            } catch (Exception e) {
-                resp.sendRedirect(req.getContextPath() + "/profile");
             }
         }
     }

@@ -39,6 +39,7 @@ public class LocalizationUtils {
     public static String UNDER_CONSIDERATION;
     public static String NEW_DEPOSIT_ADDED;
     public static String CANT_ADD_DEPOSIT;
+    public static String NOT_ALLOW;
 
     static {
         updateLocale();
@@ -81,6 +82,7 @@ public class LocalizationUtils {
         UNDER_CONSIDERATION = resourceBundle.getString("underConsideration");
         NEW_DEPOSIT_ADDED = resourceBundle.getString("newDepositAdded");
         CANT_ADD_DEPOSIT = resourceBundle.getString("cantAddDeposit");
+        NOT_ALLOW = resourceBundle.getString("notAllow");
     }
 
 }

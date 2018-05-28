@@ -3,6 +3,7 @@ package com.java.project.controller.filters;
 import com.java.project.model.domain.Role;
 import com.java.project.model.domain.User;
 import com.java.project.utils.AppUtils;
+import com.java.project.utils.LocalizationUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -39,7 +40,7 @@ public class SecurityFilter implements Filter {
 
         if (!hasPermission) {
             logger.warn("Unauthorized access request to " + request.getRequestURI());
-            request.setAttribute("errorMessage", "You are not allow to view this page.");
+            request.setAttribute("errorMessage", LocalizationUtils.NOT_ALLOW);
             request.getRequestDispatcher("/views/errorMessage.jsp").forward(request, response);
             return;
         }

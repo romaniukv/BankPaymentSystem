@@ -1,4 +1,4 @@
-<a href="${pageContext.request.contextPath}/home">+ Create new deposit account</a>
+<a href="${pageContext.request.contextPath}/home">+ <fmt:message key="createNewDeposit"/> </a>
 <c:if test="${requestScope.depositAccounts != null}">
     <hr>
     <h4><fmt:message key="depositAccounts"/>:</h4>

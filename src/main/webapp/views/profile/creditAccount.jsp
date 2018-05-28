@@ -1,5 +1,5 @@
 <c:if test="${requestScope.creditAccount == null}">
-    <a href="${pageContext.request.contextPath}/createCreditAccount">+ Create new credit account</a>
+    <a href="${pageContext.request.contextPath}/createCreditAccount">+ <fmt:message key="createNewCredit"/> </a>
 </c:if>
 <c:if test="${requestScope.creditAccount != null}">
     <div class="my-table">
