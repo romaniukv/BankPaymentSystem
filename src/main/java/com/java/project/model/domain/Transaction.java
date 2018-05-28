@@ -76,4 +76,8 @@ public class Transaction {
     public Date getDate() {
         return date;
     }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }

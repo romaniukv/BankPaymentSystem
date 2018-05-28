@@ -3,6 +3,8 @@ package com.java.project.entities;
 import com.java.project.model.domain.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class TestEntities {
 
@@ -31,8 +33,12 @@ public class TestEntities {
     }
 
     public static DepositAccount getTestDepositAccount() {
-        DepositAccount depositAccount = new DepositAccount("Standart", 12, new BigDecimal(3.5), new BigDecimal(500));
-        depositAccount.calculateExpirationDate();
-        return depositAccount;
+        return new DepositAccount(10, 3456876523450987L, new BigDecimal(500), 1, new BigDecimal(500),
+                new BigDecimal(3.5), 12, AccountStatus.OPENED, GregorianCalendar.getInstance().getTime());
+    }
+
+    public static DepositReplenishment getTestDepositReplenishment() {
+        return new DepositReplenishment(12932467823474L, 3647586974634567L, new BigDecimal(300),
+                GregorianCalendar.getInstance().getTime());
     }
 }

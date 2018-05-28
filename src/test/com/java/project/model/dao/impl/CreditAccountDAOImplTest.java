@@ -4,25 +4,26 @@ import com.java.project.model.domain.CreditAccount;
 import com.java.project.model.domain.User;
 import com.java.project.services.DBConnection;
 import com.java.project.entities.TestEntities;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import com.java.project.utils.SetupTestDataBase;
+import org.junit.*;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class CreditAccountDAOImplTest {
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         DBConnection.setTestMode();
+        SetupTestDataBase.setup();
     }
 
-    @After
-    public void tearDown() {
+    @AfterClass
+    public static void tearDown() {
         DBConnection.setApplicationMode();
     }
 
@@ -33,14 +34,9 @@ public class CreditAccountDAOImplTest {
 
         CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
         creditAccountDAO.setConnection(connection);
-        UserDAOImpl userDAO = new UserDAOImpl();
-        userDAO.setConnection(connection);
-
-        User user = TestEntities.getTestUser2();
-        userDAO.create(user);
 
         CreditAccount expectedAccount = TestEntities.getTestCreditAccount();
-        expectedAccount.setUserId(user.getId());
+        expectedAccount.setUserId(1);
 
         creditAccountDAO.create(expectedAccount);
 
@@ -58,16 +54,8 @@ public class CreditAccountDAOImplTest {
 
         CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
         creditAccountDAO.setConnection(connection);
-        UserDAOImpl userDAO = new UserDAOImpl();
-        userDAO.setConnection(connection);
 
-        User user = TestEntities.getTestUser2();
-        userDAO.create(user);
-
-        CreditAccount expectedAccount = TestEntities.getTestCreditAccount();
-        expectedAccount.setUserId(user.getId());
-
-        creditAccountDAO.create(expectedAccount);
+        CreditAccount expectedAccount = creditAccountDAO.findByKey(1);
         expectedAccount.setIndebtedness(new BigDecimal(12023).movePointLeft(2));
         creditAccountDAO.update(expectedAccount);
 
@@ -85,26 +73,80 @@ public class CreditAccountDAOImplTest {
 
         CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
         creditAccountDAO.setConnection(connection);
-        UserDAOImpl userDAO = new UserDAOImpl();
-        userDAO.setConnection(connection);
 
-        User user = TestEntities.getTestUser2();
-        userDAO.create(user);
+        CreditAccount account = creditAccountDAO.findByKey(1);
 
-        CreditAccount expectedAccount = TestEntities.getTestCreditAccount();
-        expectedAccount.setUserId(user.getId());
+        assertNotNull(account);
 
-        creditAccountDAO.create(expectedAccount);
+        creditAccountDAO.deleteByKey(account.getId());
 
-        CreditAccount createdAccount = creditAccountDAO.findByKey(expectedAccount.getId());
+        CreditAccount deletedAccount = creditAccountDAO.findByKey(1);
 
-        assertEquals(expectedAccount, createdAccount);
+        assertNull(deletedAccount);
 
-        creditAccountDAO.deleteByKey(expectedAccount.getId());
+        DBConnection.rollbackAndCloseConnection(connection);
+    }
 
-        createdAccount = creditAccountDAO.findByKey(expectedAccount.getId());
+    @Test
+    public void findByKey() throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
 
-        assertNull(createdAccount);
+        CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
+        creditAccountDAO.setConnection(connection);
+
+        CreditAccount account = creditAccountDAO.findByKey(1);
+
+        assertNotNull(account);
+
+        assertEquals(3456789086453456L, account.getNumber());
+
+        DBConnection.rollbackAndCloseConnection(connection);
+    }
+
+    @Test
+    public void selectAll() throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
+        creditAccountDAO.setConnection(connection);
+
+        List<CreditAccount> newCreditAccounts = creditAccountDAO.selectAll();
+
+        assertEquals(5, newCreditAccounts.size());
+
+        DBConnection.rollbackAndCloseConnection(connection);
+
+    }
+
+    @Test
+    public void selectNewAccounts() throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
+        creditAccountDAO.setConnection(connection);
+
+        List<CreditAccount> newCreditAccounts = creditAccountDAO.selectNewAccounts();
+
+        assertEquals(3, newCreditAccounts.size());
+
+        DBConnection.rollbackAndCloseConnection(connection);
+
+    }
+
+    @Test
+    public void selectByUserId() throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        CreditAccountDAOImpl creditAccountDAO = new CreditAccountDAOImpl();
+        creditAccountDAO.setConnection(connection);
+
+        CreditAccount creditAccount = creditAccountDAO.selectByUserId(2);
+
+        assertEquals(3456789234453456L, creditAccount.getNumber());
 
         DBConnection.rollbackAndCloseConnection(connection);
     }

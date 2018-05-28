@@ -88,7 +88,6 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
                 }
             }
         } catch (SQLException | IllegalAccessException e) {
-            e.printStackTrace();
             logger.error(e);
             success = false;
         }

@@ -8,6 +8,10 @@ import java.util.Date;
  */
 public class DepositReplenishment extends Transaction {
 
+    public DepositReplenishment() {
+
+    }
+
     /**
      * Constructor which is used for creating new replenishment.
      */
@@ -21,4 +25,5 @@ public class DepositReplenishment extends Transaction {
     public DepositReplenishment(int id, long senderAccountNumber, long receiverAccountNumber, BigDecimal amount, Date date) {
         super(id, senderAccountNumber, receiverAccountNumber, amount, date);
     }
+
 }

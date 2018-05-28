@@ -208,6 +208,24 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO `test_banking_system`.`users` (`role`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES ('ADMIN', 'romaniukv', 'YnhKhE8/dy/YGgtqezqJGapWwOeoMHVO', 'romaniukv255@gmail.com', 'Vika', 'Romaniuk');
+INSERT INTO `test_banking_system`.`users` (`id`, `role`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES ('1','ADMIN', 'romaniukv', 'YnhKhE8/dy/YGgtqezqJGapWwOeoMHVO', 'romaniukv255@gmail.com', 'Vika', 'Romaniuk');
+INSERT INTO `test_banking_system`.`users` (`id`, `role`, `username`, `password`, `email`, `first_name`, `last_name`) VALUES ('2','USER', 'danchek', 'YnhKhE8/dy/OeoMHVO', 'example@gmail.com', 'Danil', 'Chekina');
+
+
+INSERT INTO `test_banking_system`.`credit_accounts` (`id`, `number`, `balance`, `user_id`, `credit_limit`, `indebtedness`, `accrued_interest`, `credit_rate`, `status`, `expiration_date`) VALUES ('1', '3456789086453456', '500', '1', '10000', '345', '0', '3.5', 'OPENED', '21.05.2020');
+INSERT INTO `test_banking_system`.`credit_accounts` (`id`, `number`, `balance`, `user_id`, `credit_limit`, `indebtedness`, `accrued_interest`, `credit_rate`, `status`, `expiration_date`) VALUES ('2', '3456789086456346', '600', '1', '1000', '400', '0', '2.5', 'UNDER_CONSIDERATION', '21.05.2020');
+INSERT INTO `test_banking_system`.`credit_accounts` (`id`, `number`, `balance`, `user_id`, `credit_limit`, `indebtedness`, `accrued_interest`, `credit_rate`, `status`, `expiration_date`) VALUES ('3', '3456789086498790', '700', '1', '2500', '800', '0', '3', 'UNDER_CONSIDERATION', '21.05.2020');
+INSERT INTO `test_banking_system`.`credit_accounts` (`id`, `number`, `balance`, `user_id`, `credit_limit`, `indebtedness`, `accrued_interest`, `credit_rate`, `status`, `expiration_date`) VALUES ('4', '3456789086473648', '800', '1', '2500', '800', '0', '3', 'UNDER_CONSIDERATION', '21.05.2020');
+INSERT INTO `test_banking_system`.`credit_accounts` (`id`, `number`, `balance`, `user_id`, `credit_limit`, `indebtedness`, `accrued_interest`, `credit_rate`, `status`, `expiration_date`) VALUES ('5', '3456789234453456', '500', '2', '10000', '345', '0', '1.5', 'OPENED', '21.05.2018');
+
+INSERT INTO `test_banking_system`.`deposit_accounts` (`id`, `number`, `balance`, `user_id`, `amount`, `rate`, `term`, `status`, `expiration_date`) VALUES ('1', '3647586974634567', '500', '1', '478', '10', '12', 'OPENED', '20.05.2020');
+INSERT INTO `test_banking_system`.`deposit_accounts` (`id`, `number`, `balance`, `user_id`, `amount`, `rate`, `term`, `status`, `expiration_date`) VALUES ('2', '3647586974636543', '600', '1', '500', '12', '24', 'OPENED', '20.05.2020');
+INSERT INTO `test_banking_system`.`deposit_accounts` (`id`, `number`, `balance`, `user_id`, `amount`, `rate`, `term`, `status`, `expiration_date`) VALUES ('3', '3647586974630989', '900', '1', '900', '13', '18', 'OPENED', '20.05.2020');
+INSERT INTO `test_banking_system`.`deposit_accounts` (`id`, `number`, `balance`, `user_id`, `amount`, `rate`, `term`, `status`, `expiration_date`) VALUES ('4', '3657596974630989', '900', '1', '900', '13', '18', 'OPENED', '20.05.2020');
+
+INSERT INTO `test_banking_system`.`deposit_replenishments` (`id`, `sender_account_number`, `receiver_account_number`, `amount`, `date`) VALUES ('1', '3456', '3647586974634567', '500', '20.05.2020');
+INSERT INTO `test_banking_system`.`deposit_replenishments` (`id`, `sender_account_number`, `receiver_account_number`, `amount`, `date`) VALUES ('2', '6456', '3647586974634567', '500', '20.05.2020');
+INSERT INTO `test_banking_system`.`deposit_replenishments` (`id`, `sender_account_number`, `receiver_account_number`, `amount`, `date`) VALUES ('3', '5465', '3647586974634567', '500', '20.05.2020');
+
 
 
