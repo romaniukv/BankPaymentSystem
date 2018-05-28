@@ -1,7 +1,10 @@
 package com.java.project.services.impl;
 
 import com.java.project.factory.DAOFactory;
+import com.java.project.model.dao.CreditAccountDAO;
 import com.java.project.model.dao.PaymentDAO;
+import com.java.project.model.dao.TransactionDAO;
+import com.java.project.model.dao.impl.CreditAccountDAOImpl;
 import com.java.project.model.domain.Payment;
 import com.java.project.services.DBConnection;
 import com.java.project.services.PaymentService;
@@ -12,6 +15,7 @@ import org.apache.log4j.Logger;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -54,26 +58,25 @@ public class PaymentServiceImpl extends GenericServiceImpl<Payment> implements P
 
 
     @Override
-    public boolean payBill(String senderName, long senderAccount, String receiverName, long receiverAccount, BigDecimal amount, String purpose) {
-        Connection connection = null;
-        boolean flag;
-        try {
-            connection = DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            paymentDAO.setConnection(connection);
-            flag = paymentDAO.payBill(senderName, senderAccount, receiverName, receiverAccount, amount, purpose);
-            if (flag)
-                connection.commit();
-            else
-                connection.rollback();
+    public boolean payBill(String senderName, long senderAccount, String receiverName, long receiverAccount,
+                           BigDecimal amount, String purpose) {
+        try (Connection connection = DBConnection.getInstance().getConnection()) {
+            TransactionDAO transactionDAO = DAOFactory.getTransacionDAO();
+            transactionDAO.setConnection(connection);
+
+            boolean flag = new CreditAccountServiceImpl().withdrawMoneyFromAccount(senderAccount, amount);
+            if (!flag) {
+                return false;
+            }
+
+            Payment payment = new Payment(senderName, senderAccount, receiverName, receiverAccount, amount, purpose,
+                    new GregorianCalendar().getTime());
+
+            return create(payment);
         } catch (SQLException e) {
             logger.error(e);
-            flag = false;
-            DBConnection.rollbackAndCloseConnection(connection);
+            return false;
         }
-        finally {
-            DBConnection.closeConnection(connection);
-        }
-        return flag;
+
     }
 }

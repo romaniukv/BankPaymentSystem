@@ -1,6 +1,7 @@
 package com.java.project.services.impl;
 
 import com.java.project.factory.DAOFactory;
+import com.java.project.factory.ServiceFactory;
 import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.domain.Transaction;
 import com.java.project.services.DBConnection;
@@ -11,12 +12,16 @@ import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
  * Implementation of transaction service.
  */
 public class TransactionServiceImpl extends GenericServiceImpl<Transaction> implements TransactionService {
+
+    private static final String PUT_MONEY_TO_ACCOUNT = "UPDATE credit_accounts SET balance = balance + ? WHERE number = ?";
+
 
     private static final Logger logger = LogManager.getLogger(TransactionServiceImpl.class);
 
@@ -51,44 +56,40 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction> impl
         return transactions;
     }
 
+
     @Override
     public boolean transferMoney(long fromAccount, long toAccount, BigDecimal amount) {
         Connection connection = null;
-        boolean flag;
+        PreparedStatement ps = null;
         try {
             connection = DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            transactionDAO.setConnection(connection);
-            flag = transactionDAO.transferMoney(fromAccount, toAccount, amount);
-            connection.commit();
+            ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT);
+            if (! new CreditAccountServiceImpl().withdrawMoneyFromAccount(fromAccount, amount)) {
+                return false;
+            }
+            ps.setBigDecimal(1, amount);
+            ps.setLong(2,toAccount);
+            ps.execute();
+            Transaction transaction = new Transaction(fromAccount, toAccount, amount, new GregorianCalendar().getTime());
+            if (ServiceFactory.getTransactionService().create(transaction)) {
+                connection.commit();
+            }
         } catch (SQLException e) {
             logger.error(e);
-            flag = false;
             DBConnection.rollbackAndCloseConnection(connection);
+            return false;
         }
         finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                   logger.error(e);
+                }
+            }
             DBConnection.closeConnection(connection);
         }
-        return flag;
+        return true;
     }
 
-    @Override
-    public boolean withdrawMoneyFromAccount(long accountNumber, BigDecimal amount) {
-        Connection connection = null;
-        boolean flag;
-        try {
-            connection = DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            transactionDAO.setConnection(connection);
-            flag = transactionDAO.withdrawMoneyFromAccount(accountNumber, amount);
-            connection.commit();
-        } catch (SQLException e) {
-            flag = false;
-            DBConnection.rollbackAndCloseConnection(connection);
-        }
-        finally {
-            DBConnection.closeConnection(connection);
-        }
-        return flag;
-    }
 }

@@ -18,12 +18,13 @@ public interface TransactionService extends GenericService<Transaction> {
     List<Transaction> selectAllByAccountNumber(long accountNumber);
 
     /**
-     * {@link TransactionDAO#transferMoney(long, long, BigDecimal)}
+     * Transfers money.
+     * @param fromAccount sender account number
+     * @param toAccount receiver account number
+     * @param amount amount
+     * @return @return <code>true</code> if the transaction succeed;
+     * <code>false</code> otherwise
      */
     boolean transferMoney(long fromAccount, long toAccount, BigDecimal amount);
 
-    /**
-     * {@link TransactionDAO#withdrawMoneyFromAccount(long, BigDecimal)}
-     */
-    boolean withdrawMoneyFromAccount(long accountNumber, BigDecimal amount);
 }

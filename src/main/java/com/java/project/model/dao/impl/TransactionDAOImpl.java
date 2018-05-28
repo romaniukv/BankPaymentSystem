@@ -28,11 +28,6 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
             "amount, date FROM transactions WHERE " +
             "sender_account_number = ? OR receiver_account_number = ? ORDER BY date DESC LIMIT 10;";
 
-    private static final String SELECT_BALANCE_BY_NUMBER = "SELECT balance FROM credit_accounts WHERE number = ? AND status = 'OPENED'";
-
-    private static final String WITHDRAW_MONEY_FROM_ACCOUNT = "UPDATE credit_accounts SET balance = balance - ? WHERE number = ?";
-
-    private static final String PUT_MONEY_TO_ACCOUNT = "UPDATE credit_accounts SET balance = balance + ? WHERE number = ?";
 
 
     /**
@@ -69,56 +64,5 @@ public class TransactionDAOImpl extends GenericDAOImpl<Transaction> implements T
         return transactions;
     }
 
-    @Override
-    public boolean transferMoney(long fromAccount, long toAccount, BigDecimal amount) {
-        Connection connection = getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(PUT_MONEY_TO_ACCOUNT)) {
-            if (!withdrawMoneyFromAccount(fromAccount, amount)) {
-                return false;
-            }
-            ps.setBigDecimal(1, amount);
-            ps.setLong(2,toAccount);
-            ps.execute();
-            Transaction transaction = new Transaction(fromAccount, toAccount, amount, new GregorianCalendar().getTime());
-            if (ServiceFactory.getTransactionService().create(transaction)) {
-                connection.commit();
-            }
-        } catch (SQLException e) {
-            logger.error(e);
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public boolean withdrawMoneyFromAccount(long accountNumber, BigDecimal amount) {
-        Connection connection = getConnection();
-        try (PreparedStatement selectBalance = connection.prepareStatement(SELECT_BALANCE_BY_NUMBER);
-             PreparedStatement withdrawMoney = connection.prepareStatement(WITHDRAW_MONEY_FROM_ACCOUNT)) {
-
-            selectBalance.setLong(1, accountNumber);
-            ResultSet rs = selectBalance.executeQuery();
-            BigDecimal fromBalance;
-            if (rs.next()) {
-                fromBalance = rs.getBigDecimal(1);
-            }
-
-            else return false;
-            selectBalance.close();
-
-            if (fromBalance.compareTo(amount) <= 0) {
-                return false;
-            }
-
-            withdrawMoney.setBigDecimal(1, amount);
-            withdrawMoney.setLong(2,accountNumber);
-            withdrawMoney.execute();
-            withdrawMoney.close();
-
-        } catch (SQLException e) {
-            logger.error(e);
-            return false;
-        }
-        return true;
-    }
 }

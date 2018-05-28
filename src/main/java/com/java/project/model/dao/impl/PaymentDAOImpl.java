@@ -1,21 +1,16 @@
 package com.java.project.model.dao.impl;
 
-import com.java.project.factory.DAOFactory;
 import com.java.project.model.dao.PaymentDAO;
-import com.java.project.model.dao.TransactionDAO;
 import com.java.project.model.dao.generic.impl.GenericDAOImpl;
 import com.java.project.model.domain.Payment;
-import com.java.project.services.DBConnection;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -68,19 +63,4 @@ public class PaymentDAOImpl extends GenericDAOImpl<Payment> implements PaymentDA
         return payments;
     }
 
-    @Override
-    public boolean payBill(String senderName, long senderAccount, String receiverName, long receiverAccount, BigDecimal amount, String purpose) {
-        Connection connection = getConnection();
-        TransactionDAO transactionDAO = DAOFactory.getTransacionDAO();
-        transactionDAO.setConnection(connection);
-        boolean flag = transactionDAO.withdrawMoneyFromAccount(senderAccount, amount);
-        if (!flag) {
-            return false;
-        }
-
-        Payment payment = new Payment(senderName, senderAccount, receiverName, receiverAccount, amount, purpose,
-                new GregorianCalendar().getTime());
-
-        return create(payment);
-    }
 }
