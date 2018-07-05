@@ -1,4 +1,4 @@
-# FinalProject
+# BankPaymentSystem
 ## 13.  
 Bank Payments System. User can have one or more bank accounts (deposit, credit). Access to account can be obtained after entering login and password. User can make bank transfers, pay bills, display general information about account (account balance, last transactions, expiration date). For Credit Accounts there are information about the credit limit, current indebtedness, the amount of accrued interest and credit rate. For Deposit Accounts - amount of the deposit, rate and history of the replenishment. User can apply for opening a credit account, if there is none. Administrator confirms account opening.
 
